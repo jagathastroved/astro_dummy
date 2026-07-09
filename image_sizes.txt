@@ -1,0 +1,34 @@
+ASTROVED NEW HOME - IMAGE SIZES GUIDE
+--------------------------------------
+This document provides the recommended image sizes (width x height) for all sections of the website to ensure they render beautifully without losing quality or becoming distorted.
+
+1. Hero Section (Home Banner)
+   - Desktop / Laptop: 1920px Width x 1080px Height (16:9 Landscape)
+   - Mobile / Tablet: 1080px Width x 1920px Height (9:16 Portrait)
+
+2. Special Events Section (Slider Cards)
+   - Desktop / Laptop: 1200px Width x 800px Height 
+   - Mobile: 800px Width x 1000px Height (Portrait)
+   *Note: Since the image uses 'object-contain', it will not be cropped, but these dimensions fit the container best.
+
+3. Expert Chart Section (AstroVed Shop, Live Consultations, Nadi Reading)
+   - Desktop / Mobile: 800px Width x 800px Height (1:1 Square)
+   *Note: These are placed in a 3-column grid on desktop, so a high-res square image works best.
+
+4. Auspicious Actions Section (Priest Services, Vedic Rituals)
+   - Desktop / Mobile: 800px Width x 600px Height (4:3 Landscape)
+
+5. Personalized Support (Membership Section)
+   - Desktop / Laptop: 1200px Width x 600px Height (2:1 Wide Landscape)
+   - Mobile: 800px Width x 800px Height (1:1 Square)
+
+6. AI Reports Section
+   - Desktop / Mobile: 800px Width x 800px Height (1:1 Square)
+
+7. Trust Stats / Testimonials / Footer (Logos & Icons)
+   - Logos/Icons: 400px Width x 400px Height (Transparent PNG or SVG recommended)
+
+GENERAL RECOMMENDATIONS:
+- Keep the main subject of the image centered.
+- Use high-resolution (HD) images, but compress them (e.g., WebP or JPEG 80% quality) to ensure the website loads fast.
+- For Mobile specific images, portrait dimensions always perform better.
