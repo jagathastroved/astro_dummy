@@ -97,7 +97,7 @@ export function PersonalizedSolutions() {
       <div className="hidden md:grid md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
         {actions.map((ev, idx) => (
           <div key={idx} className="group overflow-hidden rounded-[2.5rem] bg-[#f8f9fa] dark:bg-[#0b0e14] border border-gray-100 dark:border-white/5 hover:border-[#b052ff]/30 hover:shadow-[0_0_30px_rgba(176,82,255,0.15)] transition-all duration-500 flex flex-col h-full relative">
-            <div className="w-full h-48 lg:h-56 relative overflow-hidden rounded-t-[2.5rem]">
+            <div className="w-full h-44 lg:h-48 relative overflow-hidden rounded-t-[2.5rem]">
               <img
                 src={ev.image}
                 alt={ev.title}
@@ -105,9 +105,9 @@ export function PersonalizedSolutions() {
               />
             </div>
 
-            <div className="px-5 lg:px-8 pb-8 pt-4 flex flex-col flex-grow z-10 relative h-full">
+            <div className="px-5 lg:px-8 pb-8 pt-4 flex flex-col flex-grow z-10 relative">
               {/* Fixed height container for Badge and Title to align descriptions */}
-              <div className="min-h-[140px] lg:min-h-[160px] flex flex-col justify-start">
+              <div className="min-h-[110px] lg:min-h-[125px] flex flex-col justify-start">
                 <div className="flex items-start mb-3 lg:mb-4">
                   <span className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-[#b052ff]/10 dark:bg-[#b052ff]/20 text-[#b052ff] dark:text-[#d08bff] font-sans text-[9px] lg:text-[11px] uppercase tracking-widest font-bold">
                     {ev.tagline}
@@ -162,7 +162,7 @@ export function PersonalizedSolutions() {
         onTouchEnd={handleTouchEnd}
       >
         {/* Main Card */}
-        <div className="overflow-hidden rounded-[2.5rem] bg-[#f8f9fa] dark:bg-[#0b0e14] border border-gray-100 dark:border-white/5 hover:border-[#b052ff]/30 hover:shadow-[0_0_40px_rgba(176,82,255,0.15)] transition-all duration-500 relative h-[640px] lg:h-[450px]">
+        <div className="overflow-hidden rounded-[2.5rem] bg-[#f8f9fa] dark:bg-[#0b0e14] border border-gray-100 dark:border-white/5 hover:border-[#b052ff]/30 hover:shadow-[0_0_40px_rgba(176,82,255,0.15)] transition-all duration-500 relative h-[670px] lg:h-[450px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
@@ -190,7 +190,7 @@ export function PersonalizedSolutions() {
                     </div>
 
                     {/* Background Image (Mobile & Tablet) */}
-                    <div className="lg:hidden absolute top-0 inset-x-0 h-[300px] overflow-hidden pointer-events-none rounded-t-[2.5rem]">
+                    <div className="lg:hidden absolute top-0 inset-x-0 h-[220px] overflow-hidden pointer-events-none rounded-t-[2.5rem]">
                       <picture>
                         <source media="(min-width: 768px)" srcSet={ev.image} />
                         <img
@@ -204,7 +204,7 @@ export function PersonalizedSolutions() {
                     </div>
 
                     {/* Content */}
-                    <div className="w-full lg:w-[45%] ml-auto px-6 pb-12 pt-[240px] sm:px-12 lg:p-16 flex flex-col justify-center items-center lg:items-start text-center lg:text-left z-10 relative h-full lg:mt-0 lg:pt-0">
+                    <div className="w-full lg:w-[45%] ml-auto px-6 pb-20 pt-[180px] sm:px-12 lg:p-16 flex flex-col justify-center items-center lg:items-start text-center lg:text-left z-10 relative h-full lg:mt-0 lg:pt-0">
                       <div className="w-full">
                         <div className="flex items-center justify-center lg:justify-start mb-4 relative z-20">
                           <span className="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-white dark:bg-[#1a1525] shadow-[0_4px_15px_rgba(0,0,0,0.1)] border border-gray-100 dark:border-gray-800 text-[#b052ff] dark:text-[#d08bff] font-sans text-[10px] sm:text-xs uppercase tracking-widest font-bold">
@@ -216,29 +216,31 @@ export function PersonalizedSolutions() {
                           {ev.title}
                         </h3>
 
-                        <p className="font-sans text-gray-600 dark:text-gray-300 text-sm md:text-base leading-relaxed mb-8 max-w-sm mx-auto lg:mx-0">
+                        <p className="font-sans text-gray-600 dark:text-gray-300 text-sm md:text-base leading-relaxed mb-6 max-w-sm mx-auto lg:mx-0">
                           {ev.description}
                         </p>
 
-                        {ev.isExternal ? (
-                          <a
-                            href={ev.link as string}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#b052ff] hover:bg-[#9333ea] text-white font-semibold tracking-wide text-sm hover:scale-105 transition-transform shadow-lg"
-                          >
-                            {ev.cta} <ArrowUpRight className="w-4 h-4" />
-                          </a>
-                        ) : (
-                          <button
-                            onClick={ev.link as () => void}
-                            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#b052ff] hover:bg-[#9333ea] text-white font-semibold tracking-wide text-sm hover:scale-105 transition-transform shadow-lg"
-                          >
-                            {ev.cta} <ArrowRight className="w-4 h-4" />
-                          </button>
-                        )}
+                        <div className="flex justify-center w-full mb-3">
+                          {ev.isExternal ? (
+                            <a
+                              href={ev.link as string}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex w-full max-w-[280px] justify-center items-center gap-1.5 px-4 py-3 rounded-full bg-[#b052ff] hover:bg-[#9333ea] text-white font-semibold tracking-wide text-xs sm:text-sm hover:scale-105 transition-transform shadow-lg text-center"
+                            >
+                              {ev.cta} <ArrowUpRight className="w-3.5 h-3.5" />
+                            </a>
+                          ) : (
+                            <button
+                              onClick={ev.link as () => void}
+                              className="inline-flex w-full max-w-[280px] justify-center items-center gap-1.5 px-4 py-3 rounded-full bg-[#b052ff] hover:bg-[#9333ea] text-white font-semibold tracking-wide text-xs sm:text-sm hover:scale-105 transition-transform shadow-lg text-center"
+                            >
+                              {ev.cta} <ArrowRight className="w-3.5 h-3.5" />
+                            </button>
+                          )}
+                        </div>
                         {(ev as any).footerText && (
-                          <div className="mt-4 text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium font-sans">
+                          <div className="text-xs text-gray-500 dark:text-gray-400 font-medium font-sans">
                             {(ev as any).footerText}
                           </div>
                         )}
@@ -252,7 +254,7 @@ export function PersonalizedSolutions() {
         </div>
 
         {/* Navigation Controls */}
-        <div className="absolute top-[22.5%] -translate-y-1/2 left-0 right-0 flex justify-between px-2 sm:px-4 md:-mx-6 pointer-events-none z-20">
+        <div className="absolute top-[17%] -translate-y-1/2 left-0 right-0 flex justify-between px-2 sm:px-4 md:-mx-6 pointer-events-none z-20">
           <button
             onClick={prevSlide}
             className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/80 hover:bg-white dark:bg-black/30 dark:hover:bg-black/50 backdrop-blur-md border border-gray-200 dark:border-white/10 flex items-center justify-center text-[#b052ff] dark:text-white transition-all hover:scale-110 pointer-events-auto shadow-lg"

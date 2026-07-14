@@ -194,7 +194,7 @@ export function SpecialEvents() {
           <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-[3rem] text-midnight dark:text-cream leading-[1.1] font-black mb-4 md:mb-5 lg:mb-4 drop-shadow-sm tracking-tight">
             This Week's <em className="text-amber-600 dark:text-amber-400 italic font-bold">Special Rituals.</em>
           </h2>
-          <p className="font-sans text-gray-500 dark:text-gray-400 text-sm sm:text-base md:text-sm lg:text-base leading-relaxed max-w-2xl mx-auto font-medium px-4 md:px-2 md:mt-1">
+          <p className="hidden sm:block font-sans text-gray-500 dark:text-gray-400 text-sm sm:text-base md:text-sm lg:text-base leading-relaxed max-w-2xl mx-auto font-medium px-4 md:px-2 md:mt-1">
             Performed live on the auspicious tithi — in your name, wherever you are.
           </p>
         </div>
@@ -307,47 +307,55 @@ export function SpecialEvents() {
         </div>
 
         {/* Premium Static Theme CTA Bar - Placed BELOW the banner */}
-        <div className="w-full bg-transparent pb-6 pt-6 md:pb-3 md:pt-2 mt-4 md:mt-4">
-          <div className="w-11/12 max-w-4xl mx-auto relative group">
-            {/* Ambient Background Glow Effect (Crimson for Light Mode, Indigo for Dark Mode) */}
-            <div
-              className="absolute -inset-0.5 rounded-[1.25rem] blur opacity-50 group-hover:opacity-70 transition-all duration-700 bg-gradient-to-r from-amber-500 via-red-600 to-amber-500 dark:from-blue-600 dark:via-indigo-500 dark:to-blue-600"
-            ></div>
-
-            <div
-              className="relative rounded-2xl md:rounded-2xl p-4 md:p-3 flex flex-col lg:flex-row items-center justify-between gap-4 md:gap-3 border border-white/10 dark:border-white/5 overflow-hidden bg-gradient-to-r from-[#2a0404] via-[#5c0a0a] to-[#2a0404] dark:from-[#04091a] dark:via-[#111836] dark:to-[#04091a] premium-animated-banner"
-            >
-              {/* Subtle top shimmer line */}
-              <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-amber-400/40 dark:via-blue-400/30 to-transparent"></div>
-
-              <div className="text-center lg:text-left z-10 px-2 mb-3 md:mb-0">
-                <h3 className="font-extrabold text-base md:text-base uppercase tracking-wider text-amber-400 dark:text-amber-300 drop-shadow-md">
-                  Elevate Your Spiritual Journey
-                </h3>
-                <p className="text-xs md:text-xs font-medium text-amber-100/90 dark:text-white/90 mt-1 md:mt-0.5 tracking-wide">
-                  Connect with our top experts instantly
-                </p>
-              </div>
-
-              <div className="flex flex-col sm:flex-row justify-center gap-3 w-full lg:w-auto z-10">
-                {/* White Button */}
-                <button className="animated-btn w-full sm:w-auto flex items-center justify-center gap-2 bg-white text-red-900 px-6 py-3 md:px-4 md:py-1.5 rounded-full font-bold text-xs md:text-xs hover:bg-gray-50 transition-all shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:shadow-[0_0_25px_rgba(255,255,255,0.4)] transform hover:-translate-y-0.5">
-                  <span className="relative flex h-2 w-2 z-30">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                  </span>
-                  <PhoneCall className="w-4 h-4 md:w-3.5 md:h-3.5 z-30" />
-                  <span className="z-30 whitespace-nowrap">Talk to Astrologer</span>
-                </button>
-
-                {/* Amber Button */}
-                <button className="animated-btn w-full sm:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 text-red-950 px-6 py-3 md:px-4 md:py-1.5 rounded-full font-bold text-xs md:text-xs hover:from-amber-400 hover:to-orange-400 transition-all shadow-[0_0_15px_rgba(245,158,11,0.3)] hover:shadow-[0_0_25px_rgba(245,158,11,0.5)] transform hover:-translate-y-0.5 border border-amber-300/50">
-                  <Flame className="w-4 h-4 md:w-3.5 md:h-3.5 z-30" />
-                  <span className="z-30 whitespace-nowrap">Homa & Remedies</span>
-                </button>
-              </div>
+        {/* Unique Two Action Buttons Layout (Custom Badge Portal Buttons - No Banner) */}
+        <div className="w-full flex flex-col md:flex-row justify-center items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10 mt-4 sm:mt-6 lg:mt-4 mb-4 lg:mb-2 px-2 sm:px-6 md:px-10 lg:px-8">
+          
+          {/* Talk to Astrology Button */}
+          <button className="relative flex items-center justify-between pl-14 sm:pl-16 pr-3 sm:pr-4 py-3 rounded-full bg-gradient-to-r from-[#20033b] via-[#3a0c6a] to-[#510e8d] hover:to-[#5c0fa0] transition-all duration-300 shadow-[0_10px_30px_rgba(58,12,106,0.3)] hover:shadow-[0_10px_35px_rgba(176,82,255,0.5)] border-[2.5px] border-amber-400 hover:scale-[1.03] w-full max-w-[280px] sm:max-w-[320px] md:max-w-[290px] lg:max-w-[360px] h-[64px] sm:h-[70px] md:h-[76px] group ml-4 sm:ml-2 md:ml-4 lg:ml-0">
+            {/* Circular badge sticking out on the left */}
+            <div className="absolute left-[-20px] sm:left-[-20px] top-1/2 -translate-y-1/2 w-[64px] h-[64px] sm:w-[72px] sm:h-[72px] rounded-full border-[3px] border-amber-400 bg-gradient-to-b from-[#2a0854] to-[#120224] flex items-center justify-center shadow-lg z-20 group-hover:scale-105 transition-transform duration-300">
+              <PhoneCall className="w-8 h-8 sm:w-10 sm:h-10 text-purple-300 drop-shadow-[0_0_8px_rgba(168,85,247,0.8)] fill-purple-300/20" strokeWidth={1.5} />
             </div>
-          </div>
+            
+            {/* Texts */}
+            <div className="flex flex-col items-start justify-center flex-grow pl-2 sm:pl-3 text-left">
+              <span className="font-serif text-white text-[14px] sm:text-base md:text-[14px] lg:text-lg font-bold tracking-wide drop-shadow-md leading-tight whitespace-nowrap">
+                Talk to Astrologer
+              </span>
+              <span className="font-sans text-[7px] sm:text-[8px] md:text-[8px] lg:text-[9px] text-amber-300/90 font-medium tracking-wide mt-0.5">
+                Get Answers. Gain Clarity. Find Guidance.
+              </span>
+            </div>
+
+            {/* Right Chevron Button */}
+            <div className="w-7 h-7 sm:w-9 sm:h-9 md:w-8 md:h-8 lg:w-9 lg:h-9 rounded-full bg-white flex items-center justify-center shadow-md z-10 group-hover:translate-x-1 transition-transform duration-300 shrink-0">
+              <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 md:w-4 md:h-4 lg:w-5 lg:h-5 text-purple-800 stroke-[2.5]" />
+            </div>
+          </button>
+
+          {/* Homa & Remedies Button */}
+          <button className="relative flex items-center justify-between pl-14 sm:pl-16 pr-3 sm:pr-4 py-3 rounded-full bg-gradient-to-r from-[#983800] via-[#c65104] to-[#ea6b06] hover:to-[#f2740d] transition-all duration-300 shadow-[0_10px_30px_rgba(198,81,4,0.3)] hover:shadow-[0_10px_35px_rgba(245,158,11,0.5)] border-[2.5px] border-amber-400 hover:scale-[1.03] w-full max-w-[280px] sm:max-w-[320px] md:max-w-[290px] lg:max-w-[360px] h-[64px] sm:h-[70px] md:h-[76px] group ml-4 sm:ml-2 md:ml-0">
+            {/* Circular badge sticking out on the left */}
+            <div className="absolute left-[-20px] sm:left-[-20px] top-1/2 -translate-y-1/2 w-[64px] h-[64px] sm:w-[72px] sm:h-[72px] rounded-full border-[3px] border-amber-400 bg-gradient-to-b from-[#8f3a00] to-[#3a1500] flex items-center justify-center shadow-lg z-20 group-hover:scale-105 transition-transform duration-300">
+              <Flame className="w-8 h-8 sm:w-10 sm:h-10 text-orange-200 drop-shadow-[0_0_8px_rgba(245,158,11,0.8)] fill-orange-500/30" strokeWidth={1.5} />
+            </div>
+            
+            {/* Texts */}
+            <div className="flex flex-col items-start justify-center flex-grow pl-2 sm:pl-3 text-left">
+              <span className="font-serif text-white text-[14px] sm:text-base md:text-[14px] lg:text-lg font-bold tracking-wide drop-shadow-md leading-tight whitespace-nowrap">
+                Homa & Remedies
+              </span>
+              <span className="font-sans text-[7px] sm:text-[8px] md:text-[8px] lg:text-[9px] text-amber-300/90 font-medium tracking-wide mt-0.5">
+                Balance. Heal. Harmonize.
+              </span>
+            </div>
+
+            {/* Right Chevron Button */}
+            <div className="w-7 h-7 sm:w-9 sm:h-9 md:w-8 md:h-8 lg:w-9 lg:h-9 rounded-full bg-white flex items-center justify-center shadow-md z-10 group-hover:translate-x-1 transition-transform duration-300 shrink-0">
+              <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 md:w-4 md:h-4 lg:w-5 lg:h-5 text-orange-700 stroke-[2.5]" />
+            </div>
+          </button>
+
         </div>
 
         {/* <div className="text-center mt-6">

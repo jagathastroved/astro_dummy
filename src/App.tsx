@@ -24,6 +24,7 @@ import { Footer } from './components/sections/Footer';
 import { scrollToSection } from './utils/scroll';
 import ClickSpark from './components/ui/ClickSpark';
 import { ScrollToTop } from './components/ui/ScrollToTop';
+import { MobileFloatingMenu } from './components/ui/MobileFloatingMenu';
 
 import { HoverGlow } from './components/ui/HoverGlow';
 import Particles from './components/ui/Particles';
@@ -56,6 +57,7 @@ export default function App() {
     <ThemeProvider>
       <HoverGlow />
       <ScrollToTop />
+      <MobileFloatingMenu />
       <ClickSpark sparkColor="#f59e0b" sparkSize={12} sparkRadius={24} sparkCount={12} duration={500} />
       <div className="min-h-screen bg-ivory dark:bg-[#0c0f24] text-midnight dark:text-cream font-sans selection:bg-gold/30 selection:text-midnight dark:selection:text-cream transition-colors duration-200 relative overflow-x-hidden">
 
