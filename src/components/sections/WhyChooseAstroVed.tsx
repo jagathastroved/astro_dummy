@@ -3,49 +3,43 @@ import { Target, Flame, HeartHandshake, Award, Globe2, LockKeyhole } from 'lucid
 
 const REASONS = [
   {
-    title: "Clear first step",
-    desc: "Understand your timing before choosing a remedy.",
-    shortDesc: "Understand timing first.",
+    title: "The right remedy, personally selected for you.",
+    desc: "We study your chart and timing first - then recommend only what you need.",
     icon: Target,
     color: "from-blue-500/20 to-cyan-500/20",
     iconColor: "text-blue-600 dark:text-cyan-400"
   },
   {
-    title: "Priest-led services",
-    desc: "Rituals and homas are presented via service pages.",
-    shortDesc: "Dedicated service pages.",
+    title: "Real priests, real rituals",
+    desc: "Every homa is performed by temple-trained priests - with your name in the sankalpam and rituals done as per Vedic texts.",
     icon: Flame,
     color: "from-orange-500/20 to-amber-500/20",
     iconColor: "text-orange-600 dark:text-amber-400"
   },
   {
-    title: "Respectful guidance",
-    desc: "No fear-based promises or guaranteed outcomes.",
-    shortDesc: "No fear-based promises.",
+    title: "Genuine Guidance",
+    desc: "Honest Vedic guidance. No fear, no false promises",
     icon: HeartHandshake,
     color: "from-pink-500/20 to-rose-500/20",
     iconColor: "text-pink-600 dark:text-rose-400"
   },
   {
-    title: "Since 2000",
-    desc: "A long-standing AstroVed spiritual ecosystem.",
-    shortDesc: "Spiritual ecosystem.",
+    title: "Serving devotees since 2000",
+    desc: "25 years of Vedic services, 3 lakh+ rituals, devotees in 50+ countries.",
     icon: Award,
     color: "from-purple-500/20 to-fuchsia-500/20",
     iconColor: "text-purple-600 dark:text-fuchsia-400"
   },
   {
-    title: "Global access",
-    desc: "Online participation paths for users outside India.",
-    shortDesc: "Online participation.",
+    title: "Join from anywhere in the world",
+    desc: "We perform at the temple - you watch live and receive the blessings at home.",
     icon: Globe2,
     color: "from-emerald-500/20 to-teal-500/20",
     iconColor: "text-emerald-600 dark:text-teal-400"
   },
   {
-    title: "Privacy-aware",
-    desc: "Birth details handled per strict privacy policy.",
-    shortDesc: "Strict privacy policy.",
+    title: "Your birth details stay private. Always.",
+    desc: "Never shared. Never sold. Used only for your readings and rituals.",
     icon: LockKeyhole,
     color: "from-slate-500/20 to-gray-500/20",
     iconColor: "text-slate-600 dark:text-gray-400"
@@ -58,9 +52,12 @@ export function WhyChooseAstroVed() {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
 
         {/* Compact Header */}
-        <div className="text-center max-w-3xl mx-auto mb-6">
-          <h2 className="font-sans text-3xl sm:text-4xl text-midnight dark:text-cream leading-tight mb-3">
-            Why Choose <em className="text-amber-600 dark:text-amber-400 italic">AstroVed.</em>
+        <div className="text-center max-w-3xl mx-auto mb-8 relative z-10">
+          <p className="text-amber-600 dark:text-amber-400 font-sans text-xs md:text-sm uppercase tracking-widest font-bold mb-3">
+            OUR PROMISE
+          </p>
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-midnight dark:text-cream leading-tight font-bold mb-4">
+            Why Devotees Choose <em className="text-amber-600 dark:text-amber-400 italic">AstroVed.</em>
           </h2>
         </div>
 
@@ -72,7 +69,7 @@ export function WhyChooseAstroVed() {
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/5 rounded-full blur-[80px] pointer-events-none transition-opacity duration-700 group-hover/panel:bg-purple-500/10" />
 
           {/* Dense Grid */}
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 relative z-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 relative z-10">
             {REASONS.map((reason, idx) => {
               const Icon = reason.icon;
               return (
@@ -84,11 +81,11 @@ export function WhyChooseAstroVed() {
                   </div>
 
                   {/* Text */}
-                  <div>
-                    <h3 className="font-sans font-bold text-[13px] md:text-base text-midnight dark:text-cream mb-1 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors leading-tight">
+                  <div className="flex flex-col h-full w-full items-center">
+                    <h3 className="font-sans font-bold text-[13px] md:text-base text-midnight dark:text-cream mb-1.5 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors leading-tight px-2">
                       {reason.title}
                     </h3>
-                    <p className="font-body text-gray-600 dark:text-gray-400 text-[11px] md:text-xs leading-relaxed">
+                    <p className="font-body text-gray-600 dark:text-gray-400 text-[11px] md:text-xs leading-relaxed px-2">
                       {reason.desc}
                     </p>
                   </div>

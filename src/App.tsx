@@ -9,10 +9,10 @@ import { SpecialEvents } from './components/sections/SpecialEvents';
 import { AIReports } from './components/sections/AIReports';
 import { TrustTicker } from './components/sections/TrustTicker';
 import { UptimesDowntimes } from './components/unwantedsections/UptimesDowntimes';
-import { ExpertChart } from './components/sections/ExpertChart';
+import { PersonalGuidance } from './components/sections/PersonalGuidance';
 import { TimingEvaluation } from './components/unwantedsections/TimingEvaluation';
 import { TrustStats } from './components/sections/TrustStats';
-import { AuspiciousActions } from './components/sections/AuspiciousActions';
+import { PersonalizedSolutions } from './components/sections/PersonalizedSolutions';
 import { PersonalizedSupport } from './components/sections/PersonalizedSupport';
 import { RitualAnimatedBeam } from './components/unwantedsections/RitualAnimatedBeam';
 import { AncestralHealing } from './components/unwantedsections/AncestralHealing';
@@ -69,10 +69,10 @@ export default function App() {
         <Navbar />
 
         <main className="relative z-10">
-          <HeroSection />
+          {/* <HeroSection /> */}
           <SpecialEvents />
-          <ExpertChart />
-          <AuspiciousActions />
+          <PersonalGuidance />
+          <PersonalizedSolutions />
           <PersonalizedSupport />
           {/* <UptimesDowntimes /> */}
           {/* <LiveHorologicalStream /> */}

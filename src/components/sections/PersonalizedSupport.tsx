@@ -2,9 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, ChevronRight, Sparkles, ArrowRight } from 'lucide-react';
 import { tarpanam, Shreem_Membership1, Shreem_Membership2 } from '../../assets/personalized_support';
-import year_long_tarpanam from '../../assets/Yearlong_Tarpanam.png';
-import shreem_lap from '../../assets/shreem_lap.png';
-import shreem_mob from '../../assets/shreem_mob.png';
 
 const solutions = [
   {
@@ -13,9 +10,8 @@ const solutions = [
     tagline: "Abundance & Prosperity",
     description: "Receive ongoing abundance-focused guidance, exclusive rituals, personalized recommendations, and premium spiritual resources.",
     cta: "Join Membership",
-    image: shreem_lap,
-    mobileImage: shreem_mob,
-    imagePosition: "object-center md:object-top",
+    image: Shreem_Membership2,
+    imagePosition: "object-center",
     bgGradient: "from-purple-100 via-fuchsia-50 to-pink-100 dark:from-purple-900/60 dark:via-fuchsia-900/60 dark:to-pink-900/60",
     iconColor: "text-purple-500 dark:text-purple-400",
     buttonColor: "bg-[#a855f7] hover:bg-[#9333ea]"
@@ -26,7 +22,7 @@ const solutions = [
     tagline: "Ancestral Blessings",
     description: "Honor your ancestors throughout the year with scheduled sacred rituals performed by experienced temple priests.",
     cta: "Learn More",
-    image: year_long_tarpanam,
+    image: tarpanam,
     imageFit: "object-cover",
     imagePosition: "object-center",
     bgGradient: "from-orange-100 via-rose-50 to-red-100 dark:from-orange-900/60 dark:via-red-900/60 dark:to-rose-900/60",
@@ -105,43 +101,45 @@ export function PersonalizedSupport() {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
 
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-6 relative z-10">
-          <h2 className="font-sans text-4xl sm:text-5xl text-midnight dark:text-cream leading-tight mb-4">
-            Personalized <em className="text-amber-600 dark:text-amber-400 italic">Support.</em>
+        <div className="text-center max-w-3xl mx-auto mb-10 relative z-10">
+          <p className="text-amber-600 dark:text-amber-400 font-sans text-xs md:text-sm uppercase tracking-widest font-bold mb-3">
+            CONTINUOUS SUPPORT
+          </p>
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-midnight dark:text-cream leading-tight font-bold mb-4">
+            Ongoing Blessings <em className="text-amber-600 dark:text-amber-400 italic">for Your Family.</em>
           </h2>
+          <p className="font-sans text-gray-500 dark:text-gray-400 text-sm md:text-base lg:text-lg leading-relaxed max-w-2xl mx-auto font-medium">
+            For devotees who want continuous support — not one-time remedies.
+          </p>
         </div>
 
         {/* Desktop/Tablet Grid View (No Carousel) */}
-        <div className="hidden md:grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="hidden md:grid md:grid-cols-2 gap-6 lg:gap-8">
           {solutions.map((ev, idx) => (
-            <div key={idx} className="group overflow-hidden rounded-[2.5rem] border border-white/10 hover:border-[#facc15]/50 hover:shadow-[0_0_30px_rgba(250,204,21,0.15)] transition-all duration-500 flex flex-col relative shadow-2xl min-h-[450px]">
-              {/* Full Background Image */}
-              <div className="absolute inset-0 w-full h-full overflow-hidden">
+            <div key={idx} className="group overflow-hidden rounded-[2.5rem] bg-[#0b0e14] border border-white/5 hover:border-[#facc15]/50 hover:shadow-[0_0_30px_rgba(250,204,21,0.15)] transition-all duration-500 flex flex-col h-full relative">
+              <div className="w-full h-56 lg:h-64 relative overflow-hidden rounded-t-[2.5rem]">
                 <img
                   src={ev.image}
                   alt={ev.title}
                   className={`w-full h-full ${ev.imageFit || 'object-cover'} group-hover:scale-105 transition-transform duration-[1500ms] ease-out ${ev.imagePosition || 'object-center'}`}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-80"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0b0e14] to-transparent h-32 top-auto bottom-0"></div>
               </div>
 
-              {/* Top-Left Badge */}
-              <div className="absolute top-6 left-6 lg:top-8 lg:left-8 z-20">
-                <span className={`inline-block px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 font-serif italic text-sm lg:text-base text-amber-400 shadow-lg`}>
-                  {ev.tagline}
-                </span>
-              </div>
-
-              {/* Content overlaid on image */}
-              <div className="px-6 lg:px-8 pb-10 pt-32 flex flex-col flex-grow justify-end z-10 relative">
-                <h3 className="font-serif text-2xl lg:text-3xl text-white font-bold tracking-wider mb-3 leading-tight uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+              <div className="px-6 lg:px-8 pb-8 pt-2 flex flex-col flex-grow z-10 relative bg-[#0b0e14]">
+                <div className="flex items-start mb-2">
+                  <span className={`font-serif italic text-lg lg:text-xl text-amber-400 dark:text-amber-500`}>
+                    {ev.tagline}
+                  </span>
+                </div>
+                <h3 className="font-serif text-2xl lg:text-3xl text-white font-bold tracking-wider mb-3 leading-tight uppercase">
                   {ev.title}
                 </h3>
-                <p className="font-body text-gray-100 text-sm lg:text-base leading-relaxed mb-8 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] font-medium">
+                <p className="font-body text-gray-200 dark:text-gray-300 text-sm leading-relaxed mb-8 flex-grow">
                   {ev.description}
                 </p>
 
-                <div className="flex justify-start">
+                <div className="mt-auto flex justify-start">
                   <button className={`inline-flex items-center gap-2 px-6 py-3 rounded-full ${ev.buttonColor} text-white font-semibold tracking-wide text-xs hover:scale-105 transition-transform shadow-md`}>
                     {ev.cta} <ArrowRight className="w-3.5 h-3.5" />
                   </button>
@@ -173,13 +171,6 @@ export function PersonalizedSupport() {
                   const ev = solutions[currentIndex];
                   return (
                     <div className="group/card flex flex-col lg:flex-row h-full relative">
-                      {/* Top-Left Badge */}
-                      <div className="absolute top-6 left-6 z-20">
-                        <span className={`inline-block px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 font-serif italic text-sm text-amber-400 shadow-lg`}>
-                          {ev.tagline}
-                        </span>
-                      </div>
-
                       {/* Background Image (Desktop) */}
                       <div className="hidden lg:block absolute top-0 bottom-0 left-0 w-[65%] overflow-hidden pointer-events-none">
                         <img
@@ -209,6 +200,11 @@ export function PersonalizedSupport() {
                       {/* Content */}
                       <div className="w-full lg:w-[45%] ml-auto px-8 pb-20 pt-8 sm:p-12 lg:p-16 flex flex-col justify-end lg:justify-center items-center lg:items-end text-center lg:text-right z-10 relative h-full lg:mt-0 lg:pt-16">
                         <div className="w-full">
+                          <div className="flex items-center justify-center lg:justify-end mb-4">
+                            <span className={`font-serif italic text-xl lg:text-2xl text-amber-400 dark:text-amber-500`}>
+                              {ev.tagline}
+                            </span>
+                          </div>
 
                           <h3 className="font-serif text-2xl lg:text-3xl xl:text-4xl text-white font-bold tracking-wider mb-4 leading-tight uppercase">
                             {ev.title}

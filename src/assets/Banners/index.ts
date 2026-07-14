@@ -1,0 +1,9 @@
+export { default as Vastu_Homa } from './Vastu_Homa.jpg';
+export { default as Ashada_Navratri } from './Ashada_Navratri.jpg';
+export { default as Sudarshana_Jayanthi } from './Sudarshana_Jayanthi.jpg';
+export { default as Solar_Eclipse_2026 } from './Solar_Eclipse_2026.jpg';
+export { default as Karuppasamy } from './Karuppasamy.jpg';
+export { default as Hyderabad_Nadi_Camp } from './Hyderabad_Nadi_Camp.jpg';
+export { default as Guru_purnima } from './Guru-purnima.jpg';
+export { default as Aadi_Goddess } from './Aadi_Goddess.jpg';
+export { default as Aadi_Amavasya } from './Aadi_Amavasya.jpg';
