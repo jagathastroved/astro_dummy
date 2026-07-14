@@ -188,7 +188,7 @@ export function SpecialEvents() {
 
         {/* Header */}
         <div className="text-center max-w-4xl mx-auto mb-6 md:mb-5 lg:mb-4">
-          <p className="text-amber-600 dark:text-amber-400 font-sans text-sm md:text-base uppercase tracking-[0.2em] font-extrabold mb-3 md:mb-4 drop-shadow-sm">
+          <p className="text-amber-600 dark:text-amber-400 font-sans text-xs md:text-sm uppercase tracking-widest font-bold mb-3">
             LIVE THIS WEEK
           </p>
           <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-[3rem] text-midnight dark:text-cream leading-[1.1] font-black mb-4 md:mb-5 lg:mb-4 drop-shadow-sm tracking-tight">
