@@ -2,7 +2,8 @@ import React, { useRef, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { AnimatedGrid } from '../ui/AnimatedGrid';
 import { AnimatedCard } from '../ui/AnimatedCard';
-import { consultation, palm_leaf, personal_report } from '../../assets/vedic_master/index';
+import { palm_leaf, personal_report } from '../../assets/vedic_master/index';
+import liveConsultationsImg from '../../assets/Services/live_consultations.png';
 
 const EXPERTS = [
   {
@@ -11,7 +12,7 @@ const EXPERTS = [
     desc: "Receive immediate clarity on your career, marriage, or family, and get powerful life-changing advice and remedies.\nConsult in English, Hindi, or Tamil.",
     cta: "BOOK CONSULTATION",
     footerText: "Slots available today • 100% private",
-    image: consultation,
+    image: liveConsultationsImg,
     titleColor: "text-purple-700 dark:text-purple-400"
   },
   {

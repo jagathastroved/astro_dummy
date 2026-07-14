@@ -113,7 +113,7 @@ export function Footer() {
       </div>
 
       {/* Legal bar */}
-      <div className="relative max-w-7xl mx-auto pt-6 border-t border-purple/10 dark:border-amber-500/40 dark:shadow-[0_0_15px_rgba(245,158,11,0.2)] flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="relative max-w-7xl mx-auto pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
         <span className="text-[11px] font-medium uppercase tracking-[0.15em] text-slate-500 dark:text-slate-500/80">
           &copy; {new Date().getFullYear()} AstroVed. All traditional rights reserved.
         </span>

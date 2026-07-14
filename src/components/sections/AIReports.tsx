@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
-import aiKundali from '../../assets/ai_reports/Kundali_Report_book.png'
-import aiNumerology from '../../assets/ai_reports/Numerology_Book.png'
+import aiKundali from '../../assets/ai_reports/ai_kundali_north.png'
+import aiNumerology from '../../assets/ai_reports/ai_numerology_numbers.png'
 
 const reports = [
   {
@@ -11,7 +11,7 @@ const reports = [
     description: "Get an instant, comprehensive analysis of your birth chart. Discover your planetary positions, doshas, and predictions powered by cutting-edge AI.",
     cta: "Generate Report",
     image: aiKundali,
-    imageFit: "object-contain p-4 lg:p-8 drop-shadow-2xl scale-125 lg:scale-110",
+    imageFit: "object-cover",
     imagePosition: "object-center",
     bgGradient: "bg-[#f8f9fa] dark:bg-[#0b0e14]",
     buttonColor: "bg-[#a855f7] hover:bg-[#9333ea]",
@@ -24,7 +24,7 @@ const reports = [
     description: "Uncover the hidden meanings behind your numbers. Get an AI-driven report on your life path, expression, and soul urge numbers.",
     cta: "Generate Report",
     image: aiNumerology,
-    imageFit: "object-contain p-4 lg:p-8 drop-shadow-2xl scale-125 lg:scale-110",
+    imageFit: "object-cover",
     imagePosition: "object-center",
     bgGradient: "bg-[#f8f9fa] dark:bg-[#0b0e14]",
     buttonColor: "bg-[#f59e0b] hover:bg-[#d97706]",
@@ -81,11 +81,11 @@ export function AIReports() {
       <div className="hidden md:grid md:grid-cols-2 gap-6 lg:gap-8 max-w-3xl mx-auto">
         {reports.map((ev, idx) => (
           <div key={idx} className="group overflow-hidden rounded-[2.5rem] bg-[#f8f9fa] dark:bg-[#0b0e14] border border-gray-100 dark:border-white/5 hover:border-[#b052ff]/30 hover:shadow-[0_0_30px_rgba(176,82,255,0.15)] transition-all duration-500 flex flex-col h-full relative">
-            <div className="w-full h-48 lg:h-52 relative overflow-hidden rounded-t-[2.5rem] flex items-center justify-center p-2 bg-gradient-to-b from-gray-100/50 to-transparent dark:from-black/30 dark:to-transparent">
+            <div className="w-full h-56 lg:h-60 relative overflow-hidden rounded-t-[2.5rem]">
               <img
                 src={ev.image}
                 alt={ev.title}
-                className={`w-full h-full object-contain group-hover:scale-105 transition-transform duration-[1500ms] ease-out`}
+                className={`w-full h-full ${ev.imageFit || 'object-cover'} group-hover:scale-105 transition-transform duration-[1500ms] ease-out`}
               />
             </div>
 
@@ -120,7 +120,7 @@ export function AIReports() {
         onTouchEnd={handleTouchEnd}
       >
         {/* Main Card */}
-        <div className="overflow-hidden rounded-[2.5rem] bg-[#f8f9fa] dark:bg-[#0b0e14] border border-gray-100 dark:border-white/5 hover:border-[#b052ff]/30 hover:shadow-[0_0_40px_rgba(176,82,255,0.15)] transition-all duration-500 relative h-[430px] lg:h-[350px]">
+        <div className="overflow-hidden rounded-[2.5rem] bg-[#f8f9fa] dark:bg-[#0b0e14] border border-gray-100 dark:border-white/5 hover:border-[#b052ff]/30 hover:shadow-[0_0_40px_rgba(176,82,255,0.15)] transition-all duration-500 relative h-[460px] lg:h-[350px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
@@ -145,11 +145,11 @@ export function AIReports() {
                     </div>
 
                     {/* Image Area (Mobile & Tablet) */}
-                    <div className="lg:hidden absolute inset-0 w-full h-[160px] pointer-events-none flex items-center justify-center z-10">
+                    <div className="lg:hidden absolute top-0 left-0 w-full h-[180px] pointer-events-none overflow-hidden rounded-t-[2.5rem] z-10">
                       <img
                         src={ev.image}
                         alt={ev.title}
-                        className={`w-full h-full object-contain p-3 group-hover/card:scale-105 transition-transform duration-[1500ms] ease-out ${ev.imagePosition}`}
+                        className={`w-full h-full ${ev.imageFit || 'object-cover'} group-hover/card:scale-105 transition-transform duration-[1500ms] ease-out ${ev.imagePosition}`}
                       />
                     </div>
 
@@ -159,13 +159,8 @@ export function AIReports() {
                     </div>
 
                     {/* Content */}
-                    <div className="w-full lg:w-[55%] ml-auto px-6 pb-10 pt-[170px] sm:p-12 lg:p-16 flex flex-col justify-start lg:justify-center items-center lg:items-start text-center lg:text-left z-20 relative h-full lg:mt-0 lg:pt-0">
+                    <div className="w-full lg:w-[55%] ml-auto px-6 pb-14 pt-[210px] sm:pt-[220px] lg:p-16 flex flex-col justify-start lg:justify-center items-center lg:items-start text-center lg:text-left z-20 relative h-full lg:mt-0 lg:pt-0">
                       <div className="w-full h-full flex flex-col">
-                        <div className="flex items-center justify-center lg:justify-start mb-2">
-                          <span className={`font-serif font-bold tracking-[0.2em] text-sm lg:text-base ${ev.taglineColor} uppercase`}>
-                            {/* {ev.tagline} */}
-                          </span>
-                        </div>
 
                         <h3 className="font-serif text-[20px] xs:text-xl lg:text-2xl xl:text-3xl text-midnight dark:text-white font-bold tracking-tight mb-2 leading-tight">
                           {ev.title}

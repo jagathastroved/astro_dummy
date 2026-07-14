@@ -1,6 +1,8 @@
 import React from 'react';
 import { HoverGlowCard } from '../HoverGlowCard';
 import { Star, ScrollText, Sparkles, Zap, Map, Heart, Users } from 'lucide-react';
+import shreemBrzeeImg from '../../assets/shreem_brzee_new.png';
+import tarpanamImg from '../../assets/tarpanam_new.png';
 
 export function ServicesSections() {
   return (
@@ -64,14 +66,16 @@ export function ServicesSections() {
               description="Immerse yourself in the ultimate wealth mantra through daily group chanting, exclusive teachings, and monthly interactive sessions to manifest abundance."
               buttonText="Join Membership"
               glowColor="rgba(217, 70, 239, 0.25)" // Fuchsia glow
+              image={shreemBrzeeImg}
             />
             <HoverGlowCard
               icon={Users}
               badgeText="ANCESTRAL BLESSINGS"
               title="Yearlong Tarpanam"
-              description="Ensure continuous blessings and clear generational blocks with daily offerings made to your ancestors throughout the entire year by our priests."
-              buttonText="Enroll Now"
+              description="Honor your ancestors throughout the year with scheduled sacred rituals performed by experienced temple priests."
+              buttonText="Learn More"
               glowColor="rgba(245, 158, 11, 0.3)" // Amber glow
+              image={tarpanamImg}
             />
           </div>
         </section>

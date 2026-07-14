@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, ChevronRight, Sparkles, ArrowRight } from 'lucide-react';
-import { tarpanam, Shreem_Membership1, Shreem_Membership2 } from '../../assets/personalized_support';
+import shreemBrzeeImg from '../../assets/shreem_brzee_new.png';
+import tarpanamNewImg from '../../assets/tarpanam_new.png';
 
 const solutions = [
   {
@@ -10,7 +11,7 @@ const solutions = [
     tagline: "Abundance & Prosperity",
     description: "Receive ongoing abundance-focused guidance, exclusive rituals, personalized recommendations, and premium spiritual resources.",
     cta: "Join Membership",
-    image: Shreem_Membership2,
+    image: shreemBrzeeImg,
     imagePosition: "object-center",
     bgGradient: "from-purple-100 via-fuchsia-50 to-pink-100 dark:from-purple-900/60 dark:via-fuchsia-900/60 dark:to-pink-900/60",
     iconColor: "text-purple-500 dark:text-purple-400",
@@ -22,7 +23,7 @@ const solutions = [
     tagline: "Ancestral Blessings",
     description: "Honor your ancestors throughout the year with scheduled sacred rituals performed by experienced temple priests.",
     cta: "Learn More",
-    image: tarpanam,
+    image: tarpanamNewImg,
     imageFit: "object-cover",
     imagePosition: "object-center",
     bgGradient: "from-orange-100 via-rose-50 to-red-100 dark:from-orange-900/60 dark:via-red-900/60 dark:to-rose-900/60",
@@ -116,33 +117,37 @@ export function PersonalizedSupport() {
         {/* Desktop/Tablet Grid View (No Carousel) */}
         <div className="hidden md:grid md:grid-cols-2 gap-6 lg:gap-8">
           {solutions.map((ev, idx) => (
-            <div key={idx} className="group overflow-hidden rounded-[2.5rem] bg-[#0b0e14] border border-white/5 hover:border-[#facc15]/50 hover:shadow-[0_0_30px_rgba(250,204,21,0.15)] transition-all duration-500 flex flex-col h-full relative">
-              <div className="w-full h-56 lg:h-64 relative overflow-hidden rounded-t-[2.5rem]">
+            <div key={idx} className="group overflow-hidden rounded-[2.5rem] bg-[#0b0e14] border border-white/5 hover:border-[#facc15]/50 hover:shadow-[0_0_30px_rgba(250,204,21,0.15)] transition-all duration-500 flex flex-col h-[500px] lg:h-[550px] relative">
+              {/* Full Background Image */}
+              <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none rounded-[2.5rem] z-0">
                 <img
                   src={ev.image}
                   alt={ev.title}
                   className={`w-full h-full ${ev.imageFit || 'object-cover'} group-hover:scale-105 transition-transform duration-[1500ms] ease-out ${ev.imagePosition || 'object-center'}`}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0b0e14] to-transparent h-32 top-auto bottom-0"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0b0e14]/95 via-[#0b0e14]/60 to-transparent"></div>
               </div>
 
-              <div className="px-6 lg:px-8 pb-8 pt-2 flex flex-col flex-grow z-10 relative bg-[#0b0e14]">
-                <div className="flex items-start mb-2">
-                  <span className={`font-serif italic text-lg lg:text-xl text-amber-400 dark:text-amber-500`}>
-                    {ev.tagline}
-                  </span>
-                </div>
-                <h3 className="font-serif text-2xl lg:text-3xl text-white font-bold tracking-wider mb-3 leading-tight uppercase">
-                  {ev.title}
-                </h3>
-                <p className="font-body text-gray-200 dark:text-gray-300 text-sm leading-relaxed mb-8 flex-grow">
-                  {ev.description}
-                </p>
-
-                <div className="mt-auto flex justify-start">
-                  <button className={`inline-flex items-center gap-2 px-6 py-3 rounded-full ${ev.buttonColor} text-white font-semibold tracking-wide text-xs hover:scale-105 transition-transform shadow-md`}>
-                    {ev.cta} <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
+              {/* Content overlaid on image */}
+              <div className="px-6 lg:px-8 pb-8 pt-8 flex flex-col justify-end flex-grow z-10 relative h-full">
+                <div className="mt-auto">
+                  <div className="flex items-start mb-2">
+                    <span className={`font-serif italic text-lg lg:text-xl text-amber-400 dark:text-amber-500`}>
+                      {ev.tagline}
+                    </span>
+                  </div>
+                  <h3 className="font-serif text-2xl lg:text-3xl text-white font-bold tracking-wider mb-3 leading-tight uppercase">
+                    {ev.title}
+                  </h3>
+                  <p className="font-body text-gray-200 dark:text-gray-300 text-sm md:text-base leading-relaxed mb-8 max-w-sm">
+                    {ev.description}
+                  </p>
+                  <div>
+                    <button className={`px-6 py-3 rounded-full text-white font-medium text-sm flex items-center gap-2 group/btn transition-all duration-300 ${ev.buttonColor}`}>
+                      {ev.cta}
+                      <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -191,10 +196,10 @@ export function PersonalizedSupport() {
                           <img
                             src={(ev as any).mobileImage || ev.image}
                             alt={ev.title}
-                            className={`w-full h-full ${ev.imageFit || 'object-cover'} ${ev.imagePosition || 'object-center'} opacity-80`}
+                            className={`w-full h-full ${ev.imageFit || 'object-cover'} ${ev.imagePosition || 'object-center'}`}
                           />
                         </picture>
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0b0e14]/90 via-black/50 to-transparent"></div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0b0e14]/95 via-[#0b0e14]/60 to-transparent"></div>
                       </div>
 
                       {/* Content */}

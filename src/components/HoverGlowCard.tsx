@@ -11,6 +11,7 @@ interface HoverGlowCardProps extends React.HTMLAttributes<HTMLDivElement> {
   onClick?: () => void;
   className?: string;
   glowColor?: string; // e.g., 'rgba(212, 175, 55, 0.4)'
+  image?: string; // Optional image URL
 }
 
 export const HoverGlowCard: React.FC<HoverGlowCardProps> = ({
@@ -22,6 +23,7 @@ export const HoverGlowCard: React.FC<HoverGlowCardProps> = ({
   onClick,
   className = '',
   glowColor = 'rgba(245, 158, 11, 0.3)', // Default amber/gold glow
+  image,
   ...props
 }) => {
   const mouseX = useMotionValue(0);
@@ -76,6 +78,17 @@ export const HoverGlowCard: React.FC<HoverGlowCardProps> = ({
             {badgeText}
           </span>
         </div>
+
+        {/* Optional Image */}
+        {image && (
+          <div className="mb-6 overflow-hidden rounded-xl w-full h-48 sm:h-56 relative group-hover:shadow-lg transition-all duration-500">
+            <img 
+              src={image} 
+              alt={title} 
+              className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" 
+            />
+          </div>
+        )}
 
         {/* Text Content */}
         <div className="mt-auto">

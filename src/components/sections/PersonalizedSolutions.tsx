@@ -97,7 +97,7 @@ export function PersonalizedSolutions() {
       <div className="hidden md:grid md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
         {actions.map((ev, idx) => (
           <div key={idx} className="group overflow-hidden rounded-[2.5rem] bg-[#f8f9fa] dark:bg-[#0b0e14] border border-gray-100 dark:border-white/5 hover:border-[#b052ff]/30 hover:shadow-[0_0_30px_rgba(176,82,255,0.15)] transition-all duration-500 flex flex-col h-full relative">
-            <div className="w-full h-44 lg:h-48 relative overflow-hidden rounded-t-[2.5rem]">
+            <div className="w-full h-64 lg:h-72 relative overflow-hidden rounded-t-[2.5rem] isolate">
               <img
                 src={ev.image}
                 alt={ev.title}
