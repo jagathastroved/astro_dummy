@@ -317,62 +317,74 @@ export function SpecialEvents() {
           onTouchEnd={handleTouchEnd}
         >
           <div className="overflow-hidden rounded-[2.5rem] bg-[#FFF5E1] transition-all duration-500 relative grid">
-            <AnimatePresence initial={false} custom={direction}>
-              {displayEvents.length > 0 && (
-                <motion.div
-                  key={currentIndex}
-                  initial={{ opacity: 0, scale: 0.98 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 1.02 }}
-                  transition={{ duration: 0.8, ease: "easeInOut" }}
-                  className="w-full cursor-pointer flex flex-col items-center col-start-1 row-start-1"
-                  onClick={() => {
-                    if (!displayEvents[currentIndex].isThreeBan) {
-                      const link = displayEvents[currentIndex].banners[0]?.link;
-                      if (link) {
-                        window.open(link, '_blank', 'noopener,noreferrer');
+            {loading ? (
+              <div className="w-full flex items-center justify-center col-start-1 row-start-1 py-32">
+                <div className="flex flex-col items-center gap-3">
+                  <svg className="animate-spin h-8 w-8 text-amber-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  <span className="text-xs font-semibold text-amber-600 dark:text-amber-500 uppercase tracking-widest animate-pulse">Loading Events...</span>
+                </div>
+              </div>
+            ) : (
+              <AnimatePresence initial={false} custom={direction}>
+                {displayEvents.length > 0 && (
+                  <motion.div
+                    key={currentIndex}
+                    initial={{ opacity: 0, scale: 0.98 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 1.02 }}
+                    transition={{ duration: 0.8, ease: "easeInOut" }}
+                    className="w-full cursor-pointer flex flex-col items-center col-start-1 row-start-1"
+                    onClick={() => {
+                      if (!displayEvents[currentIndex].isThreeBan) {
+                        const link = displayEvents[currentIndex].banners[0]?.link;
+                        if (link) {
+                          window.open(link, '_blank', 'noopener,noreferrer');
+                        }
                       }
-                    }
-                  }}
-                >
-                  {displayEvents[currentIndex].isThreeBan ? (
-                    <div className="w-full flex gap-3 md:gap-4 justify-between items-center">
-                      {displayEvents[currentIndex].banners.map((banner, idx) => (
-                        <a
-                          key={idx}
-                          href={banner.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={`flex-1 ${idx === 1 ? 'hidden md:block' : idx === 2 ? 'hidden lg:block' : 'block'}`}
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <img
-                            src={banner.image}
-                            alt={banner.title}
-                            className="w-full h-auto object-contain rounded-[1rem] md:rounded-[1.5rem] transition-all duration-500 hover:scale-[1.03] shadow-sm hover:shadow-md"
-                          />
-                        </a>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="w-full relative">
-                      {/* Responsive Picture tag handling both Mobile, Tab and Desktop */}
-                      <picture>
-                        {displayEvents[currentIndex].banners[0].sources.map((src, i) => (
-                          <source key={i} media={src.media} srcSet={src.srcSet} />
+                    }}
+                  >
+                    {displayEvents[currentIndex].isThreeBan ? (
+                      <div className="w-full flex gap-3 md:gap-4 justify-between items-center">
+                        {displayEvents[currentIndex].banners.map((banner, idx) => (
+                          <a
+                            key={idx}
+                            href={banner.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`flex-1 ${idx === 1 ? 'hidden md:block' : idx === 2 ? 'hidden lg:block' : 'block'}`}
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <img
+                              src={banner.image}
+                              alt={banner.title}
+                              className="w-full h-auto object-contain rounded-[1rem] md:rounded-[1.5rem] transition-all duration-500 hover:scale-[1.03] shadow-sm hover:shadow-md"
+                            />
+                          </a>
                         ))}
-                        {/* Fallback & Desktop Image */}
-                        <img
-                          src={displayEvents[currentIndex].banners[0].image}
-                          alt={displayEvents[currentIndex].banners[0].title}
-                          className="w-full h-auto object-contain rounded-[1.5rem] md:rounded-[2.5rem] bg-[#FFF5E1] border border-black/5 hover:border-[#facc15]/50 hover:shadow-[0_0_40px_rgba(250,204,21,0.2)] transition-all duration-500 group-hover/card:scale-[1.02]"
-                        />
-                      </picture>
-                    </div>
-                  )}
-                </motion.div>
-              )}
-            </AnimatePresence>
+                      </div>
+                    ) : (
+                      <div className="w-full relative">
+                        {/* Responsive Picture tag handling both Mobile, Tab and Desktop */}
+                        <picture>
+                          {displayEvents[currentIndex].banners[0].sources.map((src, i) => (
+                            <source key={i} media={src.media} srcSet={src.srcSet} />
+                          ))}
+                          {/* Fallback & Desktop Image */}
+                          <img
+                            src={displayEvents[currentIndex].banners[0].image}
+                            alt={displayEvents[currentIndex].banners[0].title}
+                            className="w-full h-auto object-contain rounded-[1.5rem] md:rounded-[2.5rem] bg-[#FFF5E1] border border-black/5 hover:border-[#facc15]/50 hover:shadow-[0_0_40px_rgba(250,204,21,0.2)] transition-all duration-500 group-hover/card:scale-[1.02]"
+                          />
+                        </picture>
+                      </div>
+                    )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            )}
           </div>
 
           {/* Navigation Buttons */}
