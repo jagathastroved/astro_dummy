@@ -11,7 +11,44 @@ interface DailyRadarProps {
 export function DailyRadar({ onCalculateChart }: DailyRadarProps) {
   const [selectedZodiac, setSelectedZodiac] = useState('Aries');
   const [horoscopeTab, setHoroscopeTab] = useState<'Today' | 'Week' | 'Month'>('Today');
+  const [horoscopeData, setHoroscopeData] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(true);
   const contentRef = useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    let isMounted = true;
+    const fetchHoroscope = async () => {
+      setLoading(true);
+      try {
+        const moonsign = selectedZodiac.toLowerCase();
+        let period = horoscopeTab.toLowerCase();
+        if (period === 'today') period = 'daily';
+        else if (period === 'week') period = 'weekly';
+        else if (period === 'month') period = 'monthly';
+        const tz = encodeURIComponent(Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Kolkata');
+
+        const response = await fetch(`https://api.astroved.com/python/horoscope/${moonsign}/${period}/summary?timezone=${tz}`);
+        const data = await response.json();
+
+        console.log('Horoscope API Success:', data);
+
+        if (isMounted) {
+          setHoroscopeData(data.summary || 'Horoscope data is currently unavailable. Please try again later.');
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error("Failed to fetch horoscope:", error);
+        console.log('Horoscope API Failed:', error);
+        if (isMounted) {
+          setHoroscopeData('Horoscope data is currently unavailable. Please try again later.');
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchHoroscope();
+    return () => { isMounted = false; };
+  }, [selectedZodiac, horoscopeTab]);
 
   return (
     <section className="py-4 md:py-6 relative overflow-hidden" id="daily-widget">
@@ -33,12 +70,6 @@ export function DailyRadar({ onCalculateChart }: DailyRadarProps) {
           <h2 className="font-sans text-4xl sm:text-5xl text-midnight dark:text-cream leading-tight mb-4">
             Daily <em className="text-amber-600 dark:text-amber-400 italic">Horoscope.</em>
           </h2>
-          {/* <h1 className="font-sans text-4xl text-midnight dark:text-cream tracking-wide leading-tight">
-            Vedic Signs Horoscope.
-          </h1>
-          <p className="font-body text-gray-600 dark:text-gray-400 mt-4 leading-relaxed max-w-xl mx-auto">
-            Select your sign to get simple daily guidance and know your best times.
-          </p> */}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 w-full max-w-6xl mx-auto">
@@ -145,7 +176,7 @@ export function DailyRadar({ onCalculateChart }: DailyRadarProps) {
               </div>
 
               {/* Horoscope detailed body text with crossfade animation */}
-              <div className="flex-1">
+              <div className="flex-1 mt-6">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={`${selectedZodiac}-${horoscopeTab}`}
@@ -153,11 +184,19 @@ export function DailyRadar({ onCalculateChart }: DailyRadarProps) {
                     animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                     exit={{ opacity: 0, y: -10, filter: 'blur(4px)' }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
-                    className="space-y-8"
+                    className="space-y-4"
                   >
-                    <p className="font-body text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed font-light mt-6">
-                      {HOROSCOPES[selectedZodiac]?.[horoscopeTab]}
-                    </p>
+                    {loading ? (
+                      <div className="animate-pulse space-y-3">
+                        <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded w-full"></div>
+                        <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded w-5/6"></div>
+                        <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded w-4/6"></div>
+                      </div>
+                    ) : (
+                      <p className="font-body text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed font-light">
+                        {horoscopeData}
+                      </p>
+                    )}
                   </motion.div>
                 </AnimatePresence>
               </div>

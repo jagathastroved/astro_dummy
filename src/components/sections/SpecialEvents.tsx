@@ -134,22 +134,7 @@ const events = [
 ];
 
 export function SpecialEvents() {
-  const [displayEvents, setDisplayEvents] = useState(() =>
-    events.map((item) => ({
-      id: item.id,
-      isThreeBan: false,
-      banners: [
-        {
-          title: item.title,
-          image: item.image,
-          mobileImage: item.mobileImage,
-          sources: [],
-          link: '',
-        }
-      ],
-      originalData: item // Keep reference to original for text overlays if needed
-    }))
-  );
+  const [displayEvents, setDisplayEvents] = useState<any[]>([]);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -308,11 +293,11 @@ export function SpecialEvents() {
   }, [displayEvents]);
 
   return (
-    <section id="special-events" className="pt-4 pb-12 md:pt-6 md:pb-16 relative overflow-hidden transition-colors duration-500 z-10">
+    <section id="special-events" className="pt-2 md:pt-4 pb-6 md:pb-8 relative overflow-hidden transition-colors duration-500 z-10">
       <div className="max-w-[1600px] mx-auto px-4 md:px-8 relative z-10">
 
         {/* Header */}
-        <div className="text-center max-w-4xl mx-auto mb-6 md:mb-5 lg:mb-4">
+        <div className="text-center max-w-4xl mx-auto mb-6 md:mb-5 lg:mb-3">
           <p className="text-amber-600 dark:text-amber-400 font-sans text-xs md:text-sm uppercase tracking-widest font-bold mb-3">
             LIVE THIS WEEK
           </p>
@@ -351,7 +336,7 @@ export function SpecialEvents() {
                   }}
                 >
                   {displayEvents[currentIndex].isThreeBan ? (
-                    <div className="w-full flex gap-3 md:gap-4 justify-between items-center bg-[#FFF5E1] rounded-[1.5rem] md:rounded-[2.5rem] border border-black/5 p-3 md:p-4 hover:border-[#facc15]/50 hover:shadow-[0_0_40px_rgba(250,204,21,0.2)] transition-all duration-500 group-hover/card:scale-[1.02]">
+                    <div className="w-full flex gap-3 md:gap-4 justify-between items-center">
                       {displayEvents[currentIndex].banners.map((banner, idx) => (
                         <a
                           key={idx}
@@ -420,40 +405,40 @@ export function SpecialEvents() {
         </div>
 
         {/* Premium Static Theme CTA Bar */}
-        <div className="w-full flex flex-col md:flex-row justify-center items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10 mt-4 sm:mt-6 lg:mt-4 mb-4 lg:mb-2 px-2 sm:px-6 md:px-10 lg:px-8">
+        <div className="w-full flex flex-col md:flex-row justify-center items-center gap-4 sm:gap-6 md:gap-8 lg:gap-8 mt-4 sm:mt-5 lg:mt-3 mb-2 lg:mb-0 px-2 sm:px-6 md:px-10 lg:px-8 relative z-30">
           {/* Talk to Astrology Button */}
-          <button className="relative flex items-center justify-between pl-12 sm:pl-14 pr-3 py-2.5 rounded-full bg-gradient-to-r from-[#20033b] via-[#3a0c6a] to-[#510e8d] hover:to-[#5c0fa0] transition-all duration-300 shadow-[0_10px_30px_rgba(58,12,106,0.3)] hover:shadow-[0_10px_35px_rgba(176,82,255,0.5)] border-[2px] border-amber-400 hover:scale-[1.03] w-full max-w-[260px] sm:max-w-[280px] md:max-w-[270px] lg:max-w-[290px] h-[56px] sm:h-[60px] lg:h-[64px] group ml-4 sm:ml-2 md:ml-4 lg:ml-0">
-            <div className="absolute left-[-16px] sm:left-[-18px] top-1/2 -translate-y-1/2 w-[56px] h-[56px] lg:w-[60px] lg:h-[60px] rounded-full border-[2.5px] border-amber-400 bg-gradient-to-b from-[#2a0854] to-[#120224] flex items-center justify-center shadow-lg z-20 group-hover:scale-105 transition-transform duration-300">
-              <PhoneCall className="w-7 h-7 lg:w-8 lg:h-8 text-purple-300 drop-shadow-[0_0_8px_rgba(168,85,247,0.8)] fill-purple-300/20" strokeWidth={1.5} />
+          <button className="relative flex items-center justify-between pl-12 sm:pl-14 pr-3 py-2.5 rounded-full bg-gradient-to-r from-[#20033b] via-[#3a0c6a] to-[#510e8d] hover:to-[#5c0fa0] transition-all duration-300 shadow-[0_10px_30px_rgba(58,12,106,0.3)] hover:shadow-[0_10px_35px_rgba(176,82,255,0.5)] border-[2px] border-amber-400 hover:scale-[1.03] w-full max-w-[260px] sm:max-w-[280px] md:max-w-[270px] lg:max-w-[280px] h-[56px] sm:h-[60px] lg:h-[56px] group ml-4 sm:ml-2 md:ml-4 lg:ml-0">
+            <div className="absolute left-[-16px] sm:left-[-18px] top-1/2 -translate-y-1/2 w-[56px] h-[56px] lg:w-[56px] lg:h-[56px] rounded-full border-[2.5px] border-amber-400 bg-gradient-to-b from-[#2a0854] to-[#120224] flex items-center justify-center shadow-lg z-20 group-hover:scale-105 transition-transform duration-300">
+              <PhoneCall className="w-7 h-7 lg:w-7 lg:h-7 text-purple-300 drop-shadow-[0_0_8px_rgba(168,85,247,0.8)] fill-purple-300/20" strokeWidth={1.5} />
             </div>
-            <div className="flex flex-col items-start justify-center flex-grow pl-2 text-left">
-              <span className="font-serif text-white text-[13px] sm:text-[14px] lg:text-[15px] font-bold tracking-wide drop-shadow-md leading-tight whitespace-nowrap">
+            <div className="flex flex-col items-start justify-center flex-grow pl-2 lg:pl-1 text-left">
+              <span className="font-serif text-white text-[13px] sm:text-[14px] lg:text-[14px] font-bold tracking-wide drop-shadow-md leading-tight whitespace-nowrap">
                 Talk to Astrologer
               </span>
-              <span className="font-sans text-[9px] sm:text-[10px] lg:text-[11px] text-amber-200/95 font-semibold tracking-wide mt-0.5">
+              <span className="font-sans text-[9px] sm:text-[10px] lg:text-[10px] text-amber-200/95 font-semibold tracking-wide mt-0.5">
                 Get Answers. Gain Clarity.
               </span>
             </div>
-            <div className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 rounded-full bg-white flex items-center justify-center shadow-md z-10 group-hover:translate-x-1 transition-transform duration-300 shrink-0">
+            <div className="w-6 h-6 sm:w-7 sm:h-7 lg:w-7 lg:h-7 rounded-full bg-white flex items-center justify-center shadow-md z-10 group-hover:translate-x-1 transition-transform duration-300 shrink-0">
               <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-4 lg:h-4 text-purple-800 stroke-[2.5]" />
             </div>
           </button>
 
           {/* Homa & Remedies Button */}
-          <button className="relative flex items-center justify-between pl-12 sm:pl-14 pr-3 py-2.5 rounded-full bg-gradient-to-r from-[#983800] via-[#c65104] to-[#ea6b06] hover:to-[#f2740d] transition-all duration-300 shadow-[0_10px_30px_rgba(198,81,4,0.3)] hover:shadow-[0_10px_35px_rgba(245,158,11,0.5)] border-[2px] border-amber-400 hover:scale-[1.03] w-full max-w-[260px] sm:max-w-[280px] md:max-w-[270px] lg:max-w-[290px] h-[56px] sm:h-[60px] lg:h-[64px] group ml-4 sm:ml-2 md:ml-0">
-            <div className="absolute left-[-16px] sm:left-[-18px] top-1/2 -translate-y-1/2 w-[56px] h-[56px] lg:w-[60px] lg:h-[60px] rounded-full border-[2.5px] border-amber-400 bg-gradient-to-b from-[#8f3a00] to-[#3a1500] flex items-center justify-center shadow-lg z-20 group-hover:scale-105 transition-transform duration-300">
-              <Flame className="w-7 h-7 lg:w-8 lg:h-8 text-orange-200 drop-shadow-[0_0_8px_rgba(245,158,11,0.8)] fill-orange-500/30" strokeWidth={1.5} />
+          <button className="relative flex items-center justify-between pl-12 sm:pl-14 pr-3 py-2.5 rounded-full bg-gradient-to-r from-[#983800] via-[#c65104] to-[#ea6b06] hover:to-[#f2740d] transition-all duration-300 shadow-[0_10px_30px_rgba(198,81,4,0.3)] hover:shadow-[0_10px_35px_rgba(245,158,11,0.5)] border-[2px] border-amber-400 hover:scale-[1.03] w-full max-w-[260px] sm:max-w-[280px] md:max-w-[270px] lg:max-w-[280px] h-[56px] sm:h-[60px] lg:h-[56px] group ml-4 sm:ml-2 md:ml-0">
+            <div className="absolute left-[-16px] sm:left-[-18px] top-1/2 -translate-y-1/2 w-[56px] h-[56px] lg:w-[56px] lg:h-[56px] rounded-full border-[2.5px] border-amber-400 bg-gradient-to-b from-[#8f3a00] to-[#3a1500] flex items-center justify-center shadow-lg z-20 group-hover:scale-105 transition-transform duration-300">
+              <Flame className="w-7 h-7 lg:w-7 lg:h-7 text-orange-200 drop-shadow-[0_0_8px_rgba(245,158,11,0.8)] fill-orange-500/30" strokeWidth={1.5} />
             </div>
-            <div className="flex flex-col items-start justify-center flex-grow pl-2 text-left">
-              <span className="font-serif text-white text-[13px] sm:text-[14px] lg:text-[15px] font-bold tracking-wide drop-shadow-md leading-tight whitespace-nowrap">
+            <div className="flex flex-col items-start justify-center flex-grow pl-2 lg:pl-1 text-left">
+              <span className="font-serif text-white text-[13px] sm:text-[14px] lg:text-[14px] font-bold tracking-wide drop-shadow-md leading-tight whitespace-nowrap">
                 Homa & Remedies
               </span>
-              <span className="font-sans text-[9px] sm:text-[10px] lg:text-[11px] text-amber-200/95 font-semibold tracking-wide mt-0.5">
+              <span className="font-sans text-[9px] sm:text-[10px] lg:text-[10px] text-orange-200/95 font-semibold tracking-wide mt-0.5">
                 Balance. Heal. Harmonize.
               </span>
             </div>
-            <div className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 rounded-full bg-white flex items-center justify-center shadow-md z-10 group-hover:translate-x-1 transition-transform duration-300 shrink-0">
-              <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-4 lg:h-4 text-orange-700 stroke-[2.5]" />
+            <div className="w-6 h-6 sm:w-7 sm:h-7 lg:w-7 lg:h-7 rounded-full bg-white flex items-center justify-center shadow-md z-10 group-hover:translate-x-1 transition-transform duration-300 shrink-0">
+              <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-4 lg:h-4 text-orange-800 stroke-[2.5]" />
             </div>
           </button>
         </div>
