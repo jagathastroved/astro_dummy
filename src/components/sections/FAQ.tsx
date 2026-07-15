@@ -39,7 +39,7 @@ export function FAQ() {
   const [openFaqId, setOpenFaqId] = useState<number | null>(null);
 
   return (
-    <section className="py-4 md:py-6 px-6 max-w-7xl mx-auto z-10 relative overflow-hidden" id="faq-section">
+    <section className="py-4 md:py-6 px-6 max-w-7xl mx-auto z-10 relative" id="faq-section">
 
       {/* Background ambient glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-[300px] bg-purple-500/5 dark:bg-purple-500/10 blur-[100px] rounded-full pointer-events-none" />
@@ -63,7 +63,7 @@ export function FAQ() {
           return (
             <div
               key={item.id}
-              className={`rounded-2xl border transition-all duration-300 overflow-hidden ${isOpen
+              className={`rounded-2xl border transition-colors duration-300 overflow-hidden ${isOpen
                 ? 'border-amber-500/30 bg-white dark:bg-[#1a1f3c] shadow-lg shadow-amber-500/5'
                 : 'border-black/5 dark:border-amber-500/40 dark:shadow-[0_0_15px_rgba(245,158,11,0.2)] bg-white dark:bg-[#110c1c] hover:border-amber-500/20 hover:bg-gray-50 dark:hover:bg-[#1a1f3c]'
                 }`}
