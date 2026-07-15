@@ -143,11 +143,14 @@ export function SpecialEvents() {
           title: item.title,
           image: item.image,
           mobileImage: item.mobileImage,
+          sources: [],
           link: '',
         }
-      ]
+      ],
+      originalData: item // Keep reference to original for text overlays if needed
     }))
   );
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -185,6 +188,7 @@ export function SpecialEvents() {
                     title,
                     image,
                     mobileImage: image,
+                    sources: [],
                     link,
                   };
                 });
@@ -193,15 +197,36 @@ export function SpecialEvents() {
                   id: index + 1,
                   isThreeBan: true,
                   banners,
+                  originalData: null
                 };
               } else {
                 const img = item.querySelector('img');
                 const anchor = item.querySelector('a');
-                const source = item.querySelector('picture source');
+                const picture = item.querySelector('picture');
+
+                let sources = [];
+                if (picture) {
+                  const sourceElements = picture.querySelectorAll('source');
+                  sourceElements.forEach(src => {
+                    sources.push({
+                      media: src.getAttribute('media') || '',
+                      srcSet: src.getAttribute('srcset') || ''
+                    });
+                  });
+                } else {
+                  // Fallback if no picture tag but we have the querySelector from original prompt
+                  const source = item.querySelector('picture source');
+                  if (source && source.getAttribute('srcset')) {
+                    sources.push({
+                      media: '(max-width: 767px)',
+                      srcSet: source.getAttribute('srcset') || ''
+                    });
+                  }
+                }
 
                 const title = img ? (img.getAttribute('alt') || img.getAttribute('title') || 'Special Event') : 'Special Event';
                 const image = img ? img.getAttribute('src') || '' : '';
-                const mobileImage = source ? source.getAttribute('srcset') || image : image;
+                const mobileImage = sources.length > 0 ? sources[0].srcSet : image;
                 const link = anchor ? anchor.getAttribute('href') || '' : '';
 
                 return {
@@ -212,15 +237,17 @@ export function SpecialEvents() {
                       title,
                       image,
                       mobileImage,
+                      sources,
                       link,
                     }
                   ],
+                  originalData: null
                 };
               }
             });
 
             setDisplayEvents(parsedEvents);
-            setCurrentIndex(0); // Reset to first item
+            setCurrentIndex(0);
           }
         }
       } catch (err: any) {
@@ -267,7 +294,6 @@ export function SpecialEvents() {
     return () => clearInterval(timer);
   }, [displayEvents]);
 
-  // Preload images to prevent visual flicker on first cycle
   useEffect(() => {
     displayEvents.forEach((event) => {
       event.banners.forEach((banner) => {
@@ -282,18 +308,18 @@ export function SpecialEvents() {
   }, [displayEvents]);
 
   return (
-    <section id="special-events" className="py-4 md:py-6 relative overflow-hidden transition-colors duration-500 z-10">
+    <section id="special-events" className="pt-4 pb-12 md:pt-6 md:pb-16 relative overflow-hidden transition-colors duration-500 z-10">
       <div className="max-w-[1600px] mx-auto px-4 md:px-8 relative z-10">
 
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10">
+        <div className="text-center max-w-4xl mx-auto mb-6 md:mb-5 lg:mb-4">
           <p className="text-amber-600 dark:text-amber-400 font-sans text-xs md:text-sm uppercase tracking-widest font-bold mb-3">
             LIVE THIS WEEK
           </p>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-midnight dark:text-cream leading-tight font-bold mb-4">
-            This Week's <em className="text-amber-600 dark:text-amber-400 italic">Special Rituals.</em>
+          <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-[3rem] text-midnight dark:text-cream leading-[1.1] font-black mb-4 md:mb-5 lg:mb-4 drop-shadow-sm tracking-tight">
+            This Week's <em className="text-amber-600 dark:text-amber-400 italic font-bold">Special Rituals.</em>
           </h2>
-          <p className="font-sans text-gray-500 dark:text-gray-400 text-sm md:text-base lg:text-lg leading-relaxed max-w-2xl mx-auto font-medium">
+          <p className="block font-sans text-gray-500 dark:text-gray-400 text-sm sm:text-base md:text-sm lg:text-base leading-relaxed max-w-2xl mx-auto font-medium px-4 md:px-2 md:mt-1">
             Performed live on the auspicious tithi — in your name, wherever you are.
           </p>
         </div>
@@ -305,7 +331,7 @@ export function SpecialEvents() {
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          <div className="overflow-hidden rounded-[2.5rem] bg-transparent transition-all duration-500 relative grid">
+          <div className="overflow-hidden rounded-[2.5rem] bg-[#FFF5E1] transition-all duration-500 relative grid">
             <AnimatePresence initial={false} custom={direction}>
               {displayEvents.length > 0 && (
                 <motion.div
@@ -325,40 +351,38 @@ export function SpecialEvents() {
                   }}
                 >
                   {displayEvents[currentIndex].isThreeBan ? (
-                    <div className="w-full flex gap-3 md:gap-4 justify-between items-center bg-[#faecd1] dark:bg-[#1a0b2e] p-3 md:p-4 rounded-[2.5rem] border border-amber-900/10 dark:border-white/10 shadow-sm dark:shadow-xl">
+                    <div className="w-full flex gap-3 md:gap-4 justify-between items-center bg-[#FFF5E1] rounded-[1.5rem] md:rounded-[2.5rem] border border-black/5 p-3 md:p-4 hover:border-[#facc15]/50 hover:shadow-[0_0_40px_rgba(250,204,21,0.2)] transition-all duration-500 group-hover/card:scale-[1.02]">
                       {displayEvents[currentIndex].banners.map((banner, idx) => (
                         <a
                           key={idx}
                           href={banner.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={`flex-1 ${idx === 1 ? 'hidden md:block' : idx === 2 ? 'hidden lg:block' : 'block'
-                            }`}
+                          className={`flex-1 ${idx === 1 ? 'hidden md:block' : idx === 2 ? 'hidden lg:block' : 'block'}`}
                           onClick={(e) => e.stopPropagation()}
                         >
                           <img
                             src={banner.image}
                             alt={banner.title}
-                            className="w-full h-auto object-contain rounded-[1.5rem] md:rounded-[2rem] border border-white/5 hover:border-[#facc15]/50 hover:shadow-[0_0_40px_rgba(250,204,21,0.2)] transition-all duration-500 hover:scale-[1.02]"
+                            className="w-full h-auto object-contain rounded-[1rem] md:rounded-[1.5rem] transition-all duration-500 hover:scale-[1.03] shadow-sm hover:shadow-md"
                           />
                         </a>
                       ))}
                     </div>
                   ) : (
                     <div className="w-full relative">
-                      {/* Mobile Image (Hidden on Desktop) */}
-                      <img
-                        src={displayEvents[currentIndex].banners[0].mobileImage}
-                        alt={displayEvents[currentIndex].banners[0].title}
-                        className="block md:hidden w-full h-auto object-contain rounded-[1.5rem] border border-white/5"
-                      />
-
-                      {/* Desktop Image (Hidden on Mobile) */}
-                      <img
-                        src={displayEvents[currentIndex].banners[0].image}
-                        alt={displayEvents[currentIndex].banners[0].title}
-                        className="hidden md:block w-full h-auto object-contain rounded-[2.5rem] border border-white/5 hover:border-[#facc15]/50 hover:shadow-[0_0_40px_rgba(250,204,21,0.2)] transition-all duration-500 group-hover/card:scale-[1.02]"
-                      />
+                      {/* Responsive Picture tag handling both Mobile, Tab and Desktop */}
+                      <picture>
+                        {displayEvents[currentIndex].banners[0].sources.map((src, i) => (
+                          <source key={i} media={src.media} srcSet={src.srcSet} />
+                        ))}
+                        {/* Fallback & Desktop Image */}
+                        <img
+                          src={displayEvents[currentIndex].banners[0].image}
+                          alt={displayEvents[currentIndex].banners[0].title}
+                          className="w-full h-auto object-contain rounded-[1.5rem] md:rounded-[2.5rem] bg-[#FFF5E1] border border-black/5 hover:border-[#facc15]/50 hover:shadow-[0_0_40px_rgba(250,204,21,0.2)] transition-all duration-500 group-hover/card:scale-[1.02]"
+                        />
+                      </picture>
                     </div>
                   )}
                 </motion.div>
@@ -366,22 +390,22 @@ export function SpecialEvents() {
             </AnimatePresence>
           </div>
 
-          {/* Navigation Buttons (Placed inside the card bounds) */}
+          {/* Navigation Buttons */}
           <button
             onClick={prevSlide}
-            className="absolute left-2 md:left-4 top-[40%] md:top-1/2 -translate-y-1/2 bg-black/50 border border-white/20 p-2 md:p-3 rounded-full text-white hover:bg-black/80 hover:scale-110 transition-all z-20 backdrop-blur-sm"
+            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-black/50 border border-white/20 p-2 md:p-3 rounded-full text-white hover:bg-black/80 hover:scale-110 transition-all z-20 backdrop-blur-sm"
           >
             <ChevronLeft className="w-4 h-4 md:w-5 md:h-5" />
           </button>
           <button
             onClick={nextSlide}
-            className="absolute right-2 md:right-4 top-[40%] md:top-1/2 -translate-y-1/2 bg-black/50 border border-white/20 p-2 md:p-3 rounded-full text-white hover:bg-black/80 hover:scale-110 transition-all z-20 backdrop-blur-sm"
+            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-black/50 border border-white/20 p-2 md:p-3 rounded-full text-white hover:bg-black/80 hover:scale-110 transition-all z-20 backdrop-blur-sm"
           >
             <ChevronRight className="w-4 h-4 md:w-5 md:h-5" />
           </button>
 
           {/* Dots Indicator */}
-          <div className="absolute bottom-1.5 md:bottom-8 left-0 right-0 flex justify-center gap-2 z-20 pointer-events-none">
+          <div className="absolute bottom-4 md:bottom-8 left-0 right-0 flex justify-center gap-2 z-20 pointer-events-none">
             {displayEvents.map((_, idx) => (
               <button
                 key={idx}
@@ -395,54 +419,43 @@ export function SpecialEvents() {
           </div>
         </div>
 
-        {/* Premium Static Theme CTA Bar - Placed BELOW the banner */}
-        <div className="w-full bg-transparent pb-6 pt-4 mt-4 md:mt-8">
-          <div className="w-11/12 max-w-4xl mx-auto relative group">
-            {/* Ambient Background Glow Effect (Adaptive Glow) */}
-            <div
-              className="absolute -inset-0.5 rounded-[1.25rem] blur opacity-55 group-hover:opacity-75 transition-all duration-700 bg-gradient-to-r from-[#7c3aed] via-[#ec4899] to-[#7c3aed] dark:from-[#a855f7] dark:via-[#facc15] dark:to-[#a855f7]"
-            ></div>
-
-            <div
-              className="relative rounded-2xl p-4 lg:p-5 flex flex-col lg:flex-row items-center justify-between gap-4 border border-white/10 dark:border-purple-500/30 overflow-hidden bg-gradient-to-r from-[#7c3aed] via-[#a855f7] to-[#ec4899] dark:from-[#2e1065] dark:via-[#581c87] dark:to-[#2e1065] premium-animated-banner"
-            >
-              {/* Subtle top shimmer line */}
-              <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
-
-              <div className="text-center lg:text-left z-10 px-2">
-                <h3 className="font-extrabold text-base md:text-lg lg:text-xl uppercase tracking-wider text-white dark:text-[#facc15] drop-shadow-sm font-sans">
-                  Divine Guidance & Remedies
-                </h3>
-                <p className="text-xs md:text-sm font-semibold text-purple-100 dark:text-purple-200/90 mt-1 tracking-wide">
-                  Talk to astrologers or book homas instantly
-                </p>
-              </div>
-
-              <div className="flex flex-col sm:flex-row justify-center gap-3 w-full lg:w-auto z-10">
-                {/* Talk to Astrologer Button */}
-                <button className="animated-btn flex-1 sm:flex-none flex items-center justify-center gap-1.5 bg-white text-[#7c3aed] dark:text-[#2e1065] px-5 py-2.5 rounded-full font-bold text-xs md:text-sm hover:bg-gray-50 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5 border border-transparent">
-                  <span className="relative flex h-2 w-2 z-30">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                  </span>
-                  <PhoneCall className="w-4 h-4 z-30" />
-                  <span className="z-30">Talk to Astrologer</span>
-                </button>
-
-                {/* Homa & Remedies Button */}
-                <button className="animated-btn flex-1 sm:flex-none flex items-center justify-center gap-1.5 bg-amber-400 dark:bg-amber-500 text-slate-900 dark:text-white px-5 py-2.5 rounded-full font-bold text-xs md:text-sm hover:bg-amber-300 dark:hover:bg-amber-600 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5 border border-amber-300/30">
-                  <Flame className="w-4 h-4 z-30" />
-                  <span className="z-30">Homa & Remedies</span>
-                </button>
-              </div>
+        {/* Premium Static Theme CTA Bar */}
+        <div className="w-full flex flex-col md:flex-row justify-center items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10 mt-4 sm:mt-6 lg:mt-4 mb-4 lg:mb-2 px-2 sm:px-6 md:px-10 lg:px-8">
+          {/* Talk to Astrology Button */}
+          <button className="relative flex items-center justify-between pl-12 sm:pl-14 pr-3 py-2.5 rounded-full bg-gradient-to-r from-[#20033b] via-[#3a0c6a] to-[#510e8d] hover:to-[#5c0fa0] transition-all duration-300 shadow-[0_10px_30px_rgba(58,12,106,0.3)] hover:shadow-[0_10px_35px_rgba(176,82,255,0.5)] border-[2px] border-amber-400 hover:scale-[1.03] w-full max-w-[260px] sm:max-w-[280px] md:max-w-[270px] lg:max-w-[290px] h-[56px] sm:h-[60px] lg:h-[64px] group ml-4 sm:ml-2 md:ml-4 lg:ml-0">
+            <div className="absolute left-[-16px] sm:left-[-18px] top-1/2 -translate-y-1/2 w-[56px] h-[56px] lg:w-[60px] lg:h-[60px] rounded-full border-[2.5px] border-amber-400 bg-gradient-to-b from-[#2a0854] to-[#120224] flex items-center justify-center shadow-lg z-20 group-hover:scale-105 transition-transform duration-300">
+              <PhoneCall className="w-7 h-7 lg:w-8 lg:h-8 text-purple-300 drop-shadow-[0_0_8px_rgba(168,85,247,0.8)] fill-purple-300/20" strokeWidth={1.5} />
             </div>
-          </div>
-        </div>
+            <div className="flex flex-col items-start justify-center flex-grow pl-2 text-left">
+              <span className="font-serif text-white text-[13px] sm:text-[14px] lg:text-[15px] font-bold tracking-wide drop-shadow-md leading-tight whitespace-nowrap">
+                Talk to Astrologer
+              </span>
+              <span className="font-sans text-[9px] sm:text-[10px] lg:text-[11px] text-amber-200/95 font-semibold tracking-wide mt-0.5">
+                Get Answers. Gain Clarity.
+              </span>
+            </div>
+            <div className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 rounded-full bg-white flex items-center justify-center shadow-md z-10 group-hover:translate-x-1 transition-transform duration-300 shrink-0">
+              <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-4 lg:h-4 text-purple-800 stroke-[2.5]" />
+            </div>
+          </button>
 
-        <div className="text-center mt-6">
-          <a href="#" className="inline-flex items-center gap-2 text-amber-600 font-sans text-sm uppercase tracking-widest font-semibold hover:gap-3 transition-all">
-            View all special events <ArrowRight className="w-4 h-4" />
-          </a>
+          {/* Homa & Remedies Button */}
+          <button className="relative flex items-center justify-between pl-12 sm:pl-14 pr-3 py-2.5 rounded-full bg-gradient-to-r from-[#983800] via-[#c65104] to-[#ea6b06] hover:to-[#f2740d] transition-all duration-300 shadow-[0_10px_30px_rgba(198,81,4,0.3)] hover:shadow-[0_10px_35px_rgba(245,158,11,0.5)] border-[2px] border-amber-400 hover:scale-[1.03] w-full max-w-[260px] sm:max-w-[280px] md:max-w-[270px] lg:max-w-[290px] h-[56px] sm:h-[60px] lg:h-[64px] group ml-4 sm:ml-2 md:ml-0">
+            <div className="absolute left-[-16px] sm:left-[-18px] top-1/2 -translate-y-1/2 w-[56px] h-[56px] lg:w-[60px] lg:h-[60px] rounded-full border-[2.5px] border-amber-400 bg-gradient-to-b from-[#8f3a00] to-[#3a1500] flex items-center justify-center shadow-lg z-20 group-hover:scale-105 transition-transform duration-300">
+              <Flame className="w-7 h-7 lg:w-8 lg:h-8 text-orange-200 drop-shadow-[0_0_8px_rgba(245,158,11,0.8)] fill-orange-500/30" strokeWidth={1.5} />
+            </div>
+            <div className="flex flex-col items-start justify-center flex-grow pl-2 text-left">
+              <span className="font-serif text-white text-[13px] sm:text-[14px] lg:text-[15px] font-bold tracking-wide drop-shadow-md leading-tight whitespace-nowrap">
+                Homa & Remedies
+              </span>
+              <span className="font-sans text-[9px] sm:text-[10px] lg:text-[11px] text-amber-200/95 font-semibold tracking-wide mt-0.5">
+                Balance. Heal. Harmonize.
+              </span>
+            </div>
+            <div className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 rounded-full bg-white flex items-center justify-center shadow-md z-10 group-hover:translate-x-1 transition-transform duration-300 shrink-0">
+              <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-4 lg:h-4 text-orange-700 stroke-[2.5]" />
+            </div>
+          </button>
         </div>
       </div>
     </section>
