@@ -61,6 +61,7 @@ export function PremiumPanchang() {
   const [isSearching, setIsSearching] = React.useState(false);
   const [isValidCity, setIsValidCity] = React.useState(true); // Default Chennai is valid
   const [showSuggestions, setShowSuggestions] = React.useState(false);
+  const [showCountrySuggestions, setShowCountrySuggestions] = React.useState(false);
   const [selectedCityData, setSelectedCityData] = React.useState<{ name: string; country: string; latitude: number; longitude: number; timezone: string } | null>({
     name: "Chennai",
     country: "India",
@@ -463,7 +464,7 @@ export function PremiumPanchang() {
                     {isCalendarOpen && (
                       <>
                         <div className="fixed inset-0 z-40" onClick={() => setIsCalendarOpen(false)} />
-                        <div className="absolute left-0 mt-2 w-64 bg-white dark:bg-[#0c0f24] rounded-2xl border border-black/10 dark:border-amber-500/30 shadow-2xl p-3.5 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                        <div className="absolute left-1/2 -translate-x-1/2 sm:translate-x-0 sm:left-0 mt-2 w-64 bg-white dark:bg-[#0c0f24] rounded-2xl border border-black/10 dark:border-amber-500/30 shadow-2xl p-3.5 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                           <div className="flex justify-between items-center mb-3">
                             <button
                               type="button"
@@ -548,25 +549,46 @@ export function PremiumPanchang() {
                     {isLocationOpen && (
                       <>
                         <div className="fixed inset-0 z-40" onClick={() => setIsLocationOpen(false)} />
-                        <div className="absolute left-0 mt-2 w-64 bg-white dark:bg-[#0c0f24] rounded-2xl border border-black/10 dark:border-amber-500/30 shadow-2xl p-4 z-50 flex flex-col gap-3 animate-in fade-in slide-in-from-top-2 duration-200">
+                        <div className="absolute left-1/2 -translate-x-1/2 sm:translate-x-0 sm:left-0 mt-2 w-64 bg-white dark:bg-[#0c0f24] rounded-2xl border border-black/10 dark:border-amber-500/30 shadow-2xl p-4 z-50 flex flex-col gap-3 animate-in fade-in slide-in-from-top-2 duration-200">
                           <h4 className="text-[12px] font-bold text-slate-500 dark:text-slate-400 font-sans">Update Location</h4>
 
                           <div className="flex flex-col gap-1">
                             <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase">Country</label>
-                            <select
-                              value={tempCountry}
-                              onChange={(e) => {
-                                setTempCountry(e.target.value);
-                                setTempCity('');
-                                setIsValidCity(false);
-                              }}
-                              className="w-full text-xs bg-slate-50 dark:bg-black/20 border border-black/10 dark:border-white/10 rounded-lg p-2 text-slate-700 dark:text-cream focus:outline-none focus:border-indigo"
-                            >
-                              <option value="">--Select Country--</option>
-                              {Country.getAllCountries().map((c) => (
-                                <option key={c.isoCode} value={c.isoCode}>{c.name}</option>
-                              ))}
-                            </select>
+                            <div className="relative">
+                              <button
+                                type="button"
+                                onClick={() => setShowCountrySuggestions(!showCountrySuggestions)}
+                                className="w-full text-left text-xs bg-slate-50 dark:bg-black/20 border border-black/10 dark:border-white/10 rounded-lg p-2 text-slate-700 dark:text-cream focus:outline-none focus:border-indigo flex justify-between items-center"
+                              >
+                                {tempCountry ? Country.getCountryByCode(tempCountry)?.name : '--Select Country--'}
+                                <span className="text-[10px] opacity-50">▼</span>
+                              </button>
+                              <AnimatePresence>
+                                {showCountrySuggestions && (
+                                  <motion.ul
+                                    initial={{ opacity: 0, y: 5 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: 5 }}
+                                    className="absolute left-0 right-0 top-full z-50 mt-1 max-h-48 overflow-y-auto bg-white dark:bg-[#0c0f24] border border-black/10 dark:border-amber-500/30 rounded-lg shadow-xl py-1 text-xs"
+                                  >
+                                    {Country.getAllCountries().map((c) => (
+                                      <li
+                                        key={c.isoCode}
+                                        onClick={() => {
+                                          setTempCountry(c.isoCode);
+                                          setTempCity('');
+                                          setIsValidCity(false);
+                                          setShowCountrySuggestions(false);
+                                        }}
+                                        className="px-3 py-1.5 text-left text-slate-700 dark:text-slate-350 font-medium hover:bg-slate-100 dark:hover:bg-white/10 cursor-pointer transition-colors"
+                                      >
+                                        {c.name}
+                                      </li>
+                                    ))}
+                                  </motion.ul>
+                                )}
+                              </AnimatePresence>
+                            </div>
                           </div>
 
                           <div className="flex flex-col gap-1 relative">
