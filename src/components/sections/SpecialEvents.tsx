@@ -180,9 +180,9 @@ interface ApiEventItem {
 /* Base Section & Headers */
 const SECTION_WRAPPER_STYLES = "pt-2 md:pt-4 pb-6 md:pb-8 relative overflow-hidden transition-colors duration-500 z-10";
 const CONTENT_WRAPPER_STYLES = "max-w-[1600px] mx-auto px-4 md:px-8 relative z-10";
-const HEADER_CONTAINER_STYLES = "text-center max-w-4xl mx-auto mb-6 md:mb-5 lg:mb-3";
+const HEADER_CONTAINER_STYLES = "text-center w-full mx-auto mb-6 md:mb-5 lg:mb-3";
 const HEADER_SUBTITLE_STYLES = "text-amber-600 dark:text-amber-400 font-sans text-xs md:text-sm uppercase tracking-widest font-bold mb-3";
-const HEADER_TITLE_STYLES = "font-serif text-4xl sm:text-5xl md:text-6xl lg:text-[3rem] text-midnight dark:text-cream leading-[1.1] font-black mb-4 md:mb-5 lg:mb-4 drop-shadow-sm tracking-tight";
+const HEADER_TITLE_STYLES = "font-serif text-4xl sm:text-5xl md:text-5xl lg:text-[3rem] text-midnight dark:text-cream leading-[1.1] font-black mb-4 md:mb-5 lg:mb-4 drop-shadow-sm tracking-tight lg:whitespace-nowrap";
 const HEADER_DESC_STYLES = "block font-sans text-gray-500 dark:text-gray-400 text-sm sm:text-base md:text-sm lg:text-base leading-relaxed max-w-2xl mx-auto font-medium px-4 md:px-2 md:mt-1";
 
 /* Carousel Container */
@@ -233,6 +233,32 @@ const getMultiBannerVisibilityStyles = (index: number): string => {
  */
 const getPaginationDotStyles = (isActive: boolean): string => {
   return `h-1.5 rounded-full transition-all duration-300 pointer-events-auto ${isActive ? 'bg-amber-400 w-6' : 'bg-white/30 hover:bg-white/50 w-1.5'}`;
+};
+
+const preloadImages = async (events: ApiEventItem[]) => {
+  const promises = events.flatMap((event) =>
+    event.banners.flatMap((banner) => {
+      const images = [banner.image];
+
+      if (banner.mobileImage) {
+        images.push(banner.mobileImage);
+      }
+
+      return images.map(
+        (src) =>
+          new Promise<void>((resolve) => {
+            const img = new Image();
+
+            img.onload = () => resolve();
+            img.onerror = () => resolve();
+
+            img.src = src;
+          })
+      );
+    })
+  );
+
+  await Promise.all(promises);
 };
 
 /**
@@ -344,14 +370,19 @@ export function SpecialEvents() {
               }
             });
 
+            await preloadImages(parsedEvents);
             setDisplayEvents(parsedEvents);
             setCurrentIndex(0);
+            setIsLoading(false);
+          } else {
+            setIsLoading(false);
           }
+        } else {
+          setIsLoading(false);
         }
       } catch (err: any) {
         console.error('Error fetching special events:', err);
         setError(err.message || 'Failed to fetch');
-      } finally {
         setIsLoading(false);
       }
     };
@@ -410,25 +441,13 @@ export function SpecialEvents() {
     return () => clearInterval(timer);
   }, [displayEvents]);
 
-  /**
-   * Preload images to ensure smooth transitions.
-   */
-  useEffect(() => {
-    displayEvents.forEach((event) => {
-      event.banners.forEach((banner) => {
-        const imgDesktop = new Image();
-        imgDesktop.src = banner.image;
-        if (banner.mobileImage) {
-          const imgMobile = new Image();
-          imgMobile.src = banner.mobileImage;
-        }
-      });
-    });
-  }, [displayEvents]);
+  // Image preloading is now handled in fetchEvents
+
+  const ready = !isLoading && displayEvents.length > 0;
 
   return (
     <section id="special-events" className={SECTION_WRAPPER_STYLES}>
-      <div className={CONTENT_WRAPPER_STYLES}>
+      <div className={CONTENT_WRAPPER_STYLES} >
 
         {/* --- Header --- */}
         <div className={HEADER_CONTAINER_STYLES}>
@@ -436,10 +455,10 @@ export function SpecialEvents() {
             LIVE THIS WEEK
           </p>
           <h2 className={HEADER_TITLE_STYLES}>
-            This Week's <em className="text-amber-600 dark:text-amber-400 italic font-bold">Special Rituals.</em>
+            Current Divine Powertimes & <em className="text-amber-600 dark:text-amber-400 italic font-bold">Special Events.</em>
           </h2>
-          <p className={HEADER_DESC_STYLES}>
-            Performed live on the auspicious tithi — in your name, wherever you are.
+          <p className={HEADER_DESC_STYLES} style={{ maxWidth: '100%' }}>
+            Explore current AstroVed programs timed to sacred dates, deity blessings, temple traditions, and remedy windows.
           </p>
         </div>
 
@@ -451,7 +470,7 @@ export function SpecialEvents() {
           onTouchEnd={handleTouchEnd}
         >
           <div className={CAROUSEL_BOX_STYLES}>
-            {isLoading ? (
+            {!ready ? (
 
               /* Loading Indicator */
               <div className={LOADING_CONTAINER_STYLES}>
