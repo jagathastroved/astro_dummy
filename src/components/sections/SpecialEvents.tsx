@@ -451,9 +451,9 @@ export function SpecialEvents() {
 
         {/* --- Header --- */}
         <div className={HEADER_CONTAINER_STYLES}>
-          <p className={HEADER_SUBTITLE_STYLES}>
+          {/* <p className={HEADER_SUBTITLE_STYLES}>
             LIVE THIS WEEK
-          </p>
+          </p> */}
           <h2 className={HEADER_TITLE_STYLES}>
             Current Divine Powertimes & <em className="text-amber-600 dark:text-amber-400 italic font-bold">Special Events.</em>
           </h2>
