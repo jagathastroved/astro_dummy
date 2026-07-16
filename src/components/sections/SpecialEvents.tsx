@@ -328,62 +328,90 @@ export function SpecialEvents() {
                 </div>
               </div>
             ) : (
-              <AnimatePresence initial={false} custom={direction}>
-                {displayEvents.length > 0 && (
-                  <motion.div
-                    key={currentIndex}
-                    initial={{ opacity: 0, scale: 0.98 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 1.02 }}
-                    transition={{ duration: 0.8, ease: "easeInOut" }}
-                    className="w-full cursor-pointer flex flex-col items-center col-start-1 row-start-1"
-                    onClick={() => {
-                      if (!displayEvents[currentIndex].isThreeBan) {
-                        const link = displayEvents[currentIndex].banners[0]?.link;
-                        if (link) {
-                          window.open(link, '_blank', 'noopener,noreferrer');
-                        }
-                      }
-                    }}
-                  >
-                    {displayEvents[currentIndex].isThreeBan ? (
-                      <div className="w-full flex gap-3 md:gap-4 justify-between items-center">
-                        {displayEvents[currentIndex].banners.map((banner, idx) => (
-                          <a
-                            key={idx}
-                            href={banner.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`flex-1 ${idx === 1 ? 'hidden md:block' : idx === 2 ? 'hidden lg:block' : 'block'}`}
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <img
-                              src={banner.image}
-                              alt={banner.title}
-                              className="w-full h-auto object-contain rounded-[1rem] md:rounded-[1.5rem] transition-all duration-500 hover:scale-[1.03] shadow-sm hover:shadow-md"
-                            />
-                          </a>
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="w-full relative">
-                        {/* Responsive Picture tag handling both Mobile, Tab and Desktop */}
-                        <picture>
-                          {displayEvents[currentIndex].banners[0].sources.map((src, i) => (
-                            <source key={i} media={src.media} srcSet={src.srcSet} />
+              <>
+                {/* Hidden placeholders to lock container height to the tallest slide */}
+                <div className="col-start-1 row-start-1 grid invisible pointer-events-none" aria-hidden="true">
+                  {displayEvents.map((event, i) => (
+                    <div key={`hidden-${i}`} className="col-start-1 row-start-1 w-full flex items-center">
+                      {event.isThreeBan ? (
+                        <div className="w-full flex gap-3 md:gap-4 justify-between items-center">
+                          {event.banners.map((banner: any, idx: number) => (
+                            <div key={idx} className={`flex-1 ${idx === 1 ? 'hidden md:block' : idx === 2 ? 'hidden lg:block' : 'block'}`}>
+                              <img src={banner.image} className="w-full h-auto object-contain rounded-[1rem] md:rounded-[1.5rem]" alt="" />
+                            </div>
                           ))}
-                          {/* Fallback & Desktop Image */}
-                          <img
-                            src={displayEvents[currentIndex].banners[0].image}
-                            alt={displayEvents[currentIndex].banners[0].title}
-                            className="w-full h-auto object-contain rounded-[1.5rem] md:rounded-[2.5rem] bg-[#FFF5E1] border border-black/5 hover:border-[#facc15]/50 hover:shadow-[0_0_40px_rgba(250,204,21,0.2)] transition-all duration-500 group-hover/card:scale-[1.02]"
-                          />
-                        </picture>
-                      </div>
-                    )}
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                        </div>
+                      ) : (
+                        <div className="w-full relative">
+                          <picture>
+                            {event.banners[0].sources.map((src: any, srcIdx: number) => (
+                              <source key={srcIdx} media={src.media} srcSet={src.srcSet} />
+                            ))}
+                            <img src={event.banners[0].image} className="w-full h-auto object-contain rounded-[1.5rem] md:rounded-[2.5rem]" alt="" />
+                          </picture>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                <AnimatePresence initial={false} custom={direction}>
+                  {displayEvents.length > 0 && (
+                    <motion.div
+                      key={currentIndex}
+                      initial={{ opacity: 0, scale: 0.98 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 1.02 }}
+                      transition={{ duration: 0.8, ease: "easeInOut" }}
+                      className="w-full h-full cursor-pointer flex flex-col items-center justify-center col-start-1 row-start-1"
+                      onClick={() => {
+                        if (!displayEvents[currentIndex].isThreeBan) {
+                          const link = displayEvents[currentIndex].banners[0]?.link;
+                          if (link) {
+                            window.open(link, '_blank', 'noopener,noreferrer');
+                          }
+                        }
+                      }}
+                    >
+                      {displayEvents[currentIndex].isThreeBan ? (
+                        <div className="w-full flex gap-3 md:gap-4 justify-between items-center">
+                          {displayEvents[currentIndex].banners.map((banner: any, idx: number) => (
+                            <a
+                              key={idx}
+                              href={banner.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={`flex-1 ${idx === 1 ? 'hidden md:block' : idx === 2 ? 'hidden lg:block' : 'block'}`}
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <img
+                                src={banner.image}
+                                alt={banner.title}
+                                className="w-full h-auto object-contain rounded-[1rem] md:rounded-[1.5rem] transition-all duration-500 hover:scale-[1.03] shadow-sm hover:shadow-md"
+                              />
+                            </a>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="w-full relative">
+                          {/* Responsive Picture tag handling both Mobile, Tab and Desktop */}
+                          <picture>
+                            {displayEvents[currentIndex].banners[0].sources.map((src: any, i: number) => (
+                              <source key={i} media={src.media} srcSet={src.srcSet} />
+                            ))}
+                            {/* Fallback & Desktop Image */}
+                            <img
+                              src={displayEvents[currentIndex].banners[0].image}
+                              alt={displayEvents[currentIndex].banners[0].title}
+                              className="w-full h-auto object-contain rounded-[1.5rem] md:rounded-[2.5rem] bg-[#FFF5E1] border border-black/5 hover:border-[#facc15]/50 hover:shadow-[0_0_40px_rgba(250,204,21,0.2)] transition-all duration-500 group-hover/card:scale-[1.02]"
+                            />
+                          </picture>
+                        </div>
+                      )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </>
             )}
           </div>
 

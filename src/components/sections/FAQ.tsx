@@ -42,7 +42,7 @@ export function FAQ() {
     <section className="py-4 md:py-6 px-6 max-w-7xl mx-auto z-10 relative" id="faq-section">
 
       {/* Background ambient glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-[300px] bg-purple-500/5 dark:bg-purple-500/10 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-[300px] bg-purple-500/5 dark:bg-purple-500/10 blur-[100px] rounded-full pointer-events-none transform-gpu translate-z-0" />
 
       <div className="text-center max-w-3xl mx-auto mb-8 relative z-10">
         {/* <span className="font-2xl uppercase tracking-[0.25em] text-purple-600 dark:text-purple-400 font-bold block mb-3">
@@ -63,7 +63,7 @@ export function FAQ() {
           return (
             <div
               key={item.id}
-              className={`rounded-2xl border transition-colors duration-300 overflow-hidden ${isOpen
+              className={`rounded-2xl border transition-colors duration-300 overflow-hidden transform-gpu translate-z-0 ${isOpen
                 ? 'border-amber-500/30 bg-white dark:bg-[#1a1f3c] shadow-lg shadow-amber-500/5'
                 : 'border-black/5 dark:border-amber-500/40 dark:shadow-[0_0_15px_rgba(245,158,11,0.2)] bg-white dark:bg-[#110c1c] hover:border-amber-500/20 hover:bg-gray-50 dark:hover:bg-[#1a1f3c]'
                 }`}
@@ -75,7 +75,7 @@ export function FAQ() {
                 <span className={`font-sans text-sm sm:text-base tracking-wide font-medium transition-colors ${isOpen ? 'text-amber-700 dark:text-amber-400' : 'text-midnight dark:text-cream'}`}>
                   {item.q}
                 </span>
-                <span className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${isOpen ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 rotate-45' : 'bg-black/5 dark:bg-white/5 text-gray-400 group-hover:bg-amber-500/10 group-hover:text-amber-500'}`}>
+                <span className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-transform transition-colors duration-300 transform-gpu ${isOpen ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 rotate-45' : 'bg-black/5 dark:bg-white/5 text-gray-400 group-hover:bg-amber-500/10 group-hover:text-amber-500'}`}>
                   <Plus className="w-4 h-4" />
                 </span>
               </button>
@@ -87,6 +87,7 @@ export function FAQ() {
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    className="overflow-hidden transform-gpu will-change-[height,opacity]"
                   >
                     <div className="px-6 pb-6 pt-2 border-t border-black/5 dark:border-amber-500/40 dark:shadow-[0_0_15px_rgba(245,158,11,0.2)]">
                       <p className="font-body text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light">
