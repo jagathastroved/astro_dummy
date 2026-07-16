@@ -1,15 +1,68 @@
-import React from 'react';
 import { scrollToSection } from '../../utils/scroll';
 
+/** --- Data Definitions --- */
+
+const QUICK_LINKS = [
+  { label: 'Timing Check', targetId: 'timing-check' },
+  { label: 'Live Transits', targetId: 'live-moments' },
+  { label: 'Our Guidance', targetId: 'guidance-services' },
+  { label: 'Daily Horoscope', targetId: 'daily-widget' },
+  { label: 'FAQ', targetId: 'faq-section' },
+  { label: 'Membership', targetId: 'membership' }
+];
+
+const SUPPORT_LINKS = [
+  { label: 'support@astroved.com', href: 'mailto:support@astroved.com' },
+  { label: 'Offline Payment', href: '#' },
+  { label: 'Contact Us', href: '#' },
+  { label: 'Feedback', href: '#' },
+  { label: 'Site Map', href: '#' }
+];
+
+const CONTACT_INFO = [
+  { title: 'Customer Care', lines: ['+91 9677391108', '+91 44 43419898'] },
+  { title: 'Toll Free', lines: ['1800 102 9098'] },
+  { title: 'USA Contact', lines: ['+1 412-927 3625'] },
+  { title: 'Whatsapp', lines: ['+91 9677391109'] }
+];
+
+/**
+ * Returns the base Tailwind CSS classes for the main footer container.
+ */
+const getFooterBaseStyles = (): string => {
+  return "relative z-10 bg-gradient-to-br from-ivory via-cream to-amber-50/30 dark:bg-gradient-to-br dark:from-[#0a0514] dark:via-[#1a0b2e] dark:to-[#0a0e17] backdrop-blur-xl border-t border-purple/10 dark:border-amber-500/40 dark:shadow-[0_0_15px_rgba(245,158,11,0.2)] py-8 md:py-8 px-6 transition-all duration-500 overflow-hidden";
+};
+
+/**
+ * Returns the shared Tailwind CSS classes for footer section headings.
+ */
+const getHeadingStyles = (): string => {
+  return "font-sans text-[13px] font-bold uppercase tracking-[0.1em] text-midnight dark:text-cream";
+};
+
+/**
+ * Returns the shared Tailwind CSS classes for standard footer text links.
+ */
+const getLinkStyles = (): string => {
+  return "hover:text-indigo dark:hover:text-gold transition-colors text-left";
+};
+
+/**
+ * Footer Component
+ * 
+ * Renders the global footer containing brand information, quick navigation links,
+ * support links, contact details, and corporate office address.
+ */
 export function Footer() {
   return (
-    <footer className="relative z-10 bg-gradient-to-br from-ivory via-cream to-amber-50/30 dark:bg-gradient-to-br dark:from-[#0a0514] dark:via-[#1a0b2e] dark:to-[#0a0e17] backdrop-blur-xl border-t border-purple/10 dark:border-amber-500/40 dark:shadow-[0_0_15px_rgba(245,158,11,0.2)] py-8 md:py-8 px-6 transition-all duration-500 overflow-hidden">
+    <footer className={getFooterBaseStyles()}>
 
-      {/* Subtle background glow effect */}
+      {/* --- Ambient Background Glow --- */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-purple/5 dark:bg-gold/5 rounded-[100%] blur-[100px] pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-12 gap-x-4 gap-y-6 md:gap-6 lg:gap-12 mb-6 md:mb-8">
-        {/* Logo & claim column */}
+
+        {/* --- Logo & Brand Column Section --- */}
         <div className="col-span-2 md:col-span-3 lg:col-span-3 space-y-3 md:space-y-4">
           <div className="flex items-center gap-4">
             <div className="bg-white/50 dark:bg-transparent p-2 rounded-xl dark:rounded-none shadow-sm dark:shadow-none border border-purple/5 dark:border-none transition-all">
@@ -31,62 +84,57 @@ export function Footer() {
           </p>
         </div>
 
-        {/* QUICK LINKS */}
+        {/* --- Quick Links Section --- */}
         <div className="col-span-1 lg:col-span-2 space-y-3 md:space-y-4">
-          <h4 className="font-sans text-[13px] font-bold uppercase tracking-[0.1em] text-midnight dark:text-cream">Explore</h4>
+          <h4 className={getHeadingStyles()}>Explore</h4>
           <ul className="space-y-2 text-[13px] text-slate-600 dark:text-slate-400 font-medium">
-            <li><button onClick={() => scrollToSection('timing-check')} className="hover:text-indigo dark:hover:text-gold transition-colors text-left">Timing Check</button></li>
-            <li><button onClick={() => scrollToSection('live-moments')} className="hover:text-indigo dark:hover:text-gold transition-colors text-left">Live Transits</button></li>
-            <li><button onClick={() => scrollToSection('guidance-services')} className="hover:text-indigo dark:hover:text-gold transition-colors text-left">Our Guidance</button></li>
-            <li><button onClick={() => scrollToSection('daily-widget')} className="hover:text-indigo dark:hover:text-gold transition-colors text-left">Daily Horoscope</button></li>
-            <li><button onClick={() => scrollToSection('faq-section')} className="hover:text-indigo dark:hover:text-gold transition-colors text-left">FAQ</button></li>
-            <li><button onClick={() => scrollToSection('membership')} className="hover:text-indigo dark:hover:text-gold transition-colors text-left">Membership</button></li>
+            {QUICK_LINKS.map((linkData, linkIndex) => (
+              <li key={linkIndex}>
+                <button
+                  onClick={() => scrollToSection(linkData.targetId)}
+                  className={getLinkStyles()}
+                >
+                  {linkData.label}
+                </button>
+              </li>
+            ))}
           </ul>
         </div>
 
-        {/* SUPPORT */}
+        {/* --- Support Links Section --- */}
         <div className="col-span-1 lg:col-span-2 space-y-3 md:space-y-4">
-          <h4 className="font-sans text-[13px] font-bold uppercase tracking-[0.1em] text-midnight dark:text-cream">Support</h4>
+          <h4 className={getHeadingStyles()}>Support</h4>
           <ul className="space-y-2 text-[13px] text-slate-600 dark:text-slate-400 font-medium">
-            <li><a href="mailto:support@astroved.com" className="hover:text-indigo dark:hover:text-gold transition-colors">support@astroved.com</a></li>
-            <li><a href="#" className="hover:text-indigo dark:hover:text-gold transition-colors">Offline Payment</a></li>
-            <li><a href="#" className="hover:text-indigo dark:hover:text-gold transition-colors">Contact Us</a></li>
-            <li><a href="#" className="hover:text-indigo dark:hover:text-gold transition-colors">Feedback</a></li>
-            <li><a href="#" className="hover:text-indigo dark:hover:text-gold transition-colors">Site Map</a></li>
+            {SUPPORT_LINKS.map((supportItem, supportIndex) => (
+              <li key={supportIndex}>
+                <a href={supportItem.href} className={getLinkStyles()}>
+                  {supportItem.label}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
 
-        {/* CONNECT */}
+        {/* --- Contact Details Section --- */}
         <div className="col-span-2 md:col-span-1 lg:col-span-2 space-y-3 md:space-y-4">
-          <h4 className="font-sans text-[13px] font-bold uppercase tracking-[0.1em] text-midnight dark:text-cream">Connect</h4>
-
+          <h4 className={getHeadingStyles()}>Connect</h4>
           <div className="grid grid-cols-2 md:grid-cols-1 gap-4 text-[13px] text-slate-600 dark:text-slate-400 font-medium">
-            <div>
-              <p className="text-midnight dark:text-cream font-bold mb-1">Customer Care</p>
-              <p>+91 9677391108</p>
-              <p>+91 44 43419898</p>
-            </div>
-
-            <div>
-              <p className="text-midnight dark:text-cream font-bold mb-1">Toll Free</p>
-              <p>1800 102 9098</p>
-            </div>
-
-            <div>
-              <p className="text-midnight dark:text-cream font-bold mb-1">USA Contact</p>
-              <p>+1 412-927 3625</p>
-            </div>
-
-            <div>
-              <p className="text-midnight dark:text-cream font-bold mb-1">Whatsapp</p>
-              <p>+91 9677391109</p>
-            </div>
+            {CONTACT_INFO.map((contactBlock, blockIndex) => (
+              <div key={blockIndex}>
+                <p className="text-midnight dark:text-cream font-bold mb-1">
+                  {contactBlock.title}
+                </p>
+                {contactBlock.lines.map((textLine, lineIndex) => (
+                  <p key={lineIndex}>{textLine}</p>
+                ))}
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* ADDRESS */}
+        {/* --- Corporate Office Address Section --- */}
         <div className="col-span-2 md:col-span-3 lg:col-span-3 space-y-3 md:space-y-4">
-          <h4 className="font-sans text-[13px] font-bold uppercase tracking-[0.1em] text-midnight dark:text-cream">Corporate Office</h4>
+          <h4 className={getHeadingStyles()}>Corporate Office</h4>
           <div className="space-y-1.5 text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
             <p className="flex gap-2">
               <span>4th Floor, A-Block, Prince Info Park,<br />Plot No. 81-B, 2nd Main Road,<br />Ambattur Industrial Estate, Chennai 600058.</span>
@@ -99,7 +147,6 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Badges from screenshot */}
           <div className="flex items-center gap-4 pt-4">
             <div className="w-12 h-12 bg-purple-600 rounded-full flex flex-col items-center justify-center text-white p-1">
               <span className="text-[6px] font-bold uppercase text-center leading-tight">25 Years<br />Excellence</span>
@@ -112,7 +159,7 @@ export function Footer() {
 
       </div>
 
-      {/* Legal bar */}
+      {/* --- Legal Footer Bar Section --- */}
       <div className="relative max-w-7xl mx-auto pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
         <span className="text-[11px] font-medium uppercase tracking-[0.15em] text-slate-500 dark:text-slate-500/80">
           &copy; {new Date().getFullYear()} AstroVed. All traditional rights reserved.

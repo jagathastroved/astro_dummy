@@ -4,7 +4,27 @@ import { ChevronLeft, ChevronRight, ArrowRight, ArrowUpRight } from 'lucide-reac
 import { scrollToSection } from '../../utils/scroll';
 import { astroved_store, Community_Fire, Pilgrimage_Tours } from '../../assets/Auspicious_Involvements/index';
 
-const actions = [
+/**
+ * Interface defining the structure for each personalized solution item.
+ */
+interface SolutionItem {
+  id: number;
+  title: string;
+  tagline: string;
+  description: string;
+  cta: string;
+  footerText?: string;
+  image: string;
+  mobileImage?: string;
+  imagePosition: string;
+  link: string | (() => void);
+  isExternal: boolean;
+}
+
+/**
+ * Static data configuration for all personalized solution cards.
+ */
+const SOLUTIONS: SolutionItem[] = [
   {
     id: 1,
     title: "Authentic Fire Rituals for Prosperity, Health, Love & Protection",
@@ -43,20 +63,111 @@ const actions = [
   }
 ];
 
+/** --- Shared Tailwind CSS Classes --- */
+
+/* Base Section & Headers */
+const SECTION_WRAPPER_STYLES = "py-4 md:py-6 px-6 max-w-7xl mx-auto z-10";
+const HEADER_CONTAINER_STYLES = "text-center max-w-3xl mx-auto mb-10";
+const HEADER_SUBTITLE_STYLES = "text-amber-600 dark:text-amber-400 font-sans text-xs md:text-sm uppercase tracking-widest font-bold mb-3";
+const HEADER_TITLE_STYLES = "font-serif text-3xl sm:text-4xl md:text-5xl text-midnight dark:text-cream leading-tight font-bold mb-4";
+const HEADER_DESC_STYLES = "font-sans text-gray-500 dark:text-gray-400 text-sm md:text-base lg:text-lg leading-relaxed max-w-2xl mx-auto font-medium";
+
+/* Desktop Grid Layout (Cards) */
+const DESKTOP_GRID_STYLES = "hidden md:grid md:grid-cols-3 gap-6 lg:gap-8 items-stretch";
+const DESKTOP_CARD_STYLES = "group overflow-hidden rounded-[2.5rem] bg-[#f8f9fa] dark:bg-[#0b0e14] border border-gray-100 dark:border-white/5 hover:border-[#b052ff]/30 hover:shadow-[0_0_30px_rgba(176,82,255,0.15)] transition-all duration-500 flex flex-col h-full relative";
+const DESKTOP_IMG_WRAPPER_STYLES = "w-full h-64 lg:h-72 relative overflow-hidden rounded-t-[2.5rem] isolate";
+const DESKTOP_CARD_CONTENT_STYLES = "px-5 lg:px-8 pb-8 pt-4 flex flex-col flex-grow z-10 relative";
+const DESKTOP_HEADER_WRAPPER_STYLES = "min-h-[110px] lg:min-h-[125px] flex flex-col justify-start";
+const TAGLINE_WRAPPER_STYLES = "flex items-start mb-3 lg:mb-4";
+const TAGLINE_STYLES = "inline-flex items-center justify-center px-3 py-1 rounded-full bg-[#b052ff]/10 dark:bg-[#b052ff]/20 text-[#b052ff] dark:text-[#d08bff] font-sans text-[9px] lg:text-[11px] uppercase tracking-widest font-bold";
+const DESKTOP_TITLE_STYLES = "font-sans text-base lg:text-xl xl:text-2xl text-gray-900 dark:text-white font-bold tracking-tight mb-2 lg:mb-3 leading-snug";
+const DESKTOP_DESC_STYLES = "font-sans text-gray-600 dark:text-gray-300 text-xs lg:text-sm leading-relaxed mb-6 flex-grow";
+
+/* Common Button Styles */
+const CTA_CONTAINER_STYLES = "mt-auto flex flex-col justify-start w-full";
+const CTA_ALIGNER_STYLES = "flex justify-center w-full min-h-[44px]";
+const DESKTOP_CTA_STYLES = "flex w-full justify-center items-center gap-1.5 px-3 lg:px-6 py-2.5 lg:py-3 rounded-full bg-[#b052ff] hover:bg-[#9333ea] text-white font-semibold tracking-wide text-[9px] lg:text-xs hover:scale-105 transition-transform shadow-md text-center leading-tight";
+const FOOTER_TEXT_STYLES = "mt-2 text-[10px] lg:text-[11px] text-gray-500 dark:text-gray-400 font-medium font-sans min-h-[32px] text-center lg:text-left";
+
+/* Mobile Carousel Layout */
+const MOBILE_CONTAINER_STYLES = "md:hidden relative group px-0 touch-pan-y";
+const MOBILE_CAROUSEL_BOX_STYLES = "overflow-hidden rounded-[2.5rem] bg-[#f8f9fa] dark:bg-[#0b0e14] border border-gray-100 dark:border-white/5 hover:border-[#b052ff]/30 hover:shadow-[0_0_40px_rgba(176,82,255,0.15)] transition-all duration-500 relative h-[670px] lg:h-[450px]";
+const MOBILE_CARD_INNER_STYLES = "group/card flex flex-col lg:flex-row h-full relative";
+const MOBILE_DESKTOP_IMG_OVERLAY_STYLES = "hidden lg:block absolute top-0 bottom-0 left-0 w-[55%] overflow-hidden pointer-events-none";
+const MOBILE_IMG_WRAPPER_STYLES = "lg:hidden absolute top-0 inset-x-0 h-[220px] overflow-hidden pointer-events-none rounded-t-[2.5rem]";
+const MOBILE_GRADIENT_OVERLAY_STYLES = "absolute inset-0 bg-gradient-to-t from-[#f8f9fa] dark:from-[#0b0e14] to-transparent h-24 top-auto bottom-0";
+const MOBILE_CONTENT_CONTAINER_STYLES = "w-full lg:w-[45%] ml-auto px-6 pb-20 pt-[180px] sm:px-12 lg:p-16 flex flex-col justify-center items-center lg:items-start text-center lg:text-left z-10 relative h-full lg:mt-0 lg:pt-0";
+const MOBILE_TAGLINE_WRAPPER_STYLES = "flex items-center justify-center lg:justify-start mb-4 relative z-20";
+const MOBILE_TAGLINE_STYLES = "inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-white dark:bg-[#1a1525] shadow-[0_4px_15px_rgba(0,0,0,0.1)] border border-gray-100 dark:border-gray-800 text-[#b052ff] dark:text-[#d08bff] font-sans text-[10px] sm:text-xs uppercase tracking-widest font-bold";
+const MOBILE_TITLE_STYLES = "font-sans text-2xl lg:text-3xl text-gray-900 dark:text-white font-bold tracking-tight mb-4 leading-snug";
+const MOBILE_DESC_STYLES = "font-sans text-gray-600 dark:text-gray-300 text-sm md:text-base leading-relaxed mb-6 max-w-sm mx-auto lg:mx-0";
+const MOBILE_CTA_ALIGNER_STYLES = "flex justify-center w-full mb-3";
+const MOBILE_CTA_STYLES = "inline-flex w-full max-w-[280px] justify-center items-center gap-1.5 px-4 py-3 rounded-full bg-[#b052ff] hover:bg-[#9333ea] text-white font-semibold tracking-wide text-xs sm:text-sm hover:scale-105 transition-transform shadow-lg text-center";
+const MOBILE_FOOTER_TEXT_STYLES = "text-xs text-gray-500 dark:text-gray-400 font-medium font-sans";
+const NAV_BUTTONS_CONTAINER_STYLES = "absolute top-[17%] -translate-y-1/2 left-0 right-0 flex justify-between px-2 sm:px-4 md:-mx-6 pointer-events-none z-20";
+const NAV_BUTTON_STYLES = "w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/80 hover:bg-white dark:bg-black/30 dark:hover:bg-black/50 backdrop-blur-md border border-gray-200 dark:border-white/10 flex items-center justify-center text-[#b052ff] dark:text-white transition-all hover:scale-110 pointer-events-auto shadow-lg";
+const PAGINATION_CONTAINER_STYLES = "absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-50 lg:bottom-8 lg:right-12 lg:left-auto lg:translate-x-0";
+
+/**
+ * Returns the CSS class for an image inside a card, applying the object position.
+ * @param imagePosition - The tailwind class for object positioning.
+ */
+const getDesktopImageStyles = (imagePosition: string): string => {
+  return `w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1500ms] ease-out ${imagePosition}`;
+};
+
+/**
+ * Returns the CSS class for an image inside the mobile carousel, applying the object position.
+ * @param imagePosition - The tailwind class for object positioning.
+ * @param isDesktopView - True if it's the desktop override inside the carousel.
+ */
+const getCarouselImageStyles = (imagePosition: string, isDesktopView: boolean): string => {
+  if (isDesktopView) {
+    return `w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-[1500ms] ease-out ${imagePosition}`;
+  }
+  return `w-full h-full object-cover ${imagePosition}`;
+};
+
+/**
+ * Returns dynamic pagination dot styles based on active state.
+ * @param isActive - Whether the current dot matches the active slide index.
+ */
+const getPaginationDotStyles = (isActive: boolean): string => {
+  return `transition-all duration-500 rounded-full ${isActive
+    ? 'w-6 h-1.5 bg-[#b052ff] dark:bg-[#b052ff] shadow-sm'
+    : 'w-1.5 h-1.5 bg-gray-400 hover:bg-gray-500 dark:bg-white/40 dark:hover:bg-white/60 shadow-sm'
+    }`;
+};
+
+/**
+ * PersonalizedSolutions Component
+ * 
+ * Displays different spiritual services/remedies in a standard grid on desktop 
+ * and a swipeable carousel on mobile devices.
+ */
 export function PersonalizedSolutions() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
+  /**
+   * Captures the initial X coordinate of a user's touch for swiping.
+   */
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchEnd(null);
     setTouchStart(e.targetTouches[0].clientX);
   };
 
+  /**
+   * Tracks the user's finger movement along the X axis during a swipe.
+   */
   const handleTouchMove = (e: React.TouchEvent) => {
     setTouchEnd(e.targetTouches[0].clientX);
   };
 
+  /**
+   * Evaluates if the swipe distance breached the threshold to trigger a slide change.
+   */
   const handleTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
     const distance = touchStart - touchEnd;
@@ -64,14 +175,23 @@ export function PersonalizedSolutions() {
     if (distance < -50) prevSlide();
   };
 
+  /**
+   * Advances the carousel to the next slide, wrapping around if at the end.
+   */
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev === actions.length - 1 ? 0 : prev + 1));
+    setCurrentIndex((prev) => (prev === SOLUTIONS.length - 1 ? 0 : prev + 1));
   };
 
+  /**
+   * Reverses the carousel to the previous slide, wrapping around if at the beginning.
+   */
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev === 0 ? actions.length - 1 : prev - 1));
+    setCurrentIndex((prev) => (prev === 0 ? SOLUTIONS.length - 1 : prev - 1));
   };
 
+  /**
+   * Auto-scroll functionality for the mobile carousel.
+   */
   useEffect(() => {
     const timer = setInterval(() => {
       nextSlide();
@@ -80,89 +200,92 @@ export function PersonalizedSolutions() {
   }, []);
 
   return (
-    <section className="py-4 md:py-6 px-6 max-w-7xl mx-auto z-10" id="auspicious-actions">
-      <div className="text-center max-w-3xl mx-auto mb-10">
-        <p className="text-amber-600 dark:text-amber-400 font-sans text-xs md:text-sm uppercase tracking-widest font-bold mb-3">
+    <section className={SECTION_WRAPPER_STYLES} id="auspicious-actions">
+
+      {/* --- Section Header --- */}
+      <div className={HEADER_CONTAINER_STYLES}>
+        <p className={HEADER_SUBTITLE_STYLES}>
           REMEDIES THAT REACH YOU AT HOME
         </p>
-        <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-midnight dark:text-cream leading-tight font-bold mb-4">
+        <h2 className={HEADER_TITLE_STYLES}>
           Book Rituals & Remedies in Your <em className="text-amber-600 dark:text-amber-400 italic">Name.</em>
         </h2>
-        <p className="font-sans text-gray-500 dark:text-gray-400 text-sm md:text-base lg:text-lg leading-relaxed max-w-2xl mx-auto font-medium">
+        <p className={HEADER_DESC_STYLES}>
           Performed by temple-trained priests — you watch from home, the blessings reach your family
         </p>
       </div>
 
-      {/* Desktop/Tablet Grid View (No Carousel) */}
-      <div className="hidden md:grid md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
-        {actions.map((ev, idx) => (
-          <div key={idx} className="group overflow-hidden rounded-[2.5rem] bg-[#f8f9fa] dark:bg-[#0b0e14] border border-gray-100 dark:border-white/5 hover:border-[#b052ff]/30 hover:shadow-[0_0_30px_rgba(176,82,255,0.15)] transition-all duration-500 flex flex-col h-full relative">
-            <div className="w-full h-64 lg:h-72 relative overflow-hidden rounded-t-[2.5rem] isolate">
+      {/* --- Desktop/Tablet Grid View (No Carousel) --- */}
+      <div className={DESKTOP_GRID_STYLES}>
+        {SOLUTIONS.map((solution, itemIndex) => (
+          <div key={itemIndex} className={DESKTOP_CARD_STYLES}>
+            <div className={DESKTOP_IMG_WRAPPER_STYLES}>
               <img
-                src={ev.image}
-                alt={ev.title}
-                className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1500ms] ease-out ${ev.imagePosition}`}
+                src={solution.image}
+                alt={solution.title}
+                className={getDesktopImageStyles(solution.imagePosition)}
               />
             </div>
 
-            <div className="px-5 lg:px-8 pb-8 pt-4 flex flex-col flex-grow z-10 relative">
-              {/* Fixed height container for Badge and Title to align descriptions */}
-              <div className="min-h-[110px] lg:min-h-[125px] flex flex-col justify-start">
-                <div className="flex items-start mb-3 lg:mb-4">
-                  <span className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-[#b052ff]/10 dark:bg-[#b052ff]/20 text-[#b052ff] dark:text-[#d08bff] font-sans text-[9px] lg:text-[11px] uppercase tracking-widest font-bold">
-                    {ev.tagline}
+            <div className={DESKTOP_CARD_CONTENT_STYLES}>
+
+              {/* Badge & Title */}
+              <div className={DESKTOP_HEADER_WRAPPER_STYLES}>
+                <div className={TAGLINE_WRAPPER_STYLES}>
+                  <span className={TAGLINE_STYLES}>
+                    {solution.tagline}
                   </span>
                 </div>
-                <h3 className="font-sans text-base lg:text-xl xl:text-2xl text-gray-900 dark:text-white font-bold tracking-tight mb-2 lg:mb-3 leading-snug">
-                  {ev.title}
+                <h3 className={DESKTOP_TITLE_STYLES}>
+                  {solution.title}
                 </h3>
               </div>
 
-              {/* Description with flex-grow to push buttons down */}
-              <p className="font-sans text-gray-600 dark:text-gray-300 text-xs lg:text-sm leading-relaxed mb-6 flex-grow">
-                {ev.description}
+              {/* Description */}
+              <p className={DESKTOP_DESC_STYLES}>
+                {solution.description}
               </p>
 
-              {/* Button and footer container pinned to bottom */}
-              <div className="mt-auto flex flex-col justify-start w-full">
-                <div className="flex justify-center w-full min-h-[44px]">
-                  {ev.isExternal ? (
+              {/* CTA & Footer Text */}
+              <div className={CTA_CONTAINER_STYLES}>
+                <div className={CTA_ALIGNER_STYLES}>
+                  {solution.isExternal ? (
                     <a
-                      href={ev.link as string}
+                      href={solution.link as string}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex w-full justify-center items-center gap-1.5 px-3 lg:px-6 py-2.5 lg:py-3 rounded-full bg-[#b052ff] hover:bg-[#9333ea] text-white font-semibold tracking-wide text-[9px] lg:text-xs hover:scale-105 transition-transform shadow-md text-center leading-tight"
+                      className={DESKTOP_CTA_STYLES}
                     >
-                      {ev.cta} <ArrowUpRight className="w-3.5 h-3.5 flex-shrink-0" />
+                      {solution.cta} <ArrowUpRight className="w-3.5 h-3.5 flex-shrink-0" />
                     </a>
                   ) : (
                     <button
-                      onClick={ev.link as () => void}
-                      className="flex w-full justify-center items-center gap-1.5 px-3 lg:px-6 py-2.5 lg:py-3 rounded-full bg-[#b052ff] hover:bg-[#9333ea] text-white font-semibold tracking-wide text-[9px] lg:text-xs hover:scale-105 transition-transform shadow-md text-center leading-tight"
+                      onClick={solution.link as () => void}
+                      className={DESKTOP_CTA_STYLES}
                     >
-                      {ev.cta} <ArrowRight className="w-3.5 h-3.5 flex-shrink-0" />
+                      {solution.cta} <ArrowRight className="w-3.5 h-3.5 flex-shrink-0" />
                     </button>
                   )}
                 </div>
-                {/* Fixed height footer to ensure buttons align horizontally */}
-                <div className="mt-2 text-[10px] lg:text-[11px] text-gray-500 dark:text-gray-400 font-medium font-sans min-h-[32px] text-center lg:text-left">
-                  {(ev as any).footerText || ""}
+
+                <div className={FOOTER_TEXT_STYLES}>
+                  {solution.footerText || ""}
                 </div>
               </div>
+
             </div>
           </div>
         ))}
       </div>
 
-      {/* Mobile Carousel View */}
+      {/* --- Mobile Carousel View --- */}
       <div
-        className="md:hidden relative group px-0 touch-pan-y"
+        className={MOBILE_CONTAINER_STYLES}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        {/* Main Card */}
-        <div className="overflow-hidden rounded-[2.5rem] bg-[#f8f9fa] dark:bg-[#0b0e14] border border-gray-100 dark:border-white/5 hover:border-[#b052ff]/30 hover:shadow-[0_0_40px_rgba(176,82,255,0.15)] transition-all duration-500 relative h-[670px] lg:h-[450px]">
+        <div className={MOBILE_CAROUSEL_BOX_STYLES}>
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
@@ -173,15 +296,16 @@ export function PersonalizedSolutions() {
               className="w-full h-full absolute inset-0"
             >
               {(() => {
-                const ev = actions[currentIndex];
+                const currentSolution = SOLUTIONS[currentIndex];
                 return (
-                  <div className="group/card flex flex-col lg:flex-row h-full relative">
-                    {/* Background Image (Desktop) */}
-                    <div className="hidden lg:block absolute top-0 bottom-0 left-0 w-[55%] overflow-hidden pointer-events-none">
+                  <div className={MOBILE_CARD_INNER_STYLES}>
+
+                    {/* Background Image (Desktop override inside carousel) */}
+                    <div className={MOBILE_DESKTOP_IMG_OVERLAY_STYLES}>
                       <img
-                        src={ev.image}
-                        alt={ev.title}
-                        className={`w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-[1500ms] ease-out ${ev.imagePosition}`}
+                        src={currentSolution.image}
+                        alt={currentSolution.title}
+                        className={getCarouselImageStyles(currentSolution.imagePosition, true)}
                         style={{
                           WebkitMaskImage: 'linear-gradient(to right, black 85%, transparent 100%)',
                           maskImage: 'linear-gradient(to right, black 85%, transparent 100%)'
@@ -190,60 +314,65 @@ export function PersonalizedSolutions() {
                     </div>
 
                     {/* Background Image (Mobile & Tablet) */}
-                    <div className="lg:hidden absolute top-0 inset-x-0 h-[220px] overflow-hidden pointer-events-none rounded-t-[2.5rem]">
+                    <div className={MOBILE_IMG_WRAPPER_STYLES}>
                       <picture>
-                        <source media="(min-width: 768px)" srcSet={ev.image} />
+                        <source media="(min-width: 768px)" srcSet={currentSolution.image} />
                         <img
-                          src={(ev as any).mobileImage || ev.image}
-                          alt={ev.title}
-                          className={`w-full h-full object-cover ${ev.imagePosition}`}
+                          src={currentSolution.mobileImage || currentSolution.image}
+                          alt={currentSolution.title}
+                          className={getCarouselImageStyles(currentSolution.imagePosition, false)}
                         />
                       </picture>
-                      {/* Smooth solid transition instead of blur */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#f8f9fa] dark:from-[#0b0e14] to-transparent h-24 top-auto bottom-0"></div>
+                      <div className={MOBILE_GRADIENT_OVERLAY_STYLES}></div>
                     </div>
 
-                    {/* Content */}
-                    <div className="w-full lg:w-[45%] ml-auto px-6 pb-20 pt-[180px] sm:px-12 lg:p-16 flex flex-col justify-center items-center lg:items-start text-center lg:text-left z-10 relative h-full lg:mt-0 lg:pt-0">
+                    {/* Content Section */}
+                    <div className={MOBILE_CONTENT_CONTAINER_STYLES}>
                       <div className="w-full">
-                        <div className="flex items-center justify-center lg:justify-start mb-4 relative z-20">
-                          <span className="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-white dark:bg-[#1a1525] shadow-[0_4px_15px_rgba(0,0,0,0.1)] border border-gray-100 dark:border-gray-800 text-[#b052ff] dark:text-[#d08bff] font-sans text-[10px] sm:text-xs uppercase tracking-widest font-bold">
-                            {ev.tagline}
+
+                        {/* Tagline Badge */}
+                        <div className={MOBILE_TAGLINE_WRAPPER_STYLES}>
+                          <span className={MOBILE_TAGLINE_STYLES}>
+                            {currentSolution.tagline}
                           </span>
                         </div>
 
-                        <h3 className="font-sans text-2xl lg:text-3xl text-gray-900 dark:text-white font-bold tracking-tight mb-4 leading-snug">
-                          {ev.title}
+                        {/* Title & Description */}
+                        <h3 className={MOBILE_TITLE_STYLES}>
+                          {currentSolution.title}
                         </h3>
-
-                        <p className="font-sans text-gray-600 dark:text-gray-300 text-sm md:text-base leading-relaxed mb-6 max-w-sm mx-auto lg:mx-0">
-                          {ev.description}
+                        <p className={MOBILE_DESC_STYLES}>
+                          {currentSolution.description}
                         </p>
 
-                        <div className="flex justify-center w-full mb-3">
-                          {ev.isExternal ? (
+                        {/* CTA Buttons */}
+                        <div className={MOBILE_CTA_ALIGNER_STYLES}>
+                          {currentSolution.isExternal ? (
                             <a
-                              href={ev.link as string}
+                              href={currentSolution.link as string}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex w-full max-w-[280px] justify-center items-center gap-1.5 px-4 py-3 rounded-full bg-[#b052ff] hover:bg-[#9333ea] text-white font-semibold tracking-wide text-xs sm:text-sm hover:scale-105 transition-transform shadow-lg text-center"
+                              className={MOBILE_CTA_STYLES}
                             >
-                              {ev.cta} <ArrowUpRight className="w-3.5 h-3.5" />
+                              {currentSolution.cta} <ArrowUpRight className="w-3.5 h-3.5" />
                             </a>
                           ) : (
                             <button
-                              onClick={ev.link as () => void}
-                              className="inline-flex w-full max-w-[280px] justify-center items-center gap-1.5 px-4 py-3 rounded-full bg-[#b052ff] hover:bg-[#9333ea] text-white font-semibold tracking-wide text-xs sm:text-sm hover:scale-105 transition-transform shadow-lg text-center"
+                              onClick={currentSolution.link as () => void}
+                              className={MOBILE_CTA_STYLES}
                             >
-                              {ev.cta} <ArrowRight className="w-3.5 h-3.5" />
+                              {currentSolution.cta} <ArrowRight className="w-3.5 h-3.5" />
                             </button>
                           )}
                         </div>
-                        {(ev as any).footerText && (
-                          <div className="text-xs text-gray-500 dark:text-gray-400 font-medium font-sans">
-                            {(ev as any).footerText}
+
+                        {/* Footer Context Text */}
+                        {currentSolution.footerText && (
+                          <div className={MOBILE_FOOTER_TEXT_STYLES}>
+                            {currentSolution.footerText}
                           </div>
                         )}
+
                       </div>
                     </div>
                   </div>
@@ -253,39 +382,37 @@ export function PersonalizedSolutions() {
           </AnimatePresence>
         </div>
 
-        {/* Navigation Controls */}
-        <div className="absolute top-[17%] -translate-y-1/2 left-0 right-0 flex justify-between px-2 sm:px-4 md:-mx-6 pointer-events-none z-20">
+        {/* --- Carousel Navigation Controls --- */}
+        <div className={NAV_BUTTONS_CONTAINER_STYLES}>
           <button
             onClick={prevSlide}
-            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/80 hover:bg-white dark:bg-black/30 dark:hover:bg-black/50 backdrop-blur-md border border-gray-200 dark:border-white/10 flex items-center justify-center text-[#b052ff] dark:text-white transition-all hover:scale-110 pointer-events-auto shadow-lg"
+            className={NAV_BUTTON_STYLES}
             aria-label="Previous event"
           >
             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
           <button
             onClick={nextSlide}
-            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/80 hover:bg-white dark:bg-black/30 dark:hover:bg-black/50 backdrop-blur-md border border-gray-200 dark:border-white/10 flex items-center justify-center text-[#b052ff] dark:text-white transition-all hover:scale-110 pointer-events-auto shadow-lg"
+            className={NAV_BUTTON_STYLES}
             aria-label="Next event"
           >
             <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
         </div>
 
-        {/* Pagination Indicators */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-50 lg:bottom-8 lg:right-12 lg:left-auto lg:translate-x-0">
-          {actions.map((_, idx) => (
+        {/* --- Carousel Pagination Indicators --- */}
+        <div className={PAGINATION_CONTAINER_STYLES}>
+          {SOLUTIONS.map((_, itemIndex) => (
             <button
-              key={idx}
-              onClick={() => setCurrentIndex(idx)}
-              className={`transition-all duration-500 rounded-full ${idx === currentIndex
-                ? 'w-6 h-1.5 bg-[#b052ff] dark:bg-[#b052ff] shadow-sm'
-                : 'w-1.5 h-1.5 bg-gray-400 hover:bg-gray-500 dark:bg-white/40 dark:hover:bg-white/60 shadow-sm'
-                }`}
-              aria-label={`Go to slide ${idx + 1}`}
+              key={itemIndex}
+              onClick={() => setCurrentIndex(itemIndex)}
+              className={getPaginationDotStyles(itemIndex === currentIndex)}
+              aria-label={`Go to slide ${itemIndex + 1}`}
             />
           ))}
         </div>
       </div>
+
     </section>
   );
 }

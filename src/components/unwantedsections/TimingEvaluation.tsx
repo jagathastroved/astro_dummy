@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Compass, ArrowRight, Calendar, User, Clock, MapPin, Sparkles, Send, X, Target, Activity } from 'lucide-react';
-import { SpotlightCard } from '../SpotlightCard';
+import { SpotlightCard } from '../ui/SpotlightCard';
 import { scrollToSection } from '../../utils/scroll';
 import { ZODIAC_SIGNS } from '../../utils/data';
 import { CosmicReading } from '../../types';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ThemeProvider, useTheme } from './components/ThemeProvider';
+import { ThemeProvider, useTheme } from './components/ui/ThemeProvider';
 import { Navbar } from './components/sections/Navbar';
 import { HeroSection } from './components/sections/HeroSection';
 import { PremiumPanchang } from './components/sections/PremiumPanchang';
@@ -16,7 +16,7 @@ import { PersonalizedSolutions } from './components/sections/PersonalizedSolutio
 import { PersonalizedSupport } from './components/sections/PersonalizedSupport';
 import { RitualAnimatedBeam } from './components/unwantedsections/RitualAnimatedBeam';
 import { AncestralHealing } from './components/unwantedsections/AncestralHealing';
-import { DailyRadar } from './components/sections/DailyRadar';
+import { Horoscope } from './components/sections/Horoscope';
 import { Testimonials } from './components/sections/Testimonials';
 import { FAQ } from './components/sections/FAQ';
 import { LeadCapture } from './components/unwantedsections/LeadCapture';
@@ -81,7 +81,7 @@ export default function App() {
           <WhyChooseAstroVed />
           <AIReports />
           <TrustTicker />
-          <DailyRadar onCalculateChart={(zodiac) => { scrollToSection('birth-form'); }} />
+          <Horoscope onCalculateChart={(zodiac) => { scrollToSection('birth-form'); }} />
           {/* <AncestralHealing /> */}
           {/* <TimingEvaluation /> */}
           <Testimonials />

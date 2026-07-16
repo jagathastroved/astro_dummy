@@ -4,18 +4,26 @@ import { ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
 import aiKundali from '../../assets/ai_reports/ai_kundali_north.png'
 import aiNumerology from '../../assets/ai_reports/ai_numerology_numbers.png'
 
-const reports = [
+/** Configuration constants for carousel behavior */
+const SWIPE_THRESHOLD = 50;
+const AUTOPLAY_INTERVAL_MS = 5000;
+
+interface AIReport {
+  id: number;
+  title: string;
+  description: string;
+  cta: string;
+  image: string;
+  link: string;
+}
+
+const aiReportList: AIReport[] = [
   {
     id: 1,
     title: "AI Kundali Report",
     description: "Get an instant, comprehensive analysis of your birth chart. Discover your planetary positions, doshas, and predictions powered by cutting-edge AI.",
     cta: "Generate Report",
     image: aiKundali,
-    imageFit: "object-cover",
-    imagePosition: "object-center",
-    bgGradient: "bg-[#f8f9fa] dark:bg-[#0b0e14]",
-    buttonColor: "bg-[#a855f7] hover:bg-[#9333ea]",
-    taglineColor: "text-[#a855f7]",
     link: "https://kundali-report.vercel.app/"
   },
   {
@@ -24,48 +32,69 @@ const reports = [
     description: "Uncover the hidden meanings behind your numbers. Get an AI-driven report on your life path, expression, and soul urge numbers.",
     cta: "Generate Report",
     image: aiNumerology,
-    imageFit: "object-cover",
-    imagePosition: "object-center",
-    bgGradient: "bg-[#f8f9fa] dark:bg-[#0b0e14]",
-    buttonColor: "bg-[#f59e0b] hover:bg-[#d97706]",
-    taglineColor: "text-[#f59e0b]",
     link: "https://numerologyreport-umber.vercel.app/"
   }
 ];
+
+/**
+ * Resolves the theme color for the report's CTA button based on its unique identifier.
+ * This abstracts styling concerns away from the primary data structure.
+ * 
+ * @param id - The unique identifier of the report
+ * @returns Tailwind CSS classes for the button background and hover state
+ */
+const getButtonColor = (id: number): string => {
+  return id === 1
+    ? "bg-[#a855f7] hover:bg-[#9333ea]"
+    : "bg-[#f59e0b] hover:bg-[#d97706]";
+};
+
+/** Shared tailwind classes for carousel navigation buttons */
+const NAV_BUTTON_CLASSES = "w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/80 hover:bg-white dark:bg-black/30 dark:hover:bg-black/50 backdrop-blur-md border border-gray-200 dark:border-white/10 flex items-center justify-center text-[#b052ff] dark:text-white transition-all hover:scale-110 focus:outline-none pointer-events-auto shadow-lg";
 
 export function AIReports() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
-  const handleTouchStart = (e: React.TouchEvent) => {
+  /**
+   * Records the initial X coordinate when a touch event begins.
+   */
+  const handleTouchStart = (event: React.TouchEvent) => {
     setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
+    setTouchStart(event.targetTouches[0].clientX);
   };
 
-  const handleTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
+  /**
+   * Updates the final X coordinate as the user drags their finger.
+   */
+  const handleTouchMove = (event: React.TouchEvent) => {
+    setTouchEnd(event.targetTouches[0].clientX);
   };
 
+  /**
+   * Calculates the swipe distance and triggers navigation if the threshold is met.
+   */
   const handleTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
-    const distance = touchStart - touchEnd;
-    if (distance > 50) nextSlide();
-    if (distance < -50) prevSlide();
+    const swipeDistance = touchStart - touchEnd;
+
+    if (swipeDistance > SWIPE_THRESHOLD) nextSlide();
+    if (swipeDistance < -SWIPE_THRESHOLD) prevSlide();
   };
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev === reports.length - 1 ? 0 : prev + 1));
+    setCurrentIndex((previousIndex) => (previousIndex === aiReportList.length - 1 ? 0 : previousIndex + 1));
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev === 0 ? reports.length - 1 : prev - 1));
+    setCurrentIndex((previousIndex) => (previousIndex === 0 ? aiReportList.length - 1 : previousIndex - 1));
   };
 
   useEffect(() => {
     const timer = setInterval(() => {
       nextSlide();
-    }, 5000);
+    }, AUTOPLAY_INTERVAL_MS);
     return () => clearInterval(timer);
   }, []);
 
@@ -77,34 +106,34 @@ export function AIReports() {
         </h2>
       </div>
 
-      {/* Desktop/Tablet Grid View (No Carousel) */}
+      {/* --- Desktop Grid Layout Section --- */}
       <div className="hidden md:grid md:grid-cols-2 gap-6 lg:gap-8 max-w-3xl mx-auto">
-        {reports.map((ev, idx) => (
-          <div key={idx} className="group overflow-hidden rounded-[2.5rem] bg-[#f8f9fa] dark:bg-[#0b0e14] border border-gray-100 dark:border-white/5 hover:border-[#b052ff]/30 hover:shadow-[0_0_30px_rgba(176,82,255,0.15)] transition-all duration-500 flex flex-col h-full relative">
+        {aiReportList.map((report, reportIndex) => (
+          <div key={reportIndex} className="group overflow-hidden rounded-[2.5rem] bg-[#f8f9fa] dark:bg-[#0b0e14] border border-gray-100 dark:border-white/5 hover:border-[#b052ff]/30 hover:shadow-[0_0_30px_rgba(176,82,255,0.15)] transition-all duration-500 flex flex-col h-full relative">
             <div className="w-full h-56 lg:h-60 relative overflow-hidden rounded-t-[2.5rem]">
               <img
-                src={ev.image}
-                alt={ev.title}
-                className={`w-full h-full ${ev.imageFit || 'object-cover'} group-hover:scale-105 transition-transform duration-[1500ms] ease-out`}
+                src={report.image}
+                alt={report.title}
+                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-[1500ms] ease-out"
               />
             </div>
 
             <div className="px-6 pb-6 pt-4 flex flex-col flex-grow z-10 relative">
               <h3 className="font-serif text-xl lg:text-2xl text-midnight dark:text-white font-bold tracking-tight mb-2 leading-tight text-center">
-                {ev.title}
+                {report.title}
               </h3>
               <p className="font-body text-gray-600 dark:text-gray-300 text-xs sm:text-sm leading-relaxed mb-5 flex-grow text-justify">
-                {ev.description}
+                {report.description}
               </p>
 
               <div className="mt-auto flex justify-center">
                 <a
-                  href={ev.link}
+                  href={report.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full ${ev.buttonColor} text-white font-semibold tracking-wide text-xs hover:scale-105 transition-transform shadow-md`}
+                  className={`inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full ${getButtonColor(report.id)} text-white font-semibold tracking-wide text-xs hover:scale-105 transition-transform shadow-md`}
                 >
-                  {ev.cta} <ArrowUpRight className="w-3.5 h-3.5" />
+                  {report.cta} <ArrowUpRight className="w-3.5 h-3.5" />
                 </a>
               </div>
             </div>
@@ -112,15 +141,15 @@ export function AIReports() {
         ))}
       </div>
 
-      {/* Mobile Carousel View */}
+      {/* --- Mobile Carousel Layout Section --- */}
       <div
         className="md:hidden relative group px-0 touch-pan-y"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        {/* Main Card */}
-        <div className="overflow-hidden rounded-[2.5rem] bg-[#f8f9fa] dark:bg-[#0b0e14] border border-gray-100 dark:border-white/5 hover:border-[#b052ff]/30 hover:shadow-[0_0_40px_rgba(176,82,255,0.15)] transition-all duration-500 relative h-[460px] lg:h-[350px]">
+        {/* Mobile Carousel Content Section */}
+        <div className="overflow-hidden rounded-[2.5rem] bg-[#f8f9fa] dark:bg-[#0b0e14] border border-gray-100 dark:border-white/5 hover:border-[#b052ff]/30 hover:shadow-[0_0_40px_rgba(176,82,255,0.15)] transition-all duration-500 relative h-[460px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
@@ -131,53 +160,38 @@ export function AIReports() {
               className="w-full h-full absolute inset-0"
             >
               {(() => {
-                const ev = reports[currentIndex];
+                const report = aiReportList[currentIndex];
                 return (
-                  <div className="group/card flex flex-col lg:flex-row h-full relative">
-                    {/* Image Area (Desktop) */}
-                    <div className="hidden lg:flex absolute top-0 bottom-0 left-0 w-[45%] pointer-events-none items-center justify-center relative z-10">
-                      <div className="absolute inset-0 bg-gradient-to-r from-gray-100/50 to-transparent dark:from-black/30 dark:to-transparent z-0"></div>
+                  <div className="group/card flex flex-col h-full relative">
+                    <div className="absolute top-0 left-0 w-full h-[180px] pointer-events-none overflow-hidden rounded-t-[2.5rem] z-10">
                       <img
-                        src={ev.image}
-                        alt={ev.title}
-                        className={`w-full h-full ${ev.imageFit} group-hover/card:scale-105 transition-transform duration-[1500ms] ease-out ${ev.imagePosition} relative z-10`}
+                        src={report.image}
+                        alt={report.title}
+                        className="w-full h-full object-cover object-center group-hover/card:scale-105 transition-transform duration-[1500ms] ease-out"
                       />
                     </div>
 
-                    {/* Image Area (Mobile & Tablet) */}
-                    <div className="lg:hidden absolute top-0 left-0 w-full h-[180px] pointer-events-none overflow-hidden rounded-t-[2.5rem] z-10">
-                      <img
-                        src={ev.image}
-                        alt={ev.title}
-                        className={`w-full h-full ${ev.imageFit || 'object-cover'} group-hover/card:scale-105 transition-transform duration-[1500ms] ease-out ${ev.imagePosition}`}
-                      />
-                    </div>
-
-                    {/* Mobile Gradient Fade */}
-                    <div className="lg:hidden absolute inset-0 w-full h-full pointer-events-none rounded-[2.5rem] z-0">
+                    <div className="absolute inset-0 w-full h-full pointer-events-none rounded-[2.5rem] z-0">
                       <div className="absolute inset-0 bg-gradient-to-t from-[#f8f9fa] dark:from-[#0b0e14] via-[#f8f9fa]/90 dark:via-[#0b0e14]/90 to-transparent bottom-0 h-3/4"></div>
                     </div>
 
-                    {/* Content */}
-                    <div className="w-full lg:w-[55%] ml-auto px-6 pb-14 pt-[210px] sm:pt-[220px] lg:p-16 flex flex-col justify-start lg:justify-center items-center lg:items-start text-center lg:text-left z-20 relative h-full lg:mt-0 lg:pt-0">
+                    <div className="w-full ml-auto px-6 pb-14 pt-[210px] sm:pt-[220px] flex flex-col justify-start items-center text-center z-20 relative h-full">
                       <div className="w-full h-full flex flex-col">
-
-                        <h3 className="font-serif text-[20px] xs:text-xl lg:text-2xl xl:text-3xl text-midnight dark:text-white font-bold tracking-tight mb-2 leading-tight">
-                          {ev.title}
+                        <h3 className="font-serif text-[20px] xs:text-xl text-midnight dark:text-white font-bold tracking-tight mb-2 leading-tight">
+                          {report.title}
                         </h3>
-
-                        <p className="font-body text-gray-600 dark:text-gray-300 text-xs sm:text-sm leading-relaxed mb-3 max-w-sm mx-auto lg:mx-0">
-                          {ev.description}
+                        <p className="font-body text-gray-600 dark:text-gray-300 text-xs sm:text-sm leading-relaxed mb-3 max-w-sm mx-auto">
+                          {report.description}
                         </p>
 
-                        <div className="w-full flex justify-center lg:justify-start mt-auto pt-2">
+                        <div className="w-full flex justify-center mt-auto pt-2">
                           <a
-                            href={ev.link}
+                            href={report.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className={`inline-flex w-full max-w-[240px] justify-center items-center gap-1.5 px-4 py-2.5 rounded-full ${ev.buttonColor} text-white font-semibold tracking-wide text-xs hover:scale-105 transition-transform shadow-lg pointer-events-auto`}
+                            className={`inline-flex w-full max-w-[240px] justify-center items-center gap-1.5 px-4 py-2.5 rounded-full ${getButtonColor(report.id)} text-white font-semibold tracking-wide text-xs hover:scale-105 transition-transform shadow-lg pointer-events-auto`}
                           >
-                            {ev.cta} <ArrowUpRight className="w-3.5 h-3.5" />
+                            {report.cta} <ArrowUpRight className="w-3.5 h-3.5" />
                           </a>
                         </div>
                       </div>
@@ -189,35 +203,27 @@ export function AIReports() {
           </AnimatePresence>
         </div>
 
-        {/* Navigation Controls */}
+        {/* Mobile Navigation Buttons Section */}
         <div className="absolute top-[85px] -translate-y-1/2 left-0 right-0 flex justify-between px-2 sm:px-4 md:-mx-6 pointer-events-none z-30">
-          <button
-            onClick={prevSlide}
-            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/80 hover:bg-white dark:bg-black/30 dark:hover:bg-black/50 backdrop-blur-md border border-gray-200 dark:border-white/10 flex items-center justify-center text-[#b052ff] dark:text-white transition-all hover:scale-110 focus:outline-none pointer-events-auto shadow-lg"
-            aria-label="Previous report"
-          >
+          <button onClick={prevSlide} className={NAV_BUTTON_CLASSES} aria-label="Previous report">
             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
-          <button
-            onClick={nextSlide}
-            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/80 hover:bg-white dark:bg-black/30 dark:hover:bg-black/50 backdrop-blur-md border border-gray-200 dark:border-white/10 flex items-center justify-center text-[#b052ff] dark:text-white transition-all hover:scale-110 focus:outline-none pointer-events-auto shadow-lg"
-            aria-label="Next report"
-          >
+          <button onClick={nextSlide} className={NAV_BUTTON_CLASSES} aria-label="Next report">
             <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
         </div>
 
-        {/* Pagination Indicators */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-50 lg:bottom-8 lg:right-12 lg:left-auto lg:translate-x-0">
-          {reports.map((_, idx) => (
+        {/* Mobile Pagination Indicators Section */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-50">
+          {aiReportList.map((_, reportIndex) => (
             <button
-              key={idx}
-              onClick={() => setCurrentIndex(idx)}
-              className={`transition-all duration-500 rounded-full ${idx === currentIndex
+              key={reportIndex}
+              onClick={() => setCurrentIndex(reportIndex)}
+              className={`transition-all duration-500 rounded-full ${reportIndex === currentIndex
                 ? 'w-6 h-1.5 bg-[#b052ff] dark:bg-[#b052ff] shadow-sm'
                 : 'w-1.5 h-1.5 bg-gray-400 hover:bg-gray-500 dark:bg-white/40 dark:hover:bg-white/60 shadow-sm'
                 }`}
-              aria-label={`Go to slide ${idx + 1}`}
+              aria-label={`Go to slide ${reportIndex + 1}`}
             />
           ))}
         </div>

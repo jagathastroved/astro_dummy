@@ -1,5 +1,5 @@
 import React from 'react';
-import { HoverGlowCard } from '../HoverGlowCard';
+import { HoverGlowCard } from '../ui/HoverGlowCard';
 import { Star, ScrollText, Sparkles, Zap, Map, Heart, Users } from 'lucide-react';
 import shreemBrzeeImg from '../../assets/shreem_brzee_new.png';
 import tarpanamImg from '../../assets/tarpanam_new.png';

@@ -1,39 +1,55 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import { useInView } from 'motion/react';
 
 interface CountUpProps {
-  end: number;
-  suffix?: string;
-  decimals?: number;
+  to: number;
+  from?: number;
   duration?: number;
+  suffix?: string;
+  className?: string;
 }
 
-export default function CountUp({ end, suffix = '', decimals = 0, duration = 2000 }: CountUpProps) {
-  const [count, setCount] = useState(0);
+export const CountUp: React.FC<CountUpProps> = ({
+  to,
+  from = 0,
+  duration = 1.6,
+  suffix = '',
+  className = ''
+}) => {
+  const [count, setCount] = useState(from);
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.5 });
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
-    let startTimestamp: number | null = null;
-    let animationId: number;
-
-    const step = (timestamp: number) => {
-      if (!startTimestamp) startTimestamp = timestamp;
-      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+    if (isInView && !hasAnimated.current) {
+      hasAnimated.current = true;
+      let startTimestamp: number | null = null;
       
-      // easeOutExpo
-      const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      const step = (timestamp: number) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / (duration * 1000), 1);
+        
+        // Ease out quad
+        const easeProgress = progress * (2 - progress);
+        const currentCount = Math.floor(easeProgress * (to - from) + from);
+        
+        setCount(currentCount);
+        
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        } else {
+          setCount(to);
+        }
+      };
       
-      setCount(easeProgress * end);
-      
-      if (progress < 1) {
-        animationId = window.requestAnimationFrame(step);
-      }
-    };
-    
-    animationId = window.requestAnimationFrame(step);
+      window.requestAnimationFrame(step);
+    }
+  }, [isInView, to, from, duration]);
 
-    return () => {
-      window.cancelAnimationFrame(animationId);
-    };
-  }, [end, duration]);
-
-  return <span>{count.toFixed(decimals)}{suffix}</span>;
-}
+  return (
+    <span ref={ref} className={className}>
+      {count.toLocaleString()}{suffix}
+    </span>
+  );
+};

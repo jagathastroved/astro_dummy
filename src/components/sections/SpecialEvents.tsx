@@ -1,10 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Flame, Clock, CalendarDays, ArrowRight, PhoneCall } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Flame, PhoneCall } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Vastu_Homa, Ashada_Navratri, Sudarshana_Jayanthi, Solar_Eclipse_2026, Karuppasamy, Hyderabad_Nadi_Camp, Guru_purnima, Aadi_Goddess, Aadi_Amavasya } from '../../assets/Banners';
 import { AadiAmavasyaMob, AadiGoddessMob, AshadaNavratriMob, GuruPurnimaMob, HyderabadNadiCampMob, KaruppasamyMob, SolarEclipseMob, SudarshanaJayanthiMob, VastuHomaMob } from '../../assets/Banners/mobile_banners';
 
-const events = [
+/**
+ * Interface for static upcoming events to be used in the future.
+ */
+interface StaticEventItem {
+  id: number;
+  title: string;
+  titleColor: string;
+  tagline: string;
+  taglineColor: string;
+  deadline: string;
+  deadlineColor: string;
+  cta: string;
+  buttonBg: string;
+  buttonText: string;
+  image: string;
+  mobileImage: string;
+}
+
+/**
+ * Static events configuration for future usage.
+ */
+const STATIC_EVENTS: StaticEventItem[] = [
   {
     id: 1,
     title: "Seek Karuppasamy's Swift Protection",
@@ -133,25 +154,117 @@ const events = [
   }
 ];
 
-export function SpecialEvents() {
-  const [displayEvents, setDisplayEvents] = useState<any[]>([]);
+/**
+ * Interface defining the structure of the fetched event banners.
+ */
+interface EventBanner {
+  title: string;
+  image: string;
+  mobileImage: string;
+  sources: Array<{ media: string; srcSet: string }>;
+  link: string;
+}
 
-  const [loading, setLoading] = useState(true);
+/**
+ * Interface defining the structure of the parsed API event items.
+ */
+interface ApiEventItem {
+  id: number;
+  isThreeBan: boolean;
+  banners: EventBanner[];
+  originalData: any;
+}
+
+/** --- Shared Tailwind CSS Classes --- */
+
+/* Base Section & Headers */
+const SECTION_WRAPPER_STYLES = "pt-2 md:pt-4 pb-6 md:pb-8 relative overflow-hidden transition-colors duration-500 z-10";
+const CONTENT_WRAPPER_STYLES = "max-w-[1600px] mx-auto px-4 md:px-8 relative z-10";
+const HEADER_CONTAINER_STYLES = "text-center max-w-4xl mx-auto mb-6 md:mb-5 lg:mb-3";
+const HEADER_SUBTITLE_STYLES = "text-amber-600 dark:text-amber-400 font-sans text-xs md:text-sm uppercase tracking-widest font-bold mb-3";
+const HEADER_TITLE_STYLES = "font-serif text-4xl sm:text-5xl md:text-6xl lg:text-[3rem] text-midnight dark:text-cream leading-[1.1] font-black mb-4 md:mb-5 lg:mb-4 drop-shadow-sm tracking-tight";
+const HEADER_DESC_STYLES = "block font-sans text-gray-500 dark:text-gray-400 text-sm sm:text-base md:text-sm lg:text-base leading-relaxed max-w-2xl mx-auto font-medium px-4 md:px-2 md:mt-1";
+
+/* Carousel Container */
+const CAROUSEL_WRAPPER_STYLES = "relative group px-0 touch-pan-y";
+const CAROUSEL_BOX_STYLES = "overflow-hidden rounded-[2.5rem] bg-[#FFF5E1] transition-all duration-500 relative grid";
+const LOADING_CONTAINER_STYLES = "w-full flex items-center justify-center col-start-1 row-start-1 py-32";
+const LOADING_CONTENT_STYLES = "flex flex-col items-center gap-3";
+const LOADING_TEXT_STYLES = "text-xs font-semibold text-amber-600 dark:text-amber-500 uppercase tracking-widest animate-pulse";
+
+/* Carousel Images */
+const HIDDEN_PLACEHOLDER_STYLES = "col-start-1 row-start-1 grid invisible pointer-events-none";
+const PLACEHOLDER_ITEM_STYLES = "col-start-1 row-start-1 w-full flex items-center";
+const MULTI_BANNER_WRAPPER_STYLES = "w-full flex gap-3 md:gap-4 justify-between items-center";
+const SINGLE_BANNER_WRAPPER_STYLES = "w-full relative";
+const MULTI_BANNER_IMG_STYLES = "w-full h-auto object-contain rounded-[1rem] md:rounded-[1.5rem] transition-all duration-500 hover:scale-[1.03] shadow-sm hover:shadow-md";
+const SINGLE_BANNER_IMG_STYLES = "w-full h-auto object-contain rounded-[1.5rem] md:rounded-[2.5rem] bg-[#FFF5E1] border border-black/5 hover:border-[#facc15]/50 hover:shadow-[0_0_40px_rgba(250,204,21,0.2)] transition-all duration-500 group-hover/card:scale-[1.02]";
+
+/* Navigation & Pagination */
+const NAV_BTN_PREV_STYLES = "absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-black/50 border border-white/20 p-2 md:p-3 rounded-full text-white hover:bg-black/80 hover:scale-110 transition-all z-20 backdrop-blur-sm";
+const NAV_BTN_NEXT_STYLES = "absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-black/50 border border-white/20 p-2 md:p-3 rounded-full text-white hover:bg-black/80 hover:scale-110 transition-all z-20 backdrop-blur-sm";
+const PAGINATION_CONTAINER_STYLES = "absolute bottom-4 md:bottom-8 left-0 right-0 flex justify-center gap-2 z-20 pointer-events-none";
+
+/* Static CTA Buttons */
+const CTA_BAR_CONTAINER_STYLES = "w-full flex flex-col md:flex-row justify-center items-center gap-4 sm:gap-6 md:gap-8 lg:gap-8 mt-4 sm:mt-5 lg:mt-3 mb-2 lg:mb-0 px-2 sm:px-6 md:px-10 lg:px-8 relative z-30";
+const ASTRO_BTN_STYLES = "relative flex items-center justify-between pl-12 sm:pl-14 pr-3 py-2.5 rounded-full bg-gradient-to-r from-[#20033b] via-[#3a0c6a] to-[#510e8d] hover:to-[#5c0fa0] transition-all duration-300 shadow-[0_10px_30px_rgba(58,12,106,0.3)] hover:shadow-[0_10px_35px_rgba(176,82,255,0.5)] border-[2px] border-amber-400 hover:scale-[1.03] w-full max-w-[260px] sm:max-w-[280px] md:max-w-[270px] lg:max-w-[280px] h-[56px] sm:h-[60px] lg:h-[56px] group ml-4 sm:ml-2 md:ml-4 lg:ml-0";
+const ASTRO_ICON_WRAPPER_STYLES = "absolute left-[-16px] sm:left-[-18px] top-1/2 -translate-y-1/2 w-[56px] h-[56px] lg:w-[56px] lg:h-[56px] rounded-full border-[2.5px] border-amber-400 bg-gradient-to-b from-[#2a0854] to-[#120224] flex items-center justify-center shadow-lg z-20 group-hover:scale-105 transition-transform duration-300";
+const HOMA_BTN_STYLES = "relative flex items-center justify-between pl-12 sm:pl-14 pr-3 py-2.5 rounded-full bg-gradient-to-r from-[#983800] via-[#c65104] to-[#ea6b06] hover:to-[#f2740d] transition-all duration-300 shadow-[0_10px_30px_rgba(198,81,4,0.3)] hover:shadow-[0_10px_35px_rgba(245,158,11,0.5)] border-[2px] border-amber-400 hover:scale-[1.03] w-full max-w-[260px] sm:max-w-[280px] md:max-w-[270px] lg:max-w-[280px] h-[56px] sm:h-[60px] lg:h-[56px] group ml-4 sm:ml-2 md:ml-0";
+const HOMA_ICON_WRAPPER_STYLES = "absolute left-[-16px] sm:left-[-18px] top-1/2 -translate-y-1/2 w-[56px] h-[56px] lg:w-[56px] lg:h-[56px] rounded-full border-[2.5px] border-amber-400 bg-gradient-to-b from-[#8f3a00] to-[#3a1500] flex items-center justify-center shadow-lg z-20 group-hover:scale-105 transition-transform duration-300";
+const CTA_TEXT_WRAPPER_STYLES = "flex flex-col items-start justify-center flex-grow pl-2 lg:pl-1 text-left";
+const CTA_TITLE_STYLES = "font-serif text-white text-[13px] sm:text-[14px] lg:text-[14px] font-bold tracking-wide drop-shadow-md leading-tight whitespace-nowrap";
+const CTA_DESC_ASTRO_STYLES = "font-sans text-[9px] sm:text-[10px] lg:text-[10px] text-amber-200/95 font-semibold tracking-wide mt-0.5";
+const CTA_DESC_HOMA_STYLES = "font-sans text-[9px] sm:text-[10px] lg:text-[10px] text-orange-200/95 font-semibold tracking-wide mt-0.5";
+const CTA_ARROW_WRAPPER_STYLES = "w-6 h-6 sm:w-7 sm:h-7 lg:w-7 lg:h-7 rounded-full bg-white flex items-center justify-center shadow-md z-10 group-hover:translate-x-1 transition-transform duration-300 shrink-0";
+const CTA_ARROW_ICON_ASTRO_STYLES = "w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-4 lg:h-4 text-purple-800 stroke-[2.5]";
+const CTA_ARROW_ICON_HOMA_STYLES = "w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-4 lg:h-4 text-orange-800 stroke-[2.5]";
+
+/**
+ * Returns dynamic visibility classes for multi-banner arrays.
+ * @param index - Index of the banner in the array.
+ */
+const getMultiBannerVisibilityStyles = (index: number): string => {
+  return `flex-1 ${index === 1 ? 'hidden md:block' : index === 2 ? 'hidden lg:block' : 'block'}`;
+};
+
+/**
+ * Returns dynamic pagination dot styles based on active state.
+ * @param isActive - Whether the dot represents the current slide.
+ */
+const getPaginationDotStyles = (isActive: boolean): string => {
+  return `h-1.5 rounded-full transition-all duration-300 pointer-events-auto ${isActive ? 'bg-amber-400 w-6' : 'bg-white/30 hover:bg-white/50 w-1.5'}`;
+};
+
+/**
+ * SpecialEvents Component
+ * 
+ * Fetches dynamic events from an external API and renders them in an interactive carousel,
+ * alongside static premium CTA buttons.
+ */
+export function SpecialEvents() {
+  const [displayEvents, setDisplayEvents] = useState<ApiEventItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
+  /**
+   * Fetches event carousel HTML from the WordPress API, parses it using DOMParser,
+   * and normalizes the data into state-friendly objects.
+   */
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        setLoading(true);
+        setIsLoading(true);
         const response = await fetch('https://phplexus.astroved.com/wp-json/api/v1/new-home-slider/USD');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
+
         if (Array.isArray(data) && data.length > 0 && data[0].desktop_content) {
           const parser = new DOMParser();
           const doc = parser.parseFromString(data[0].desktop_content, 'text/html');
@@ -189,7 +302,7 @@ export function SpecialEvents() {
                 const anchor = item.querySelector('a');
                 const picture = item.querySelector('picture');
 
-                let sources = [];
+                let sources: Array<{ media: string; srcSet: string }> = [];
                 if (picture) {
                   const sourceElements = picture.querySelectorAll('source');
                   sourceElements.forEach(src => {
@@ -199,7 +312,7 @@ export function SpecialEvents() {
                     });
                   });
                 } else {
-                  // Fallback if no picture tag but we have the querySelector from original prompt
+                  // Fallback if no picture tag
                   const source = item.querySelector('picture source');
                   if (source && source.getAttribute('srcset')) {
                     sources.push({
@@ -239,22 +352,31 @@ export function SpecialEvents() {
         console.error('Error fetching special events:', err);
         setError(err.message || 'Failed to fetch');
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     };
 
     fetchEvents();
   }, []);
 
+  /**
+   * Swipe gesture start logic.
+   */
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchEnd(null);
     setTouchStart(e.targetTouches[0].clientX);
   };
 
+  /**
+   * Swipe gesture move logic.
+   */
   const handleTouchMove = (e: React.TouchEvent) => {
     setTouchEnd(e.targetTouches[0].clientX);
   };
 
+  /**
+   * Swipe gesture end logic, determining slide direction.
+   */
   const handleTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
     const distance = touchStart - touchEnd;
@@ -262,16 +384,25 @@ export function SpecialEvents() {
     if (distance < -50) prevSlide();
   };
 
+  /**
+   * Advances the carousel to the next slide.
+   */
   const nextSlide = () => {
     setDirection(1);
     setCurrentIndex((prev) => (prev === displayEvents.length - 1 ? 0 : prev + 1));
   };
 
+  /**
+   * Reverses the carousel to the previous slide.
+   */
   const prevSlide = () => {
     setDirection(-1);
     setCurrentIndex((prev) => (prev === 0 ? displayEvents.length - 1 : prev - 1));
   };
 
+  /**
+   * Auto-scroll timer.
+   */
   useEffect(() => {
     const timer = setInterval(() => {
       nextSlide();
@@ -279,6 +410,9 @@ export function SpecialEvents() {
     return () => clearInterval(timer);
   }, [displayEvents]);
 
+  /**
+   * Preload images to ensure smooth transitions.
+   */
   useEffect(() => {
     displayEvents.forEach((event) => {
       event.banners.forEach((banner) => {
@@ -293,59 +427,62 @@ export function SpecialEvents() {
   }, [displayEvents]);
 
   return (
-    <section id="special-events" className="pt-2 md:pt-4 pb-6 md:pb-8 relative overflow-hidden transition-colors duration-500 z-10">
-      <div className="max-w-[1600px] mx-auto px-4 md:px-8 relative z-10">
+    <section id="special-events" className={SECTION_WRAPPER_STYLES}>
+      <div className={CONTENT_WRAPPER_STYLES}>
 
-        {/* Header */}
-        <div className="text-center max-w-4xl mx-auto mb-6 md:mb-5 lg:mb-3">
-          <p className="text-amber-600 dark:text-amber-400 font-sans text-xs md:text-sm uppercase tracking-widest font-bold mb-3">
+        {/* --- Header --- */}
+        <div className={HEADER_CONTAINER_STYLES}>
+          <p className={HEADER_SUBTITLE_STYLES}>
             LIVE THIS WEEK
           </p>
-          <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-[3rem] text-midnight dark:text-cream leading-[1.1] font-black mb-4 md:mb-5 lg:mb-4 drop-shadow-sm tracking-tight">
+          <h2 className={HEADER_TITLE_STYLES}>
             This Week's <em className="text-amber-600 dark:text-amber-400 italic font-bold">Special Rituals.</em>
           </h2>
-          <p className="block font-sans text-gray-500 dark:text-gray-400 text-sm sm:text-base md:text-sm lg:text-base leading-relaxed max-w-2xl mx-auto font-medium px-4 md:px-2 md:mt-1">
+          <p className={HEADER_DESC_STYLES}>
             Performed live on the auspicious tithi — in your name, wherever you are.
           </p>
         </div>
 
-        {/* Carousel Container */}
+        {/* --- Carousel Container --- */}
         <div
-          className="relative group px-0 touch-pan-y"
+          className={CAROUSEL_WRAPPER_STYLES}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          <div className="overflow-hidden rounded-[2.5rem] bg-[#FFF5E1] transition-all duration-500 relative grid">
-            {loading ? (
-              <div className="w-full flex items-center justify-center col-start-1 row-start-1 py-32">
-                <div className="flex flex-col items-center gap-3">
+          <div className={CAROUSEL_BOX_STYLES}>
+            {isLoading ? (
+
+              /* Loading Indicator */
+              <div className={LOADING_CONTAINER_STYLES}>
+                <div className={LOADING_CONTENT_STYLES}>
                   <svg className="animate-spin h-8 w-8 text-amber-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
-                  <span className="text-xs font-semibold text-amber-600 dark:text-amber-500 uppercase tracking-widest animate-pulse">Loading Events...</span>
+                  <span className={LOADING_TEXT_STYLES}>Loading Events...</span>
                 </div>
               </div>
+
             ) : (
               <>
                 {/* Hidden placeholders to lock container height to the tallest slide */}
-                <div className="col-start-1 row-start-1 grid invisible pointer-events-none" aria-hidden="true">
-                  {displayEvents.map((event, i) => (
-                    <div key={`hidden-${i}`} className="col-start-1 row-start-1 w-full flex items-center">
+                <div className={HIDDEN_PLACEHOLDER_STYLES} aria-hidden="true">
+                  {displayEvents.map((event, itemIndex) => (
+                    <div key={`hidden-${itemIndex}`} className={PLACEHOLDER_ITEM_STYLES}>
                       {event.isThreeBan ? (
-                        <div className="w-full flex gap-3 md:gap-4 justify-between items-center">
-                          {event.banners.map((banner: any, idx: number) => (
-                            <div key={idx} className={`flex-1 ${idx === 1 ? 'hidden md:block' : idx === 2 ? 'hidden lg:block' : 'block'}`}>
+                        <div className={MULTI_BANNER_WRAPPER_STYLES}>
+                          {event.banners.map((banner, bannerIndex) => (
+                            <div key={bannerIndex} className={getMultiBannerVisibilityStyles(bannerIndex)}>
                               <img src={banner.image} className="w-full h-auto object-contain rounded-[1rem] md:rounded-[1.5rem]" alt="" />
                             </div>
                           ))}
                         </div>
                       ) : (
-                        <div className="w-full relative">
+                        <div className={SINGLE_BANNER_WRAPPER_STYLES}>
                           <picture>
-                            {event.banners[0].sources.map((src: any, srcIdx: number) => (
-                              <source key={srcIdx} media={src.media} srcSet={src.srcSet} />
+                            {event.banners[0].sources.map((src, srcIndex) => (
+                              <source key={srcIndex} media={src.media} srcSet={src.srcSet} />
                             ))}
                             <img src={event.banners[0].image} className="w-full h-auto object-contain rounded-[1.5rem] md:rounded-[2.5rem]" alt="" />
                           </picture>
@@ -355,6 +492,7 @@ export function SpecialEvents() {
                   ))}
                 </div>
 
+                {/* Animated Carousel Slides */}
                 <AnimatePresence initial={false} custom={direction}>
                   {displayEvents.length > 0 && (
                     <motion.div
@@ -374,36 +512,34 @@ export function SpecialEvents() {
                       }}
                     >
                       {displayEvents[currentIndex].isThreeBan ? (
-                        <div className="w-full flex gap-3 md:gap-4 justify-between items-center">
-                          {displayEvents[currentIndex].banners.map((banner: any, idx: number) => (
+                        <div className={MULTI_BANNER_WRAPPER_STYLES}>
+                          {displayEvents[currentIndex].banners.map((banner, bannerIndex) => (
                             <a
-                              key={idx}
+                              key={bannerIndex}
                               href={banner.link}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className={`flex-1 ${idx === 1 ? 'hidden md:block' : idx === 2 ? 'hidden lg:block' : 'block'}`}
+                              className={getMultiBannerVisibilityStyles(bannerIndex)}
                               onClick={(e) => e.stopPropagation()}
                             >
                               <img
                                 src={banner.image}
                                 alt={banner.title}
-                                className="w-full h-auto object-contain rounded-[1rem] md:rounded-[1.5rem] transition-all duration-500 hover:scale-[1.03] shadow-sm hover:shadow-md"
+                                className={MULTI_BANNER_IMG_STYLES}
                               />
                             </a>
                           ))}
                         </div>
                       ) : (
-                        <div className="w-full relative">
-                          {/* Responsive Picture tag handling both Mobile, Tab and Desktop */}
+                        <div className={SINGLE_BANNER_WRAPPER_STYLES}>
                           <picture>
-                            {displayEvents[currentIndex].banners[0].sources.map((src: any, i: number) => (
-                              <source key={i} media={src.media} srcSet={src.srcSet} />
+                            {displayEvents[currentIndex].banners[0].sources.map((src, srcIndex) => (
+                              <source key={srcIndex} media={src.media} srcSet={src.srcSet} />
                             ))}
-                            {/* Fallback & Desktop Image */}
                             <img
                               src={displayEvents[currentIndex].banners[0].image}
                               alt={displayEvents[currentIndex].banners[0].title}
-                              className="w-full h-auto object-contain rounded-[1.5rem] md:rounded-[2.5rem] bg-[#FFF5E1] border border-black/5 hover:border-[#facc15]/50 hover:shadow-[0_0_40px_rgba(250,204,21,0.2)] transition-all duration-500 group-hover/card:scale-[1.02]"
+                              className={SINGLE_BANNER_IMG_STYLES}
                             />
                           </picture>
                         </div>
@@ -415,72 +551,71 @@ export function SpecialEvents() {
             )}
           </div>
 
-          {/* Navigation Buttons */}
+          {/* Navigation Controls */}
           <button
             onClick={prevSlide}
-            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-black/50 border border-white/20 p-2 md:p-3 rounded-full text-white hover:bg-black/80 hover:scale-110 transition-all z-20 backdrop-blur-sm"
+            className={NAV_BTN_PREV_STYLES}
           >
             <ChevronLeft className="w-4 h-4 md:w-5 md:h-5" />
           </button>
           <button
             onClick={nextSlide}
-            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-black/50 border border-white/20 p-2 md:p-3 rounded-full text-white hover:bg-black/80 hover:scale-110 transition-all z-20 backdrop-blur-sm"
+            className={NAV_BTN_NEXT_STYLES}
           >
             <ChevronRight className="w-4 h-4 md:w-5 md:h-5" />
           </button>
 
-          {/* Dots Indicator */}
-          <div className="absolute bottom-4 md:bottom-8 left-0 right-0 flex justify-center gap-2 z-20 pointer-events-none">
-            {displayEvents.map((_, idx) => (
+          {/* Pagination Indicators */}
+          <div className={PAGINATION_CONTAINER_STYLES}>
+            {displayEvents.map((_, itemIndex) => (
               <button
-                key={idx}
-                onClick={() => setCurrentIndex(idx)}
-                className={`h-1.5 rounded-full transition-all duration-300 pointer-events-auto ${currentIndex === idx
-                  ? 'bg-amber-400 w-6'
-                  : 'bg-white/30 hover:bg-white/50 w-1.5'
-                  }`}
+                key={itemIndex}
+                onClick={() => setCurrentIndex(itemIndex)}
+                className={getPaginationDotStyles(currentIndex === itemIndex)}
               />
             ))}
           </div>
         </div>
 
-        {/* Premium Static Theme CTA Bar */}
-        <div className="w-full flex flex-col md:flex-row justify-center items-center gap-4 sm:gap-6 md:gap-8 lg:gap-8 mt-4 sm:mt-5 lg:mt-3 mb-2 lg:mb-0 px-2 sm:px-6 md:px-10 lg:px-8 relative z-30">
-          {/* Talk to Astrology Button */}
-          <button className="relative flex items-center justify-between pl-12 sm:pl-14 pr-3 py-2.5 rounded-full bg-gradient-to-r from-[#20033b] via-[#3a0c6a] to-[#510e8d] hover:to-[#5c0fa0] transition-all duration-300 shadow-[0_10px_30px_rgba(58,12,106,0.3)] hover:shadow-[0_10px_35px_rgba(176,82,255,0.5)] border-[2px] border-amber-400 hover:scale-[1.03] w-full max-w-[260px] sm:max-w-[280px] md:max-w-[270px] lg:max-w-[280px] h-[56px] sm:h-[60px] lg:h-[56px] group ml-4 sm:ml-2 md:ml-4 lg:ml-0">
-            <div className="absolute left-[-16px] sm:left-[-18px] top-1/2 -translate-y-1/2 w-[56px] h-[56px] lg:w-[56px] lg:h-[56px] rounded-full border-[2.5px] border-amber-400 bg-gradient-to-b from-[#2a0854] to-[#120224] flex items-center justify-center shadow-lg z-20 group-hover:scale-105 transition-transform duration-300">
+        {/* --- Premium Static Theme CTA Bar --- */}
+        <div className={CTA_BAR_CONTAINER_STYLES}>
+
+          {/* Talk to Astrologer Button */}
+          <button className={ASTRO_BTN_STYLES}>
+            <div className={ASTRO_ICON_WRAPPER_STYLES}>
               <PhoneCall className="w-7 h-7 lg:w-7 lg:h-7 text-purple-300 drop-shadow-[0_0_8px_rgba(168,85,247,0.8)] fill-purple-300/20" strokeWidth={1.5} />
             </div>
-            <div className="flex flex-col items-start justify-center flex-grow pl-2 lg:pl-1 text-left">
-              <span className="font-serif text-white text-[13px] sm:text-[14px] lg:text-[14px] font-bold tracking-wide drop-shadow-md leading-tight whitespace-nowrap">
+            <div className={CTA_TEXT_WRAPPER_STYLES}>
+              <span className={CTA_TITLE_STYLES}>
                 Talk to Astrologer
               </span>
-              <span className="font-sans text-[9px] sm:text-[10px] lg:text-[10px] text-amber-200/95 font-semibold tracking-wide mt-0.5">
+              <span className={CTA_DESC_ASTRO_STYLES}>
                 Get Answers. Gain Clarity.
               </span>
             </div>
-            <div className="w-6 h-6 sm:w-7 sm:h-7 lg:w-7 lg:h-7 rounded-full bg-white flex items-center justify-center shadow-md z-10 group-hover:translate-x-1 transition-transform duration-300 shrink-0">
-              <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-4 lg:h-4 text-purple-800 stroke-[2.5]" />
+            <div className={CTA_ARROW_WRAPPER_STYLES}>
+              <ChevronRight className={CTA_ARROW_ICON_ASTRO_STYLES} />
             </div>
           </button>
 
           {/* Homa & Remedies Button */}
-          <button className="relative flex items-center justify-between pl-12 sm:pl-14 pr-3 py-2.5 rounded-full bg-gradient-to-r from-[#983800] via-[#c65104] to-[#ea6b06] hover:to-[#f2740d] transition-all duration-300 shadow-[0_10px_30px_rgba(198,81,4,0.3)] hover:shadow-[0_10px_35px_rgba(245,158,11,0.5)] border-[2px] border-amber-400 hover:scale-[1.03] w-full max-w-[260px] sm:max-w-[280px] md:max-w-[270px] lg:max-w-[280px] h-[56px] sm:h-[60px] lg:h-[56px] group ml-4 sm:ml-2 md:ml-0">
-            <div className="absolute left-[-16px] sm:left-[-18px] top-1/2 -translate-y-1/2 w-[56px] h-[56px] lg:w-[56px] lg:h-[56px] rounded-full border-[2.5px] border-amber-400 bg-gradient-to-b from-[#8f3a00] to-[#3a1500] flex items-center justify-center shadow-lg z-20 group-hover:scale-105 transition-transform duration-300">
+          <button className={HOMA_BTN_STYLES}>
+            <div className={HOMA_ICON_WRAPPER_STYLES}>
               <Flame className="w-7 h-7 lg:w-7 lg:h-7 text-orange-200 drop-shadow-[0_0_8px_rgba(245,158,11,0.8)] fill-orange-500/30" strokeWidth={1.5} />
             </div>
-            <div className="flex flex-col items-start justify-center flex-grow pl-2 lg:pl-1 text-left">
-              <span className="font-serif text-white text-[13px] sm:text-[14px] lg:text-[14px] font-bold tracking-wide drop-shadow-md leading-tight whitespace-nowrap">
+            <div className={CTA_TEXT_WRAPPER_STYLES}>
+              <span className={CTA_TITLE_STYLES}>
                 Homa & Remedies
               </span>
-              <span className="font-sans text-[9px] sm:text-[10px] lg:text-[10px] text-orange-200/95 font-semibold tracking-wide mt-0.5">
+              <span className={CTA_DESC_HOMA_STYLES}>
                 Balance. Heal. Harmonize.
               </span>
             </div>
-            <div className="w-6 h-6 sm:w-7 sm:h-7 lg:w-7 lg:h-7 rounded-full bg-white flex items-center justify-center shadow-md z-10 group-hover:translate-x-1 transition-transform duration-300 shrink-0">
-              <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-4 lg:h-4 text-orange-800 stroke-[2.5]" />
+            <div className={CTA_ARROW_WRAPPER_STYLES}>
+              <ChevronRight className={CTA_ARROW_ICON_HOMA_STYLES} />
             </div>
           </button>
+
         </div>
       </div>
     </section>
