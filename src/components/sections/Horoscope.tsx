@@ -285,7 +285,7 @@ export function Horoscope({ onCalculateChart }: HoroscopeProps) {
               {/* --- Bottom Interactive Action Section --- */}
               <div className="mt-4 pt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                 <button
-                  onClick={() => onCalculateChart(selectedZodiac)}
+                  onClick={() => window.open(`https://www.astroved.com/horoscopes/daily-horoscope/${selectedZodiac.toLowerCase()}`, '_blank')}
                   className={getDetailsButtonStyles()}
                 >
                   View full details

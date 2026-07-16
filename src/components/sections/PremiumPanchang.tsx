@@ -13,7 +13,7 @@ const Styles = {
     HEADER_TITLE_HIGHLIGHT_STYLES: "text-amber-600 dark:text-amber-400 italic",
     HEADER_DESC_STYLES: "font-sans text-gray-500 dark:text-gray-400 text-sm md:text-base lg:text-lg leading-relaxed max-w-2xl mx-auto font-medium",
     MAIN_PANEL_STYLES: "bg-white dark:bg-[#0c0f24] rounded-[2rem] p-4 sm:p-6 lg:p-10 relative overflow-hidden shadow-2xl border border-black/5 dark:border-amber-500/40 dark:shadow-[0_0_15px_rgba(245,158,11,0.2)] hover:border-[#facc15]/50 hover:shadow-[0_0_40px_rgba(250,204,21,0.2)] transition-all duration-500",
-    TOP_BAR_STYLES: "flex flex-col xl:flex-row justify-between items-center gap-6 border-b border-black/5 dark:border-amber-500/40 dark:shadow-[0_0_15px_rgba(245,158,11,0.2)] pb-8 mb-8",
+    TOP_BAR_STYLES: "flex flex-col xl:flex-row justify-between items-center gap-6 border-b border-black/5 dark:border-amber-500/40 dark:shadow-[0_0_15px_rgba(245,158,11,0.2)] pb-4 mb-5 md:pb-8 md:mb-8",
     DATE_LOCATION_BUTTON_STYLES: "flex items-center gap-1 cursor-pointer hover:underline decoration-dotted text-slate-600 dark:text-slate-400",
     DOT_DIVIDER_STYLES: "text-purple/30 dark:text-gold/30",
     POPOVER_BACKDROP_STYLES: "fixed inset-0 bg-black/40 backdrop-blur-sm z-40 sm:hidden cursor-pointer",
@@ -27,7 +27,7 @@ const Styles = {
     ASTRO_TICKER_CONTAINER_STYLES: "grid grid-cols-2 sm:flex sm:flex-row items-center justify-center gap-4 sm:gap-6 bg-white/60 dark:bg-[#0c0f24]/50 backdrop-blur-md px-6 py-4 rounded-2xl border border-purple/10 dark:border-amber-500/40 dark:shadow-[0_0_15px_rgba(245,158,11,0.2)] w-full xl:w-auto shadow-sm dark:shadow-none",
     TICKER_ITEM_STYLES: "flex items-center gap-2",
     TICKER_DIVIDER_STYLES: "w-px h-8 bg-black/10 dark:bg-white/10 hidden sm:block",
-    CONTENT_GRID_STYLES: "grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12",
+    CONTENT_GRID_STYLES: "grid grid-cols-1 lg:grid-cols-12 gap-5 md:gap-8 lg:gap-12",
     DATA_BOX_BASE_STYLES: "bg-white/70 dark:bg-black/20 p-5 rounded-2xl border border-purple/10 dark:border-amber-500/40 dark:shadow-[0_0_15px_rgba(245,158,11,0.2)] shadow-sm space-y-3 relative overflow-hidden",
     DATA_BOX_ALT_STYLES: "bg-white/70 dark:bg-black/20 p-5 rounded-2xl border border-indigo/10 dark:border-amber-500/40 dark:shadow-[0_0_15px_rgba(245,158,11,0.2)] shadow-sm space-y-3 relative overflow-hidden",
     DATA_ROW_LABEL_STYLES: "text-[12px] font-bold text-slate-500 dark:text-slate-400",
@@ -807,12 +807,12 @@ export function PremiumPanchang() {
                     <div className={Styles.CONTENT_GRID_STYLES}>
 
                         {/* Column 1: Detailed Panchang Data */}
-                        <div className="lg:col-span-4 space-y-8">
+                        <div className="lg:col-span-4 space-y-5 md:space-y-8">
 
                             {/* Auspicious & Inauspicious Timings */}
                             <div className={Styles.DATA_BOX_BASE_STYLES}>
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-gold/5 blur-[20px] rounded-full pointer-events-none" />
-                                <div className="relative z-10 flex justify-between items-center">
+                                <div className="relative z-10 flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-1 sm:gap-0">
                                     <span className={Styles.DATA_ROW_LABEL_STYLES}>Good Time (Gulikai)</span>
                                     <span className={Styles.DATA_ROW_VALUE_STYLES}>
                                         {panchangData?.specialKalas?.GoodTimeStart && panchangData?.specialKalas?.GoodTimeEnd
@@ -821,7 +821,7 @@ export function PremiumPanchang() {
                                     </span>
                                 </div>
                                 <div className={Styles.DATA_DIVIDER_STYLES} />
-                                <div className="relative z-10 flex justify-between items-center">
+                                <div className="relative z-10 flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-1 sm:gap-0">
                                     <span className={Styles.DATA_ROW_LABEL_STYLES}>Danger Time (Yamagandam)</span>
                                     <span className={Styles.DATA_ROW_VALUE_STYLES}>
                                         {panchangData?.specialKalas?.DangerTimeStart && panchangData?.specialKalas?.DangerTimeEnd
@@ -830,7 +830,7 @@ export function PremiumPanchang() {
                                     </span>
                                 </div>
                                 <div className={Styles.DATA_DIVIDER_STYLES} />
-                                <div className="relative z-10 flex justify-between items-center">
+                                <div className="relative z-10 flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-1 sm:gap-0">
                                     <span className={Styles.DATA_ROW_LABEL_STYLES}>Poison Time (Rahu Kalam)</span>
                                     <span className={Styles.DATA_ROW_VALUE_STYLES}>
                                         {panchangData?.specialKalas?.PoisonTimeStart && panchangData?.specialKalas?.PoisonTimeEnd
@@ -873,17 +873,17 @@ export function PremiumPanchang() {
                         </div>
 
                         {/* Column 2: Nakshatram & Yoga/Karana */}
-                        <div className="lg:col-span-4 space-y-8">
+                        <div className="lg:col-span-4 space-y-5 md:space-y-8">
 
                             {/* Additional Elements Box */}
                             <div className={Styles.DATA_BOX_ALT_STYLES}>
                                 <div className="absolute bottom-0 left-0 w-32 h-32 bg-indigo/5 blur-[20px] rounded-full pointer-events-none" />
-                                <div className="relative z-10 flex justify-between items-center">
+                                <div className="relative z-10 flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-1 sm:gap-0">
                                     <span className={Styles.DATA_ROW_LABEL_STYLES}>Energy (Yoga)</span>
                                     <span className={Styles.DATA_ROW_VALUE_STYLES}>{panchangData?.yoga?.YogaName || 'Siddhi'}</span>
                                 </div>
                                 <div className={Styles.DATA_DIVIDER_STYLES} />
-                                <div className="relative z-10 flex justify-between items-center">
+                                <div className="relative z-10 flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-1 sm:gap-0">
                                     <span className={Styles.DATA_ROW_LABEL_STYLES}>Half-Lunar Day</span>
                                     <span className={Styles.DATA_ROW_VALUE_STYLES}>{panchangData?.karana?.KaranaName || 'Gara'}</span>
                                 </div>
@@ -935,7 +935,7 @@ export function PremiumPanchang() {
                         </div>
 
                         {/* Column 3: Beautiful Live Chart adapted for both themes */}
-                        <div className="lg:col-span-4 flex flex-col items-center lg:items-end space-y-6">
+                        <div className="lg:col-span-4 flex flex-col items-center lg:items-end space-y-5 md:space-y-6">
                             <h3 className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-cream font-bold mb-6 flex items-center gap-3 w-full justify-center lg:justify-end">
                                 Chart of Now
                                 <span className="h-[1px] w-4 bg-purple/20 dark:bg-gold/20" />

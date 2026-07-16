@@ -334,7 +334,7 @@ export function PersonalizedSupport() {
 
                       {/* Background Image (Mobile & Tablet) */}
                       <div className={MOBILE_IMG_WRAPPER_STYLES}>
-                        <picture>
+                        <picture className="w-full h-full block absolute inset-0">
                           <source media="(min-width: 768px)" srcSet={currentSupport.image} />
                           <img
                             src={currentSupport.mobileImage || currentSupport.image}
