@@ -8,7 +8,7 @@ interface AnimatedCardProps {
 }
 
 export const AnimatedCard: React.FC<AnimatedCardProps> = ({ children, className = '', delay }) => {
-  const itemVariants = {
+  const itemVariants: any = {
     hidden: { opacity: 0, y: 20, scale: 0.95 },
     show: {
       opacity: 1,

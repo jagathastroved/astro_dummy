@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, ChevronRight, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { scrollToSection } from '../../utils/scroll';
-import { astroved_store, Community_Fire, Pilgrimage_Tours } from '../../assets/Auspicious_Involvements/index';
+import astroved_store from '../../assets/personalized_solutions/astroved_store.png';
+import Community_Fire from '../../assets/personalized_solutions/Community_Fire.png';
+import Pilgrimage_Tours from '../../assets/personalized_solutions/Pilgrimage_Tours.png';
 
 /**
  * Interface defining the structure for each personalized solution item.

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion, useSpring, useMotionValue } from 'motion/react';
-import { useTheme } from './ThemeProvider';
+import { useTheme } from '../../context/ThemeProvider';
 
 export function HoverGlow() {
   const { theme } = useTheme();

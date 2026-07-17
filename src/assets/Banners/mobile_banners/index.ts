@@ -1,9 +1,0 @@
-export { default as AadiAmavasyaMob } from './Aadi-Amavasya-mob.jpg';
-export { default as AadiGoddessMob } from './Aadi-Goddess-mob.jpg';
-export { default as AshadaNavratriMob } from './Ashada-Navratri-mob.jpg';
-export { default as GuruPurnimaMob } from './Guru-Purnima-mob.jpg';
-export { default as HyderabadNadiCampMob } from './Hyderabad-Nadi-Camp-mob.jpg';
-export { default as KaruppasamyMob } from './Karuppasamy’s-Swift-Protection-mob.jpg';
-export { default as SolarEclipseMob } from './Solar-Eclipse-2026-mob.jpg';
-export { default as SudarshanaJayanthiMob } from './Sudarshana-Jayanthi-mob.jpg';
-export { default as VastuHomaMob } from './Vastu-Homa-mob.jpg';

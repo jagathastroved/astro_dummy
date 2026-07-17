@@ -2,8 +2,9 @@ import { useRef, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { AnimatedGrid } from '../ui/AnimatedGrid';
 import { AnimatedCard } from '../ui/AnimatedCard';
-import { palm_leaf, personal_report } from '../../assets/vedic_master/index';
-import liveConsultationsImg from '../../assets/Services/live_consultations.png';
+import palm_leaf from '../../assets/personal_guidance/palm_leaf.png';
+import personal_report from '../../assets/personal_guidance/personal_report.png';
+import liveConsultationsImg from '../../assets/personal_guidance/live_consultations.png';
 
 /**
  * Interface defining the structure for Personal Guidance cards.

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, ArrowRight, Star } from 'lucide-react';
-import { astro_service, astro_promotion } from '../../assets/astroved_service/index';
+import astro_service from '../../assets/testimonials/astro_service.png';
+import astro_promotion from '../../assets/testimonials/astro_promotion.png';
 import { fetchTestimonialsData } from '../../services/testimonialService';
 
 /**

@@ -1,8 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Flame, PhoneCall } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Vastu_Homa, Ashada_Navratri, Sudarshana_Jayanthi, Solar_Eclipse_2026, Karuppasamy, Hyderabad_Nadi_Camp, Guru_purnima, Aadi_Goddess, Aadi_Amavasya } from '../../assets/Banners';
-import { AadiAmavasyaMob, AadiGoddessMob, AshadaNavratriMob, GuruPurnimaMob, HyderabadNadiCampMob, KaruppasamyMob, SolarEclipseMob, SudarshanaJayanthiMob, VastuHomaMob } from '../../assets/Banners/mobile_banners';
+import Vastu_Homa from '../../assets/special_events/Vastu_Homa.jpg';
+import Ashada_Navratri from '../../assets/special_events/Ashada_Navratri.jpg';
+import Sudarshana_Jayanthi from '../../assets/special_events/Sudarshana_Jayanthi.jpg';
+import Solar_Eclipse_2026 from '../../assets/special_events/Solar_Eclipse_2026.jpg';
+import Karuppasamy from '../../assets/special_events/Karuppasamy.jpg';
+import Hyderabad_Nadi_Camp from '../../assets/special_events/Hyderabad_Nadi_Camp.jpg';
+import Guru_purnima from '../../assets/special_events/Guru-purnima.jpg';
+import Aadi_Goddess from '../../assets/special_events/Aadi_Goddess.jpg';
+import Aadi_Amavasya from '../../assets/special_events/Aadi_Amavasya.jpg';
+import AadiAmavasyaMob from '../../assets/special_events/mobile_banners/Aadi-Amavasya-mob.jpg';
+import AadiGoddessMob from '../../assets/special_events/mobile_banners/Aadi-Goddess-mob.jpg';
+import AshadaNavratriMob from '../../assets/special_events/mobile_banners/Ashada-Navratri-mob.jpg';
+import GuruPurnimaMob from '../../assets/special_events/mobile_banners/Guru-Purnima-mob.jpg';
+import HyderabadNadiCampMob from '../../assets/special_events/mobile_banners/Hyderabad-Nadi-Camp-mob.jpg';
+import KaruppasamyMob from '../../assets/special_events/mobile_banners/Karuppasamy’s-Swift-Protection-mob.jpg';
+import SolarEclipseMob from '../../assets/special_events/mobile_banners/Solar-Eclipse-2026-mob.jpg';
+import SudarshanaJayanthiMob from '../../assets/special_events/mobile_banners/Sudarshana-Jayanthi-mob.jpg';
+import VastuHomaMob from '../../assets/special_events/mobile_banners/Vastu-Homa-mob.jpg';
 
 /**
  * Interface for static upcoming events to be used in the future.
@@ -182,7 +198,7 @@ const SECTION_WRAPPER_STYLES = "pt-2 md:pt-4 pb-6 md:pb-8 relative overflow-hidd
 const CONTENT_WRAPPER_STYLES = "max-w-[1600px] mx-auto px-4 md:px-8 relative z-10";
 const HEADER_CONTAINER_STYLES = "text-center w-full mx-auto mb-6 md:mb-5 lg:mb-3";
 const HEADER_SUBTITLE_STYLES = "text-amber-600 dark:text-amber-400 font-sans text-xs md:text-sm uppercase tracking-widest font-bold mb-3";
-const HEADER_TITLE_STYLES = "font-serif text-4xl sm:text-5xl md:text-5xl lg:text-[3rem] text-midnight dark:text-cream leading-[1.1] font-black mb-4 md:mb-5 lg:mb-4 drop-shadow-sm tracking-tight lg:whitespace-nowrap";
+const HEADER_TITLE_STYLES = "font-serif text-3xl sm:text-4xl md:text-5xl text-midnight dark:text-cream leading-tight font-bold mb-4";
 const HEADER_DESC_STYLES = "block font-sans text-gray-500 dark:text-gray-400 text-sm sm:text-base md:text-sm lg:text-base leading-relaxed max-w-2xl mx-auto font-medium px-4 md:px-2 md:mt-1";
 
 /* Carousel Container */

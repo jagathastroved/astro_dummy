@@ -1,7 +1,34 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
-import { ZODIAC_SIGNS } from '../../utils/data';
+import aquarius from '../../assets/horoscope/aquarius.png';
+import aries from '../../assets/horoscope/aries.png';
+import cancer from '../../assets/horoscope/cancer.png';
+import capricorn from '../../assets/horoscope/capricorn.png';
+import gemini from '../../assets/horoscope/gemini.png';
+import leo from '../../assets/horoscope/leo.png';
+import libra from '../../assets/horoscope/libra.png';
+import pisces from '../../assets/horoscope/pisces.png';
+import sagittarius from '../../assets/horoscope/sagittarius.png';
+import scorpio from '../../assets/horoscope/scorpio.png';
+import taurus from '../../assets/horoscope/taurus.png';
+import virgo from '../../assets/horoscope/virgo.png';
+import { ZodiacSign } from '../../types';
+
+export const ZODIAC_SIGNS: ZodiacSign[] = [
+  { name: 'Aries', sanskrit: 'Mesha', ruler: 'Mars (Mangala)', element: 'Fire', imageUrl: aries },
+  { name: 'Taurus', sanskrit: 'Vrishabha', ruler: 'Venus (Shukra)', element: 'Earth', imageUrl: taurus },
+  { name: 'Gemini', sanskrit: 'Mithuna', ruler: 'Mercury (Budha)', element: 'Air', imageUrl: gemini },
+  { name: 'Cancer', sanskrit: 'Karka', ruler: 'Moon (Chandra)', element: 'Water', imageUrl: cancer },
+  { name: 'Leo', sanskrit: 'Simha', ruler: 'Sun (Surya)', element: 'Fire', imageUrl: leo },
+  { name: 'Virgo', sanskrit: 'Kanya', ruler: 'Mercury (Budha)', element: 'Earth', imageUrl: virgo },
+  { name: 'Libra', sanskrit: 'Tula', ruler: 'Venus (Shukra)', element: 'Air', imageUrl: libra },
+  { name: 'Scorpio', sanskrit: 'Vrishchika', ruler: 'Mars / Ketu', element: 'Water', imageUrl: scorpio },
+  { name: 'Sagittarius', sanskrit: 'Dhanus', ruler: 'Jupiter (Guru)', element: 'Fire', imageUrl: sagittarius },
+  { name: 'Capricorn', sanskrit: 'Makara', ruler: 'Saturn (Shani)', element: 'Earth', imageUrl: capricorn },
+  { name: 'Aquarius', sanskrit: 'Kumbha', ruler: 'Saturn / Rahu', element: 'Air', imageUrl: aquarius },
+  { name: 'Pisces', sanskrit: 'Meena', ruler: 'Jupiter / Ketu', element: 'Water', imageUrl: pisces }
+];
 import TargetCursor from '../ui/TargetCursor';
 
 /**
@@ -226,7 +253,8 @@ export function Horoscope({ onCalculateChart }: HoroscopeProps) {
                   </div>
                   <div>
                     <h3 className="font-sans text-2xl sm:text-3xl text-midnight dark:text-cream tracking-wide font-medium flex items-center gap-3">
-                      {selectedZodiac} <span className="text-amber-500/40 text-xl font-light hidden sm:inline">·</span> <span className="text-gray-400 dark:text-gray-500 text-xl hidden sm:inline">{activeZodiacData?.sanskrit}</span>
+                      {selectedZodiac} ({activeZodiacData?.sanskrit}) <span className="text-amber-500/40 text-xl font-light hidden sm:inline">·</span>
+                      {/* <span className="text-gray-400 dark:text-gray-500 text-xl hidden sm:inline"></span> */}
                     </h3>
                     <div className="flex flex-wrap items-center gap-2 mt-3">
                       <span className="px-2 py-1 rounded-md bg-black/5 dark:bg-white/5 text-[9px] sm:text-[10px] font-mono text-gray-500 dark:text-gray-400 uppercase tracking-widest">

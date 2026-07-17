@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
-import shreemBrzeeImg from '../../assets/shreem_brzee_new.png';
-import tarpanamNewImg from '../../assets/tarpanam_new.png';
+import shreemBrzeeImg from '../../assets/personalized_support/shreem_brzee_new.png';
+import tarpanamNewImg from '../../assets/personalized_support/tarpanam_new.png';
 
 /**
  * Interface defining the structure for continuous support solutions.
