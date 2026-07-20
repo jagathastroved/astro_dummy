@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Flame, PhoneCall } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import Vastu_Homa from '../../assets/special_events/Vastu_Homa.jpg';
-import Ashada_Navratri from '../../assets/special_events/Ashada_Navratri.jpg';
-import Sudarshana_Jayanthi from '../../assets/special_events/Sudarshana_Jayanthi.jpg';
-import Solar_Eclipse_2026 from '../../assets/special_events/Solar_Eclipse_2026.jpg';
-import Karuppasamy from '../../assets/special_events/Karuppasamy.jpg';
-import Hyderabad_Nadi_Camp from '../../assets/special_events/Hyderabad_Nadi_Camp.jpg';
-import Guru_purnima from '../../assets/special_events/Guru-purnima.jpg';
-import Aadi_Goddess from '../../assets/special_events/Aadi_Goddess.jpg';
-import Aadi_Amavasya from '../../assets/special_events/Aadi_Amavasya.jpg';
-import AadiAmavasyaMob from '../../assets/special_events/mobile_banners/Aadi-Amavasya-mob.jpg';
-import AadiGoddessMob from '../../assets/special_events/mobile_banners/Aadi-Goddess-mob.jpg';
-import AshadaNavratriMob from '../../assets/special_events/mobile_banners/Ashada-Navratri-mob.jpg';
-import GuruPurnimaMob from '../../assets/special_events/mobile_banners/Guru-Purnima-mob.jpg';
-import HyderabadNadiCampMob from '../../assets/special_events/mobile_banners/Hyderabad-Nadi-Camp-mob.jpg';
-import KaruppasamyMob from '../../assets/special_events/mobile_banners/Karuppasamy’s-Swift-Protection-mob.jpg';
-import SolarEclipseMob from '../../assets/special_events/mobile_banners/Solar-Eclipse-2026-mob.jpg';
-import SudarshanaJayanthiMob from '../../assets/special_events/mobile_banners/Sudarshana-Jayanthi-mob.jpg';
-import VastuHomaMob from '../../assets/special_events/mobile_banners/Vastu-Homa-mob.jpg';
+import Vastu_Homa from '../../assets/Special_events/Vastu_Homa.jpg';
+import Ashada_Navratri from '../../assets/Special_events/Ashada_Navratri.jpg';
+import Sudarshana_Jayanthi from '../../assets/Special_events/Sudarshana_Jayanthi.jpg';
+import Solar_Eclipse_2026 from '../../assets/Special_events/Solar_Eclipse_2026.jpg';
+import Karuppasamy from '../../assets/Special_events/Karuppasamy.jpg';
+import Hyderabad_Nadi_Camp from '../../assets/Special_events/Hyderabad_Nadi_Camp.jpg';
+import Guru_purnima from '../../assets/Special_events/Guru-purnima.jpg';
+import Aadi_Goddess from '../../assets/Special_events/Aadi_Goddess.jpg';
+import Aadi_Amavasya from '../../assets/Special_events/Aadi_Amavasya.jpg';
+import AadiAmavasyaMob from '../../assets/Special_events/mobile_banners/Aadi-Amavasya-mob.jpg';
+import AadiGoddessMob from '../../assets/Special_events/mobile_banners/Aadi-Goddess-mob.jpg';
+import AshadaNavratriMob from '../../assets/Special_events/mobile_banners/Ashada-Navratri-mob.jpg';
+import GuruPurnimaMob from '../../assets/Special_events/mobile_banners/Guru-Purnima-mob.jpg';
+import HyderabadNadiCampMob from '../../assets/Special_events/mobile_banners/Hyderabad-Nadi-Camp-mob.jpg';
+import KaruppasamyMob from '../../assets/Special_events/mobile_banners/Karuppasamy’s-Swift-Protection-mob.jpg';
+import SolarEclipseMob from '../../assets/Special_events/mobile_banners/Solar-Eclipse-2026-mob.jpg';
+import SudarshanaJayanthiMob from '../../assets/Special_events/mobile_banners/Sudarshana-Jayanthi-mob.jpg';
+import VastuHomaMob from '../../assets/Special_events/mobile_banners/Vastu-Homa-mob.jpg';
 
 /**
  * Interface for static upcoming events to be used in the future.
