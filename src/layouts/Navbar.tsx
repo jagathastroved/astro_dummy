@@ -26,15 +26,6 @@ function GalleryIcon({ className }: { className?: string }) {
   );
 }
 
-// Droplet icon fallback SVG
-function DropletIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 22a7 7 0 0 0 7-7c0-4.3-7-11-7-11S5 10.7 5 15a7 7 0 0 0 7 7z" />
-    </svg>
-  );
-}
-
 /** --- Data Definitions --- */
 
 const ASTROLOGY_SERVICES_ITEMS = [
@@ -183,6 +174,15 @@ const ITEM_ICONS: Record<string, any> = {
   "Live TV": Eye
 };
 
+// Droplet icon fallback SVG
+function DropletIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 22a7 7 0 0 0 7-7c0-4.3-7-11-7-11S5 10.7 5 15a7 7 0 0 0 7 7z" />
+    </svg>
+  );
+}
+
 const NAV_LINKS = [
   { label: 'Astrology Services', id: 'astrology-services', icon: Star, color: 'text-purple-600 dark:text-purple-400', borderColor: 'border-purple-400/40', bgIcon: 'bg-purple-400/5', items: ASTROLOGY_SERVICES_ITEMS, isWide: true },
   { label: 'Remedies', id: 'wealth-remedies', icon: Coins, color: 'text-purple-600 dark:text-purple-400', borderColor: 'border-purple-400/40', bgIcon: 'bg-purple-400/5', items: WEALTH_REMEDIES_ITEMS, isWide: true },
@@ -195,23 +195,16 @@ const NAV_LINKS = [
 /** --- Shared Tailwind CSS Classes --- */
 
 const HEADER_STYLES = "sticky top-0 z-50 bg-gradient-to-r from-purple-100/95 via-fuchsia-100/95 to-pink-100/95 dark:bg-gradient-to-r dark:from-indigo-950/95 dark:via-purple-950/95 dark:to-[#0a0e17]/95 backdrop-blur-md transition-colors duration-500 shadow-sm";
-const MOBILE_TOGGLE_STYLES = "lg:hidden p-2 -ml-2 rounded-full border border-gold/25 text-purple dark:text-saffron hover:bg-gold/10 transition-colors";
+const MOBILE_TOGGLE_STYLES = "lg:hidden p-2 -ml-2 rounded-full border border-amber-400/25 text-purple-700 dark:text-amber-400 hover:bg-amber-400/10 transition-colors";
 
-/**
- * FIX: previously used step-jump utilities (px-1 lg:px-1.5 xl:px-2, gap-0 lg:gap-0.5 xl:gap-3,
- * text-[8px] lg:text-[9px] xl:text-[10px]) which only change AT the lg(1024) / xl(1280)
- * breakpoints. Between 1280 and 1536 (covering 1330 / 1366) nothing changes, so items either
- * stay cramped or leave uneven gaps depending on exact label width.
- * Replaced with clamp()-based arbitrary values so padding / gap / font-size scale
- * continuously with viewport width -> no dead zones, no uneven gaps at any width.
- */
-const DESKTOP_NAV_LINK_STYLES = "relative flex items-center gap-1 px-[clamp(1px,0.3vw,10px)] py-1.5 text-midnight/80 dark:text-cream/90 hover:text-amber-600 dark:hover:text-amber-400 transition-colors font-sans uppercase tracking-[0.05em] text-[clamp(8.5px,0.58vw,11px)] font-semibold group whitespace-nowrap";
-const THEME_TOGGLE_STYLES = "relative p-1.5 lg:p-2 xl:p-2.5 rounded-full border border-gold/25 text-purple dark:text-saffron hover:bg-gold/10 transition-all duration-300 shadow-sm";
+const DESKTOP_NAV_LINK_STYLES = "relative flex items-center gap-1 px-1 lg:px-1 xl:px-2 py-1.5 text-midnight/80 dark:text-cream/90 hover:text-amber-600 dark:hover:text-amber-400 transition-colors font-sans uppercase tracking-[0.05em] xl:tracking-widest text-[8px] lg:text-[9px] xl:text-[10px] font-bold group whitespace-nowrap";
+const THEME_TOGGLE_STYLES = "relative p-1.5 lg:p-1.5 xl:p-2.5 rounded-full border border-amber-400/25 text-purple-700 dark:text-amber-400 hover:bg-amber-400/10 transition-all duration-300 shadow-sm";
 const MOBILE_DRAWER_STYLES = "lg:hidden fixed top-0 left-0 z-40 w-[85%] sm:w-80 h-[100dvh] overflow-hidden bg-white/90 dark:bg-[#0a0514]/90 backdrop-blur-2xl border-r border-white/20 dark:border-white/5 shadow-2xl flex flex-col";
+const MOBILE_NAV_LINK_WRAPPER_STYLES = "group flex items-center w-full p-3 rounded-xl hover:bg-midnight/5 dark:hover:bg-white/5 transition-all duration-300 relative z-10";
 
 /* Buttons */
-const DESKTOP_KUNDALI_BTN = "hidden lg:block px-[clamp(10px,1.1vw,20px)] py-1.5 xl:py-2 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-midnight text-[clamp(8px,0.55vw,10px)] font-sans tracking-widest uppercase font-bold hover:from-amber-500 hover:to-orange-500 transition-all shadow-lg shadow-amber-500/25 whitespace-nowrap text-center";
-const DESKTOP_SIGNIN_BTN = "hidden lg:block px-[clamp(10px,1.1vw,20px)] py-1.5 xl:py-2 rounded-full border border-midnight/60 dark:border-cream/60 text-midnight dark:text-cream text-[clamp(8px,0.55vw,10px)] font-sans tracking-widest uppercase font-bold hover:bg-midnight/5 dark:hover:bg-cream/10 transition-all whitespace-nowrap";
+const DESKTOP_KUNDALI_BTN = "hidden lg:block px-3 lg:px-2.5 xl:px-5 py-1.5 xl:py-2 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-midnight text-[8px] lg:text-[9px] xl:text-[10px] font-sans tracking-widest uppercase font-bold hover:from-amber-500 hover:to-orange-500 transition-all shadow-lg shadow-amber-500/25 whitespace-nowrap text-center";
+const DESKTOP_SIGNIN_BTN = "hidden lg:block px-3 lg:px-2.5 xl:px-5 py-1.5 xl:py-2 rounded-full border border-midnight/60 dark:border-cream/60 text-midnight dark:text-cream text-[8px] lg:text-[9px] xl:text-[10px] font-sans tracking-widest uppercase font-bold hover:bg-midnight/5 dark:hover:bg-cream/10 transition-all whitespace-nowrap";
 const MOBILE_KUNDALI_BTN = "relative w-full py-3.5 rounded-xl overflow-hidden group shadow-lg shadow-amber-500/25 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-orange-500 transition-colors inline-block text-center";
 const MOBILE_SIGNIN_BTN = "relative w-full py-3.5 rounded-xl overflow-hidden group border-2 border-midnight/60 dark:border-cream/60 hover:bg-midnight/5 dark:hover:bg-cream/10 transition-colors";
 
@@ -282,7 +275,7 @@ export function Navbar() {
 
   return (
     <header className={HEADER_STYLES}>
-      <div className="w-full max-w-[1600px] mx-auto flex items-center justify-between px-4 lg:px-6 py-3 gap-[clamp(4px,1vw,24px)]">
+      <div className="w-full max-w-[1600px] mx-auto flex items-center justify-between px-4 lg:px-6 py-3">
 
         {/* --- Logo & Mobile Toggle --- */}
         <div className="flex items-center gap-1.5 lg:gap-3 shrink-0">
@@ -294,17 +287,12 @@ export function Navbar() {
           </button>
         </div>
 
-        {/*
-          --- Desktop Navigation ---
-          FIX: flex-1 already claims the remaining space between logo and actions.
-          Swapped the stepped "gap-0 lg:gap-0.5 xl:gap-3" for a clamp()-based fluid gap so the
-          six links distribute evenly across 1024px all the way through 1366px+ with no snapping.
-        */}
-        <nav className="hidden lg:flex flex-1 flex-nowrap justify-evenly items-center gap-[clamp(1px,0.6vw,14px)] text-sm font-medium min-w-0 overflow-hidden">
+        {/* --- Desktop Navigation --- */}
+        <nav className="hidden lg:flex flex-1 justify-evenly items-center lg:px-4 xl:px-10 font-medium">
           {NAV_LINKS.map((navItem) => (
             <div
               key={navItem.label}
-              className="relative py-2 min-w-0"
+              className="relative py-2"
               onMouseEnter={() => navItem.items && setHoveredLink(navItem.label)}
               onMouseLeave={() => setHoveredLink(null)}
             >
@@ -366,7 +354,7 @@ export function Navbar() {
         </nav>
 
         {/* --- Desktop Actions & Theme Toggle --- */}
-        <div className="flex items-center justify-end gap-[clamp(4px,0.8vw,20px)] shrink-0">
+        <div className="flex items-center justify-end gap-1.5 lg:gap-3 xl:gap-5 shrink-0">
           <a href="https://kundali-report.vercel.app/" target="_blank" rel="noopener noreferrer" className={DESKTOP_KUNDALI_BTN}>Free Kundali</a>
           <button className={DESKTOP_SIGNIN_BTN}>Sign In</button>
           <button onClick={toggleTheme} className={THEME_TOGGLE_STYLES} aria-label="Toggle Theme">
