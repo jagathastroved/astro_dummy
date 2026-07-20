@@ -10,7 +10,7 @@ const CONTENT_WRAPPER_STYLES = "max-w-5xl mx-auto px-6 relative z-10 flex flex-c
 const TOP_SECTION_STYLES = "flex flex-col items-center text-center w-full";
 
 // The standard section title typography requested by the user
-const HEADER_TITLE_STYLES = "font-serif text-3xl sm:text-4xl md:text-5xl text-midnight dark:text-cream leading-tight font-bold";
+const HEADER_TITLE_STYLES = "font-serif text-3xl sm:text-4xl md:text-5xl text-midnight mr-2 dark:text-cream leading-tight font-bold";
 const HEADER_ITALIC_STYLES = "font-serif text-3xl sm:text-4xl md:text-5xl text-amber-600 dark:text-amber-400 italic leading-tight font-bold";
 
 /* --- BOTTOM SECTION (Content Card & Action) --- */
@@ -23,7 +23,7 @@ const DECORATIVE_BLOB_STYLES = "absolute top-1/2 left-1/2 -translate-x-1/2 -tran
 const CONTENT_CARD_STYLES = "w-full rounded-[2rem] md:rounded-[2rem] p-5 md:p-5 lg:p-8 flex flex-col bg-white/90 dark:bg-[#0B1221]/90 backdrop-blur-xl border border-white/50 dark:border-slate-800 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] relative z-10 hover:-translate-y-2 transition-transform duration-500";
 
 const BADGE_STYLES = "text-amber-600 dark:text-amber-500 font-sans text-xs md:text-sm uppercase tracking-[0.25em] font-extrabold mb-4 block text-center md:text-left";
-const TITLE_STYLES = "text-2xl md:text-lg lg:text-2xl xl:text-3xl 2xl:text-4xl font-black text-slate-900 dark:text-white font-serif tracking-tight mb-3 md:mb-2 lg:mb-4 leading-tight md:whitespace-nowrap";
+const TITLE_STYLES = "text-xl md:text-base lg:text-xl xl:text-2xl 2xl:text-3xl font-black text-slate-900 dark:text-white font-serif tracking-tight mb-3 md:mb-2 lg:mb-4 leading-tight md:whitespace-nowrap";
 const DESC_TEXT_STYLES = "font-sans text-slate-600 dark:text-slate-300 text-sm md:text-sm lg:text-[15px] leading-relaxed mb-5 md:mb-4 lg:mb-6 text-center md:text-left";
 
 // Bullet points
@@ -37,8 +37,8 @@ const URGENCY_DOT_STYLES = "w-2.5 h-2.5 md:w-2 md:h-2 lg:w-2.5 lg:h-2.5 rounded-
 const URGENCY_TEXT_STYLES = "text-[10px] sm:text-[10px] lg:text-xs text-rose-700 dark:text-rose-400 font-sans font-bold uppercase tracking-[0.15em] leading-snug";
 
 // Action area
-const ACTION_ROW_STYLES = "flex flex-col items-center justify-center gap-3 md:gap-2 lg:gap-4 w-full border-t border-slate-100 dark:border-slate-800 pt-5 md:pt-4 lg:pt-6";
-const CTA_WRAPPER_STYLES = "inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#e67e22] to-[#d35400] hover:from-[#d35400] hover:to-[#c0392b] text-white font-sans text-xs sm:text-xs lg:text-base uppercase tracking-widest font-extrabold px-6 sm:px-6 lg:px-10 py-4 md:py-3 lg:py-5 rounded-full transition-all duration-300 w-full sm:w-auto shadow-[0_10px_25px_-5px_rgba(230,126,34,0.4)] hover:shadow-[0_15px_35px_-5px_rgba(230,126,34,0.5)] hover:-translate-y-1 mx-auto text-center whitespace-nowrap shrink-0";
+const ACTION_ROW_STYLES = "mt-auto flex flex-col items-center justify-center gap-3 md:gap-2 lg:gap-4 w-full border-t border-slate-100 dark:border-slate-800 pt-5 md:pt-4 lg:pt-6";
+const CTA_WRAPPER_STYLES = "inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#e67e22] to-[#d35400] hover:from-[#d35400] hover:to-[#c0392b] text-white font-sans text-xs sm:text-xs lg:text-sm uppercase tracking-widest font-extrabold px-8 py-3.5 rounded-full transition-all duration-300 w-full sm:w-auto shadow-[0_10px_25px_-5px_rgba(230,126,34,0.4)] hover:shadow-[0_15px_35px_-5px_rgba(230,126,34,0.5)] hover:-translate-y-1 mx-auto text-center whitespace-nowrap shrink-0";
 const SUB_CTA_TEXT_STYLES = "text-[11px] sm:text-[11px] lg:text-sm text-slate-500 dark:text-slate-400 font-sans font-medium text-center flex flex-wrap items-center justify-center gap-1.5";
 
 /**
@@ -58,7 +58,7 @@ export function Rituals() {
               Clear Obstacles
             </h2>
             <span className={HEADER_ITALIC_STYLES}>
-              for Your Family.
+              from Your Path.
             </span>
           </div>
         </div>
@@ -71,16 +71,16 @@ export function Rituals() {
             <div className="flex flex-col md:flex-row gap-6 md:gap-8 lg:gap-12 w-full">
 
               {/* --- Left Column: Image (Stacks on top for mobile, side-by-side on tablet/desktop) --- */}
-              <div className="w-full md:w-[40%] shrink-0 flex flex-col order-first md:mb-0">
+              <div className="w-full md:w-[35%] lg:w-[40%] shrink-0 flex flex-col order-first md:mb-0 relative">
                 <img
                   src={muruganImg}
                   alt="Muruga Fire Ritual"
-                  className="w-full h-auto rounded-[2rem] shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] border border-slate-100 dark:border-slate-800"
+                  className="w-full md:absolute md:inset-0 md:h-full object-cover rounded-[2rem] shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] border border-slate-100 dark:border-slate-800"
                 />
               </div>
 
               {/* --- Right Column: Content --- */}
-              <div className="w-full md:w-[60%] flex flex-col min-w-0">
+              <div className="w-full md:w-[65%] lg:w-[60%] flex flex-col min-w-0">
                 <h3 className={TITLE_STYLES}>Muruga Fire Ritual (Skanda Homa)</h3>
 
                 {/* Description */}
@@ -100,7 +100,7 @@ export function Rituals() {
                   </div>
                   <div className={`${LIST_ITEM_STYLES} md:col-span-2`}>
                     <div className={ICON_WRAPPER_STYLES}>🙏</div>
-                    <span>Performed in your name, with your birth star</span>
+                    <span>Performed in your name, with your birth star in the sankalpam</span>
                   </div>
                 </div>
 
