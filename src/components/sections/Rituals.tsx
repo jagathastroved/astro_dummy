@@ -1,9 +1,8 @@
-import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import muruganImg from '../../assets/murugan_img.jpeg';
 
 /** --- Modern Top/Bottom Layout CSS Classes --- */
-const SECTION_STYLES = "py-16 md:py-24 relative z-10 w-full bg-[#FAFAFA] dark:bg-[#050811] transition-colors duration-500 overflow-hidden";
+const SECTION_STYLES = "py-6 md:py-8 relative z-10 w-full transition-colors duration-500 overflow-hidden";
 const CONTENT_WRAPPER_STYLES = "max-w-5xl mx-auto px-6 relative z-10 flex flex-col items-center gap-12";
 
 /* --- TOP SECTION (Typography) --- */
