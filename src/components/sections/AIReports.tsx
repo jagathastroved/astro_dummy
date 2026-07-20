@@ -108,8 +108,8 @@ export function AIReports() {
 
       {/* --- Desktop Grid Layout Section --- */}
       <div className="hidden md:grid md:grid-cols-2 gap-6 lg:gap-8 max-w-3xl mx-auto">
-        {aiReportList.map((report, reportIndex) => (
-          <div key={reportIndex} className="group overflow-hidden rounded-[2.5rem] bg-[#f8f9fa] dark:bg-[#0b0e14] border border-gray-100 dark:border-white/5 hover:border-[#b052ff]/30 hover:shadow-[0_0_30px_rgba(176,82,255,0.15)] transition-all duration-500 flex flex-col h-full relative">
+        {aiReportList.map((report) => (
+          <div key={report.id} className="group overflow-hidden rounded-[2.5rem] bg-[#f8f9fa] dark:bg-[#0b0e14] border border-gray-100 dark:border-white/5 hover:border-[#b052ff]/30 hover:shadow-[0_0_30px_rgba(176,82,255,0.15)] transition-all duration-500 flex flex-col h-full relative">
             <div className="w-full h-56 lg:h-60 relative overflow-hidden rounded-t-[2.5rem]">
               <img
                 src={report.image}
@@ -163,7 +163,7 @@ export function AIReports() {
                 const report = aiReportList[currentIndex];
                 return (
                   <div className="group/card flex flex-col h-full relative">
-                    <div className="absolute top-0 left-0 w-full h-[180px] pointer-events-none overflow-hidden rounded-t-[2.5rem] z-10">
+                    <div className="w-full h-[220px] pointer-events-none overflow-hidden rounded-t-[2.5rem] z-10 shrink-0">
                       <img
                         src={report.image}
                         alt={report.title}
@@ -172,28 +172,26 @@ export function AIReports() {
                     </div>
 
                     <div className="absolute inset-0 w-full h-full pointer-events-none rounded-[2.5rem] z-0">
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#f8f9fa] dark:from-[#0b0e14] via-[#f8f9fa]/90 dark:via-[#0b0e14]/90 to-transparent bottom-0 h-3/4"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#f8f9fa] dark:from-[#0b0e14] via-transparent to-transparent bottom-0 h-1/2"></div>
                     </div>
 
-                    <div className="w-full ml-auto px-6 pb-14 pt-[210px] sm:pt-[220px] flex flex-col justify-start items-center text-center z-20 relative h-full">
-                      <div className="w-full h-full flex flex-col">
-                        <h3 className="font-serif text-[20px] xs:text-xl text-midnight dark:text-white font-bold tracking-tight mb-2 leading-tight">
-                          {report.title}
-                        </h3>
-                        <p className="font-body text-gray-600 dark:text-gray-300 text-xs sm:text-sm leading-relaxed mb-3 max-w-sm mx-auto">
-                          {report.description}
-                        </p>
+                    <div className="w-full px-6 pt-5 pb-10 flex flex-col justify-start items-center text-center z-20 relative flex-grow">
+                      <h3 className="font-serif text-[20px] xs:text-xl text-midnight dark:text-white font-bold tracking-tight mb-2 leading-tight">
+                        {report.title}
+                      </h3>
+                      <p className="font-body text-gray-600 dark:text-gray-300 text-xs sm:text-sm leading-relaxed mb-5 max-w-sm mx-auto">
+                        {report.description}
+                      </p>
 
-                        <div className="w-full flex justify-center mt-auto pt-2">
-                          <a
-                            href={report.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`inline-flex w-full max-w-[240px] justify-center items-center gap-1.5 px-4 py-2.5 rounded-full ${getButtonColor(report.id)} text-white font-semibold tracking-wide text-xs hover:scale-105 transition-transform shadow-lg pointer-events-auto`}
-                          >
-                            {report.cta} <ArrowUpRight className="w-3.5 h-3.5" />
-                          </a>
-                        </div>
+                      <div className="w-full flex justify-center">
+                        <a
+                          href={report.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`inline-flex w-full max-w-[240px] justify-center items-center gap-1.5 px-4 py-2.5 rounded-full ${getButtonColor(report.id)} text-white font-semibold tracking-wide text-xs hover:scale-105 transition-transform shadow-lg pointer-events-auto`}
+                        >
+                          {report.cta} <ArrowUpRight className="w-3.5 h-3.5" />
+                        </a>
                       </div>
                     </div>
                   </div>

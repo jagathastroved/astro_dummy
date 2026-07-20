@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { MapPin, Calendar, Clock, Sun, Sunset, Moon, MoonStar, Star, ChevronDown } from 'lucide-react';
-import { COUNTRIES } from '../../utils/countries';
+import { fetchCitySuggestions, fetchPanchangData, fetchTodayContent } from '../../services/astrovedService';
+import { fetchCountries, searchLocation, reverseGeocode } from '../../services/locationService';
 
 const Styles = {
     SECTION_STYLES: "relative py-4 pb-20 md:pb-6 md:py-6 overflow-hidden",
@@ -18,11 +19,11 @@ const Styles = {
     DOT_DIVIDER_STYLES: "text-purple/30 dark:text-gold/30",
     POPOVER_BACKDROP_STYLES: "fixed inset-0 bg-black/40 backdrop-blur-sm z-40 sm:hidden cursor-pointer",
     CALENDAR_POPOVER_STYLES: "fixed sm:absolute top-[25%] sm:top-full left-4 right-4 sm:left-0 sm:right-auto sm:translate-x-0 mx-auto sm:mx-0 mt-2 z-50 w-auto sm:w-[280px] max-w-[340px] sm:max-w-none p-4 bg-white dark:bg-[#110c1c] border border-black/10 dark:border-amber-500/40 rounded-2xl shadow-2xl flex flex-col text-slate-800 dark:text-cream select-none",
-    LOCATION_POPOVER_STYLES: "fixed sm:absolute top-[25%] sm:top-full left-4 right-4 sm:left-0 sm:right-auto sm:translate-x-0 mx-auto sm:mx-0 mt-2 z-50 w-auto sm:w-[280px] max-w-[340px] sm:max-w-none p-5 bg-white dark:bg-[#110c1c] border border-black/10 dark:border-amber-500/40 rounded-2xl shadow-2xl flex flex-col gap-4 text-left",
+    LOCATION_POPOVER_STYLES: "fixed sm:absolute top-[25%] sm:top-full left-4 right-4 sm:left-0 sm:right-auto sm:translate-x-0 mx-auto sm:mx-0 mt-2 z-50 w-auto sm:w-[280px] max-w-[340px] sm:max-w-none max-h-[70vh] overflow-y-auto p-5 bg-white dark:bg-[#110c1c] border border-black/10 dark:border-amber-500/40 rounded-2xl shadow-2xl flex flex-col gap-4 text-left",
     LOCATION_INPUT_LABEL_STYLES: "text-[9px] font-bold tracking-widest text-slate-400 dark:text-slate-500 uppercase",
     LOCATION_SELECT_STYLES: "w-full bg-slate-50 dark:bg-black/20 border border-slate-200 dark:border-amber-500/30 rounded-xl px-3 py-2.5 text-xs text-slate-700 dark:text-cream focus:outline-none appearance-none cursor-pointer pr-8",
     LOCATION_INPUT_STYLES: "w-full bg-slate-50 dark:bg-black/20 border border-slate-200 dark:border-amber-500/30 rounded-xl px-3 py-2.5 text-xs text-slate-700 dark:text-cream focus:outline-none focus:border-purple/50 pr-8",
-    SUGGESTIONS_CONTAINER_STYLES: "relative w-full mt-2 max-h-48 overflow-y-auto bg-white dark:bg-[#181226] border border-slate-200 dark:border-amber-500/30 rounded-xl shadow-inner z-50 flex flex-col divide-y divide-slate-100 dark:divide-slate-800 custom-scrollbar",
+    SUGGESTIONS_CONTAINER_STYLES: "relative w-full mt-2 max-h-48 overflow-y-auto bg-white dark:bg-[#181226] border border-slate-200 dark:border-amber-500/30 rounded-xl shadow-inner z-50 flex flex-col divide-y divide-slate-100 dark:divide-slate-800",
     APPLY_LOCATION_BTN_STYLES: "w-full bg-[#2b1845] hover:bg-[#3d245f] text-white py-2.5 rounded-xl text-xs font-bold transition-all text-center shadow-md shadow-[#2b1845]/20 mt-1",
     ASTRO_TICKER_CONTAINER_STYLES: "grid grid-cols-2 sm:flex sm:flex-row items-center justify-center gap-4 sm:gap-6 bg-white/60 dark:bg-[#0c0f24]/50 backdrop-blur-md px-6 py-4 rounded-2xl border border-purple/10 dark:border-amber-500/40 dark:shadow-[0_0_15px_rgba(245,158,11,0.2)] w-full xl:w-auto shadow-sm dark:shadow-none",
     TICKER_ITEM_STYLES: "flex items-center gap-2",
@@ -93,8 +94,18 @@ export function PremiumPanchang() {
     const [isSearchingCities, setIsSearchingCities] = useState(false);
     const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState(false);
     const [searchCountry, setSearchCountry] = useState('');
+    const [countriesList, setCountriesList] = useState<any[]>([]);
 
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    useEffect(() => {
+        fetchCountries()
+            .then(data => {
+                const countriesArray = Array.isArray(data) ? data : (data.Countries || data.Data || (typeof data === 'object' && Object.values(data).find(Array.isArray)) || []);
+                setCountriesList(countriesArray);
+            })
+            .catch(err => console.error("Error fetching countries:", err));
+    }, []);
 
     useEffect(() => {
         const handleOutsideClick = () => {
@@ -108,9 +119,10 @@ export function PremiumPanchang() {
         return () => window.removeEventListener('click', handleOutsideClick);
     }, []);
 
-    // Prevent body scroll when popovers are open
+    // Prevent body scroll when popovers are open on mobile screens
     useEffect(() => {
-        if (isLocationOpen || isCalendarOpen) {
+        const isMobile = window.innerWidth < 640;
+        if ((isLocationOpen || isCalendarOpen) && isMobile) {
             document.body.style.overflow = 'hidden';
         } else {
             document.body.style.overflow = 'unset';
@@ -122,7 +134,7 @@ export function PremiumPanchang() {
 
     // Fetch city suggestions dynamically as user types with debounce
     useEffect(() => {
-        if (!tempCity.trim()) {
+        if (!tempCity.trim() || tempCity === locationName.split(',')[0].trim()) {
             setCitySuggestions([]);
             return;
         }
@@ -130,20 +142,17 @@ export function PremiumPanchang() {
         const delayDebounce = setTimeout(async () => {
             try {
                 setIsSearchingCities(true);
-                const response = await fetch(`https://webservice.astroved.com/Api/Panchang/PopulateCityBycountry/${encodeURIComponent(tempCountry)}/${encodeURIComponent(tempCity)}`);
-                if (response.ok) {
-                    const data = await response.json();
-                    if (Array.isArray(data)) {
-                        // Sort suggestions alphabetically by City name
-                        const sorted = [...data].sort((a: any, b: any) => {
-                            const cityA = a.City || '';
-                            const cityB = b.City || '';
-                            return cityA.localeCompare(cityB);
-                        });
-                        setCitySuggestions(sorted);
-                    } else {
-                        setCitySuggestions([]);
-                    }
+                const data = await fetchCitySuggestions(tempCountry, tempCity);
+                if (Array.isArray(data)) {
+                    // Remove duplicates by City name
+                    const uniqueData = Array.from(new Map(data.map((item: any) => [item.City, item])).values());
+                    // Sort suggestions alphabetically by City name
+                    const sorted = [...uniqueData].sort((a: any, b: any) => {
+                        const cityA = a.City || '';
+                        const cityB = b.City || '';
+                        return cityA.localeCompare(cityB);
+                    });
+                    setCitySuggestions(sorted);
                 } else {
                     setCitySuggestions([]);
                 }
@@ -221,40 +230,34 @@ export function PremiumPanchang() {
                     localStorage.setItem('panchang_location_permission', 'granted');
 
                     try {
-                        const geoResponse = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
-                        if (geoResponse.ok) {
-                            const geoData = await geoResponse.json();
-                            if (geoData && geoData.address) {
-                                const city = geoData.address.city || geoData.address.town || geoData.address.village || geoData.address.municipality || geoData.address.county || geoData.address.city_district || geoData.address.suburb || geoData.address.state || 'Detected Location';
-                                const state = geoData.address.state || '';
-                                const country = geoData.address.country || 'India';
-                                const statePart = state ? `${state}, ` : '';
-                                const formattedName = `${city}, ${statePart}${country}`;
-                                setLocationName(formattedName);
-                                localStorage.setItem('panchang_location_name', formattedName);
-                                setTempCity(city);
-                                setTempCountry(country);
+                        const geoData = await reverseGeocode(lat, lng);
+                        if (geoData && geoData.address) {
+                            const city = geoData.address.city || geoData.address.town || geoData.address.village || geoData.address.municipality || geoData.address.county || geoData.address.city_district || geoData.address.suburb || geoData.address.state || 'Detected Location';
+                            const state = geoData.address.state || '';
+                            const country = geoData.address.country || 'India';
+                            const statePart = state ? `${state}, ` : '';
+                            const formattedName = `${city}, ${statePart}${country}`;
+                            setLocationName(formattedName);
+                            localStorage.setItem('panchang_location_name', formattedName);
+                            setTempCity(city);
+                            setTempCountry(country);
 
-                                // Retrieve exact timezone & normalized location from Astroved API
-                                try {
-                                    const astrovedLocResponse = await fetch(`https://webservice.astroved.com/Api/Panchang/PopulateCityBycountry/${encodeURIComponent(country)}/${encodeURIComponent(city)}`);
-                                    if (astrovedLocResponse.ok) {
-                                        const astrovedLocData = await astrovedLocResponse.json();
-                                        if (Array.isArray(astrovedLocData) && astrovedLocData.length > 0) {
-                                            const match = astrovedLocData[0];
-                                            if (match.TimeZone) {
-                                                setTimezone(match.TimeZone);
-                                                localStorage.setItem('panchang_timezone', match.TimeZone);
-                                            }
-                                            const matchStatePart = match.StateorProvince ? `${match.StateorProvince}, ` : '';
-                                            const finalFormattedName = `${match.City}, ${matchStatePart}${match.Country}`;
-                                            setLocationName(finalFormattedName);
-                                            localStorage.setItem('panchang_location_name', finalFormattedName);
-                                        }
+                            // Retrieve exact timezone & normalized location from Astroved API
+                            try {
+                                const astrovedLocData = await fetchCitySuggestions(country, city);
+                                if (Array.isArray(astrovedLocData) && astrovedLocData.length > 0) {
+                                    const match = astrovedLocData[0];
+                                    if (match.TimeZone) {
+                                        setTimezone(match.TimeZone);
+                                        localStorage.setItem('panchang_timezone', match.TimeZone);
                                     }
-                                } catch (e) {
-                                    console.error("Astroved location API failed during mount geocoding:", e);
+                                    const matchStatePart = match.StateorProvince ? `${match.StateorProvince}, ` : '';
+                                    const finalFormattedName = `${match.City}, ${matchStatePart}${match.Country}`;
+                                    setLocationName(finalFormattedName);
+                                    localStorage.setItem('panchang_location_name', finalFormattedName);
                                 }
+                            } catch (err) {
+                                console.error("Failed to fetch Astroved exact location/timezone:", err);
                             }
                         }
                     } catch (err) {
@@ -286,40 +289,21 @@ export function PremiumPanchang() {
         const fetchData = async () => {
             try {
                 setIsLoading(true);
-                let tz = timezone;
-                const encodedTz = btoa(tz).replace(/=/g, '');
-
-                const dateObj = new Date(selectedDate);
-                const now = new Date();
-                dateObj.setHours(now.getHours(), now.getMinutes(), now.getSeconds());
-                const tzOffset = dateObj.getTimezoneOffset() * 60000;
-                const localISOTime = new Date(dateObj.getTime() - tzOffset).toISOString().split('.')[0];
-
-                const panchangUrl = `https://api.astroved.com/node/newpanchangam/${encodedTz}/${coordinates.lat}/${coordinates.lng}/${localISOTime}`;
-                const contentUrl = `https://api.astroved.com/node/todaycontent/${encodedTz}/${coordinates.lat}/${coordinates.lng}/${localISOTime}`;
-
-                const [panchangResponse, contentResponse] = await Promise.all([
-                    fetch(panchangUrl),
-                    fetch(contentUrl)
+                const tz = timezone;
+                const localISOTime = `${selectedDate}T00:00:00`;
+                const [panchangData, contentData] = await Promise.all([
+                    fetchPanchangData(tz, coordinates.lat, coordinates.lng, localISOTime),
+                    fetchTodayContent(tz, coordinates.lat, coordinates.lng, localISOTime)
                 ]);
 
-                if (panchangResponse.ok) {
-                    const panchangData = await panchangResponse.json();
-                    if (active) {
-                        setPanchangData(panchangData);
-                    }
-                } else {
-                    console.error(`Panchang API returned error: ${panchangResponse.status}`);
+                if (active) {
+                    setPanchangData(panchangData);
                 }
 
-                if (contentResponse.ok) {
-                    const contentData = await contentResponse.json();
-                    if (active && Array.isArray(contentData) && contentData.length > 0) {
-                        setTodayContentData(contentData[0]);
-                    }
-                } else {
-                    console.error(`TodayContent API returned error: ${contentResponse.status}`);
+                if (active && Array.isArray(contentData) && contentData.length > 0) {
+                    setTodayContentData(contentData[0]);
                 }
+
             } catch (err) {
                 console.error("[Panchang] API fetch failed:", err);
             } finally {
@@ -339,45 +323,39 @@ export function PremiumPanchang() {
     const handleLocationSearch = async (query: string) => {
         if (!query.trim()) return;
         try {
-            const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=1`);
-            if (response.ok) {
-                const data = await response.json();
-                if (data && data.length > 0) {
-                    const newLat = parseFloat(data[0].lat);
-                    const newLng = parseFloat(data[0].lon);
-                    setCoordinates({ lat: newLat, lng: newLng });
-                    localStorage.setItem('panchang_lat', String(newLat));
-                    localStorage.setItem('panchang_lng', String(newLng));
+            const data = await searchLocation(query);
+            if (data && data.length > 0) {
+                const newLat = parseFloat(data[0].lat);
+                const newLng = parseFloat(data[0].lon);
+                setCoordinates({ lat: newLat, lng: newLng });
+                localStorage.setItem('panchang_lat', String(newLat));
+                localStorage.setItem('panchang_lng', String(newLng));
 
-                    const displayName = data[0].display_name;
-                    const parts = displayName.split(',');
-                    const city = parts[0]?.trim() || '';
-                    const country = parts[parts.length - 1]?.trim() || '';
-                    const formattedDisplay = city && country ? `${city}, ${country}` : displayName;
-                    setLocationName(formattedDisplay);
-                    localStorage.setItem('panchang_location_name', formattedDisplay);
+                const displayName = data[0].display_name;
+                const parts = displayName.split(',');
+                const city = parts[0]?.trim() || '';
+                const country = parts[parts.length - 1]?.trim() || '';
+                const formattedDisplay = city && country ? `${city}, ${country}` : displayName;
+                setLocationName(formattedDisplay);
+                localStorage.setItem('panchang_location_name', formattedDisplay);
 
-                    // Try resolving timezone via Astroved API since nominatim succeeded
-                    if (city && country) {
-                        try {
-                            const astrovedLocResponse = await fetch(`https://webservice.astroved.com/Api/Panchang/PopulateCityBycountry/${encodeURIComponent(country)}/${encodeURIComponent(city)}`);
-                            if (astrovedLocResponse.ok) {
-                                const astrovedLocData = await astrovedLocResponse.json();
-                                if (Array.isArray(astrovedLocData) && astrovedLocData.length > 0) {
-                                    const match = astrovedLocData[0];
-                                    if (match.TimeZone) {
-                                        setTimezone(match.TimeZone);
-                                        localStorage.setItem('panchang_timezone', match.TimeZone);
-                                    }
-                                    const matchStatePart = match.StateorProvince ? `${match.StateorProvince}, ` : '';
-                                    const finalName = `${match.City}, ${matchStatePart}${match.Country}`;
-                                    setLocationName(finalName);
-                                    localStorage.setItem('panchang_location_name', finalName);
-                                }
+                // Try resolving timezone via Astroved API since nominatim succeeded
+                if (city && country) {
+                    try {
+                        const astrovedLocData = await fetchCitySuggestions(country, city);
+                        if (Array.isArray(astrovedLocData) && astrovedLocData.length > 0) {
+                            const match = astrovedLocData[0];
+                            if (match.TimeZone) {
+                                setTimezone(match.TimeZone);
+                                localStorage.setItem('panchang_timezone', match.TimeZone);
                             }
-                        } catch (e) {
-                            console.error("Astroved location API lookup inside handleLocationSearch failed:", e);
+                            const matchStatePart = match.StateorProvince ? `${match.StateorProvince}, ` : '';
+                            const finalName = `${match.City}, ${matchStatePart}${match.Country}`;
+                            setLocationName(finalName);
+                            localStorage.setItem('panchang_location_name', finalName);
                         }
+                    } catch (e) {
+                        console.error("Astroved location API lookup inside handleLocationSearch failed:", e);
                     }
                 }
             }
@@ -462,26 +440,23 @@ export function PremiumPanchang() {
         setIsLocationOpen(false);
         try {
             // Try Astroved's PopulateCityBycountry API first
-            const response = await fetch(`https://webservice.astroved.com/Api/Panchang/PopulateCityBycountry/${encodeURIComponent(tempCountry)}/${encodeURIComponent(tempCity)}`);
-            if (response.ok) {
-                const data = await response.json();
-                if (Array.isArray(data) && data.length > 0) {
-                    const match = data[0];
-                    const newLat = parseFloat(match.Latitude);
-                    const newLng = parseFloat(match.Longitude);
-                    setCoordinates({ lat: newLat, lng: newLng });
-                    localStorage.setItem('panchang_lat', String(newLat));
-                    localStorage.setItem('panchang_lng', String(newLng));
-                    if (match.TimeZone) {
-                        setTimezone(match.TimeZone);
-                        localStorage.setItem('panchang_timezone', match.TimeZone);
-                    }
-                    const matchStatePart = match.StateorProvince ? `${match.StateorProvince}, ` : '';
-                    const finalName = `${match.City}, ${matchStatePart}${match.Country}`;
-                    setLocationName(finalName);
-                    localStorage.setItem('panchang_location_name', finalName);
-                    return;
+            const data = await fetchCitySuggestions(tempCountry, tempCity);
+            if (Array.isArray(data) && data.length > 0) {
+                const match = data[0];
+                const newLat = parseFloat(match.Latitude);
+                const newLng = parseFloat(match.Longitude);
+                setCoordinates({ lat: newLat, lng: newLng });
+                localStorage.setItem('panchang_lat', String(newLat));
+                localStorage.setItem('panchang_lng', String(newLng));
+                if (match.TimeZone) {
+                    setTimezone(match.TimeZone);
+                    localStorage.setItem('panchang_timezone', match.TimeZone);
                 }
+                const matchStatePart = match.StateorProvince ? `${match.StateorProvince}, ` : '';
+                const finalName = `${match.City}, ${matchStatePart}${match.Country}`;
+                setLocationName(finalName);
+                localStorage.setItem('panchang_location_name', finalName);
+                return;
             }
         } catch (err) {
             console.error("Astroved location API failed, falling back to Nominatim:", err);
@@ -527,21 +502,6 @@ export function PremiumPanchang() {
 
     return (
         <section className={Styles.SECTION_STYLES} id="daily-panchang">
-            <style>{`
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(156, 163, 175, 0.5);
-          border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: rgba(156, 163, 175, 0.8);
-        }
-      `}</style>
             {/* Background glow */}
             <div className={Styles.BACKGROUND_GLOW_STYLES} />
 
@@ -651,7 +611,10 @@ export function PremiumPanchang() {
                                                 onClick={(e) => e.stopPropagation()}
                                                 className={Styles.LOCATION_POPOVER_STYLES}
                                             >
-                                                <h4 className="font-serif font-bold text-base text-midnight dark:text-cream">Update Location</h4>
+                                                <div className="flex justify-between items-center">
+                                                    <h4 className="font-serif font-bold text-base text-midnight dark:text-cream">Update Location</h4>
+                                                    <button onClick={(e) => { e.stopPropagation(); setIsLocationOpen(false); }} className="text-slate-500 hover:text-slate-800 dark:hover:text-cream font-bold text-lg leading-none">&times;</button>
+                                                </div>
 
                                                 {/* Country Dropdown */}
                                                 <div className="flex flex-col gap-1 relative z-20">
@@ -681,7 +644,7 @@ export function PremiumPanchang() {
                                                                         onClick={(e) => e.stopPropagation()}
                                                                     />
                                                                 </div>
-                                                                {COUNTRIES.filter(c => c.CountryName1.toLowerCase().includes(searchCountry.toLowerCase())).map((c) => (
+                                                                {(Array.isArray(countriesList) ? countriesList : []).filter(c => (c.CountryName1 || c.CountryName || "").toLowerCase().includes(searchCountry.toLowerCase())).map((c) => (
                                                                     <button
                                                                         key={c.Id}
                                                                         type="button"
@@ -696,7 +659,7 @@ export function PremiumPanchang() {
                                                                         {c.CountryName1}
                                                                     </button>
                                                                 ))}
-                                                                {COUNTRIES.filter(c => c.CountryName1.toLowerCase().includes(searchCountry.toLowerCase())).length === 0 && (
+                                                                {(Array.isArray(countriesList) ? countriesList : []).filter(c => (c.CountryName || "").toLowerCase().includes(searchCountry.toLowerCase())).length === 0 && (
                                                                     <div className="p-3 text-xs text-slate-500 text-center">No countries found.</div>
                                                                 )}
                                                             </div>

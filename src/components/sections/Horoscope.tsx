@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { fetchHoroscope } from '../../services/horoscopeService';
 import { ArrowRight } from 'lucide-react';
 import aquarius from '../../assets/horoscope/aquarius.png';
 import aries from '../../assets/horoscope/aries.png';
@@ -123,7 +124,7 @@ export function Horoscope({ onCalculateChart }: HoroscopeProps) {
   React.useEffect(() => {
     let isMounted = true;
 
-    const fetchHoroscope = async () => {
+    const fetchData = async () => {
       setIsLoading(true);
       try {
         const moonSign = selectedZodiac.toLowerCase();
@@ -135,8 +136,7 @@ export function Horoscope({ onCalculateChart }: HoroscopeProps) {
         else if (apiPeriod === 'month') apiPeriod = 'monthly';
 
         const timeZone = encodeURIComponent(Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Kolkata');
-        const response = await fetch(`https://api.astroved.com/python/horoscope/${moonSign}/${apiPeriod}/summary?timezone=${timeZone}`);
-        const responseData = await response.json();
+        const responseData = await fetchHoroscope(moonSign, apiPeriod, timeZone);
 
         console.log('Horoscope API Success:', responseData);
 
@@ -153,7 +153,7 @@ export function Horoscope({ onCalculateChart }: HoroscopeProps) {
       }
     };
 
-    fetchHoroscope();
+    fetchData();
     return () => { isMounted = false; };
   }, [selectedZodiac, horoscopeTab]);
 
