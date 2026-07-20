@@ -184,9 +184,10 @@ function DropletIcon({ className }: { className?: string }) {
 }
 
 const NAV_LINKS = [
-  { label: 'Astrology Services', id: 'astrology-services', icon: Star, color: 'text-purple-600 dark:text-purple-400', borderColor: 'border-purple-400/40', bgIcon: 'bg-purple-400/5', items: ASTROLOGY_SERVICES_ITEMS, isWide: true },
+  { label: 'Special Events', id: 'special-events', icon: Sparkles, color: 'text-amber-500 dark:text-amber-400', borderColor: 'border-amber-400/40', bgIcon: 'bg-amber-400/5', isWide: false },
+  { label: 'Services', id: 'astrology-services', icon: Star, color: 'text-purple-600 dark:text-purple-400', borderColor: 'border-purple-400/40', bgIcon: 'bg-purple-400/5', items: ASTROLOGY_SERVICES_ITEMS, isWide: true },
   { label: 'Remedies', id: 'wealth-remedies', icon: Coins, color: 'text-purple-600 dark:text-purple-400', borderColor: 'border-purple-400/40', bgIcon: 'bg-purple-400/5', items: WEALTH_REMEDIES_ITEMS, isWide: true },
-  { label: 'Success Homas', id: 'success-homas', icon: ShieldCheck, color: 'text-purple-600 dark:text-purple-400', borderColor: 'border-purple-400/40', bgIcon: 'bg-purple-400/5', items: SUCCESS_HOMAS_ITEMS, isWide: true },
+  { label: 'Homas', id: 'success-homas', icon: ShieldCheck, color: 'text-purple-600 dark:text-purple-400', borderColor: 'border-purple-400/40', bgIcon: 'bg-purple-400/5', items: SUCCESS_HOMAS_ITEMS, isWide: true },
   { label: 'Store', id: 'store', icon: ShoppingBag, color: 'text-purple-600 dark:text-purple-400', borderColor: 'border-purple-400/40', bgIcon: 'bg-purple-400/5', items: STORE_ITEMS, isWide: true },
   { label: 'Free Astrology', id: 'free-astrology', icon: Gift, color: 'text-purple-600 dark:text-purple-400', borderColor: 'border-purple-400/40', bgIcon: 'bg-purple-400/5', items: FREE_ASTROLOGY_ITEMS, isWide: true },
   { label: 'Resources', id: 'resources', icon: BookOpen, color: 'text-purple-600 dark:text-purple-400', borderColor: 'border-purple-400/40', bgIcon: 'bg-purple-400/5', items: RESOURCES_ITEMS, isWide: true },
