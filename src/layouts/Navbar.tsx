@@ -203,8 +203,8 @@ const MOBILE_DRAWER_STYLES = "lg:hidden fixed top-0 left-0 z-40 w-[85%] sm:w-80 
 const MOBILE_NAV_LINK_WRAPPER_STYLES = "group flex items-center w-full p-3 rounded-xl hover:bg-midnight/5 dark:hover:bg-white/5 transition-all duration-300 relative z-10";
 
 /* Buttons */
-const DESKTOP_KUNDALI_BTN = "hidden lg:block px-3 lg:px-2.5 xl:px-5 py-1.5 xl:py-2 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-midnight text-[8px] lg:text-[9px] xl:text-[10px] font-sans tracking-widest uppercase font-bold hover:from-amber-500 hover:to-orange-500 transition-all shadow-lg shadow-amber-500/25 whitespace-nowrap text-center";
-const DESKTOP_SIGNIN_BTN = "hidden lg:block px-3 lg:px-2.5 xl:px-5 py-1.5 xl:py-2 rounded-full border border-midnight/60 dark:border-cream/60 text-midnight dark:text-cream text-[8px] lg:text-[9px] xl:text-[10px] font-sans tracking-widest uppercase font-bold hover:bg-midnight/5 dark:hover:bg-cream/10 transition-all whitespace-nowrap";
+const DESKTOP_KUNDALI_BTN = "hidden lg:block px-3 lg:px-2.5 xl:px-3 py-1.5 xl:py-2 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-midnight text-[8px] lg:text-[9px] xl:text-[10px] font-sans tracking-widest uppercase font-bold hover:from-amber-500 hover:to-orange-500 transition-all shadow-lg shadow-amber-500/25 whitespace-nowrap text-center";
+const DESKTOP_SIGNIN_BTN = "hidden lg:block px-3 lg:px-2.5 xl:px-3 py-1.5 xl:py-2 rounded-full border border-midnight/60 dark:border-cream/60 text-midnight dark:text-cream text-[8px] lg:text-[9px] xl:text-[10px] font-sans tracking-widest uppercase font-bold hover:bg-midnight/5 dark:hover:bg-cream/10 transition-all whitespace-nowrap";
 const MOBILE_KUNDALI_BTN = "relative w-full py-3.5 rounded-xl overflow-hidden group shadow-lg shadow-amber-500/25 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-orange-500 transition-colors inline-block text-center";
 const MOBILE_SIGNIN_BTN = "relative w-full py-3.5 rounded-xl overflow-hidden group border-2 border-midnight/60 dark:border-cream/60 hover:bg-midnight/5 dark:hover:bg-cream/10 transition-colors";
 
@@ -288,7 +288,7 @@ export function Navbar() {
         </div>
 
         {/* --- Desktop Navigation --- */}
-        <nav className="hidden lg:flex flex-1 justify-evenly items-center lg:px-4 xl:px-10 font-medium">
+        <nav className="hidden lg:flex flex-1 justify-evenly items-center lg:px-4 xl:px-4 font-medium">
           {NAV_LINKS.map((navItem) => (
             <div
               key={navItem.label}
