@@ -204,7 +204,7 @@ const HEADER_DESC_STYLES = "block font-sans text-gray-500 dark:text-gray-400 tex
 /* Carousel Container */
 const CAROUSEL_WRAPPER_STYLES = "relative group px-0 touch-pan-y";
 const CAROUSEL_BOX_STYLES = "overflow-hidden rounded-[2.5rem] bg-[#FFF5E1] transition-all duration-500 relative grid";
-const LOADING_CONTAINER_STYLES = "w-full flex items-center justify-center col-start-1 row-start-1 py-32";
+const LOADING_CONTAINER_STYLES = "w-full flex items-center justify-center col-start-1 row-start-1 aspect-[4/5] md:aspect-auto md:min-h-[350px] lg:min-h-[400px]";
 const LOADING_CONTENT_STYLES = "flex flex-col items-center gap-3";
 const LOADING_TEXT_STYLES = "text-xs font-semibold text-amber-600 dark:text-amber-500 uppercase tracking-widest animate-pulse";
 
@@ -650,7 +650,6 @@ export function SpecialEvents() {
               <ChevronRight className={CTA_ARROW_ICON_HOMA_STYLES} />
             </div>
           </button>
-
         </div>
       </div>
     </section>
