@@ -203,18 +203,16 @@ const HEADER_DESC_STYLES = "block font-sans text-gray-500 dark:text-gray-400 tex
 
 /* Carousel Container */
 const CAROUSEL_WRAPPER_STYLES = "relative group px-0 touch-pan-y";
-const CAROUSEL_BOX_STYLES = "overflow-hidden rounded-[2.5rem] bg-[#FFF5E1] transition-all duration-500 relative grid";
-const LOADING_CONTAINER_STYLES = "w-full flex items-center justify-center col-start-1 row-start-1 aspect-[4/5] md:aspect-[21/9] lg:aspect-[4/1]";
+const CAROUSEL_BOX_STYLES = "overflow-hidden rounded-[2.5rem] bg-[#FFF5E1] transition-all duration-500 relative grid aspect-[4/5] md:aspect-[21/9] lg:aspect-[4/1]";
+const LOADING_CONTAINER_STYLES = "w-full h-full flex items-center justify-center col-start-1 row-start-1 z-20";
 const LOADING_CONTENT_STYLES = "flex flex-col items-center gap-3";
 const LOADING_TEXT_STYLES = "text-xs font-semibold text-amber-600 dark:text-amber-500 uppercase tracking-widest animate-pulse";
 
 /* Carousel Images */
-const HIDDEN_PLACEHOLDER_STYLES = "col-start-1 row-start-1 grid invisible pointer-events-none";
-const PLACEHOLDER_ITEM_STYLES = "col-start-1 row-start-1 w-full flex items-center";
-const MULTI_BANNER_WRAPPER_STYLES = "w-full flex gap-3 md:gap-4 justify-between items-center";
-const SINGLE_BANNER_WRAPPER_STYLES = "w-full relative";
-const MULTI_BANNER_IMG_STYLES = "w-full h-auto object-contain rounded-[1rem] md:rounded-[1.5rem] transition-all duration-500 hover:scale-[1.03] shadow-sm hover:shadow-md";
-const SINGLE_BANNER_IMG_STYLES = "w-full h-auto object-contain rounded-[1.5rem] md:rounded-[2.5rem] bg-[#FFF5E1] border border-black/5 hover:border-[#facc15]/50 hover:shadow-[0_0_40px_rgba(250,204,21,0.2)] transition-all duration-500 group-hover/card:scale-[1.02]";
+const MULTI_BANNER_WRAPPER_STYLES = "w-full h-full flex gap-3 md:gap-4 justify-between items-center";
+const SINGLE_BANNER_WRAPPER_STYLES = "w-full h-full relative";
+const MULTI_BANNER_IMG_STYLES = "w-full h-full object-cover rounded-[1rem] md:rounded-[1.5rem] transition-all duration-500 hover:scale-[1.03] shadow-sm hover:shadow-md";
+const SINGLE_BANNER_IMG_STYLES = "w-full h-full object-cover rounded-[1.5rem] md:rounded-[2.5rem] bg-[#FFF5E1] border border-black/5 hover:border-[#facc15]/50 hover:shadow-[0_0_40px_rgba(250,204,21,0.2)] transition-all duration-500 group-hover/card:scale-[1.02]";
 
 /* Navigation & Pagination */
 const NAV_BTN_PREV_STYLES = "absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-black/50 border border-white/20 p-2 md:p-3 rounded-full text-white hover:bg-black/80 hover:scale-110 transition-all z-20 backdrop-blur-sm";
@@ -487,7 +485,6 @@ export function SpecialEvents() {
         >
           <div className={CAROUSEL_BOX_STYLES}>
             {!ready ? (
-
               /* Loading Indicator */
               <div className={LOADING_CONTAINER_STYLES}>
                 <div className={LOADING_CONTENT_STYLES}>
@@ -498,34 +495,8 @@ export function SpecialEvents() {
                   <span className={LOADING_TEXT_STYLES}>Loading Events...</span>
                 </div>
               </div>
-
             ) : (
               <>
-                {/* Hidden placeholders to lock container height to the tallest slide */}
-                <div className={HIDDEN_PLACEHOLDER_STYLES} aria-hidden="true">
-                  {displayEvents.map((event, itemIndex) => (
-                    <div key={`hidden-${itemIndex}`} className={PLACEHOLDER_ITEM_STYLES}>
-                      {event.isThreeBan ? (
-                        <div className={MULTI_BANNER_WRAPPER_STYLES}>
-                          {event.banners.map((banner, bannerIndex) => (
-                            <div key={bannerIndex} className={getMultiBannerVisibilityStyles(bannerIndex)}>
-                              <img src={banner.image} className="w-full h-auto object-contain rounded-[1rem] md:rounded-[1.5rem]" alt="" />
-                            </div>
-                          ))}
-                        </div>
-                      ) : (
-                        <div className={SINGLE_BANNER_WRAPPER_STYLES}>
-                          <picture>
-                            {event.banners[0].sources.map((src, srcIndex) => (
-                              <source key={srcIndex} media={src.media} srcSet={src.srcSet} />
-                            ))}
-                            <img src={event.banners[0].image} className="w-full h-auto object-contain rounded-[1.5rem] md:rounded-[2.5rem]" alt="" />
-                          </picture>
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
 
                 {/* Animated Carousel Slides */}
                 <AnimatePresence initial={false} custom={direction}>
