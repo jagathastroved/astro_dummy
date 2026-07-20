@@ -80,31 +80,30 @@ const DESKTOP_CARD_STYLES = "group overflow-hidden rounded-[2.5rem] bg-[#f8f9fa]
 const DESKTOP_IMG_WRAPPER_STYLES = "w-full h-64 lg:h-72 relative overflow-hidden rounded-t-[2.5rem] isolate";
 const DESKTOP_CARD_CONTENT_STYLES = "px-5 lg:px-8 pb-8 pt-4 flex flex-col flex-grow z-10 relative";
 const DESKTOP_HEADER_WRAPPER_STYLES = "min-h-[110px] lg:min-h-[125px] flex flex-col justify-start";
-const TAGLINE_WRAPPER_STYLES = "flex items-start mb-3 lg:mb-4";
-const TAGLINE_STYLES = "inline-flex items-center justify-center px-3 py-1 rounded-full bg-[#b052ff]/10 dark:bg-[#b052ff]/20 text-[#b052ff] dark:text-[#d08bff] font-sans text-[9px] lg:text-[11px] uppercase tracking-widest font-bold";
+const TAGLINE_WRAPPER_STYLES = "flex items-center mb-3 lg:mb-4";
+const TAGLINE_STYLES = "before:content-['✦'] before:mr-2.5 before:text-[#d946ef] flex items-center font-serif text-sm lg:text-base uppercase tracking-[0.25em] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#8a2be2] to-[#d946ef] drop-shadow-sm leading-tight";
 const DESKTOP_TITLE_STYLES = "font-sans text-base lg:text-xl xl:text-2xl text-gray-900 dark:text-white font-bold tracking-tight mb-2 lg:mb-3 leading-snug";
 const DESKTOP_DESC_STYLES = "font-sans text-gray-600 dark:text-gray-300 text-xs lg:text-sm leading-relaxed mb-6 flex-grow";
 
 /* Common Button Styles */
 const CTA_CONTAINER_STYLES = "mt-auto flex flex-col justify-start w-full";
 const CTA_ALIGNER_STYLES = "flex justify-center w-full min-h-[44px]";
-const DESKTOP_CTA_STYLES = "flex w-full justify-center items-center gap-1.5 px-3 lg:px-6 py-2.5 lg:py-3 rounded-full bg-[#b052ff] hover:bg-[#9333ea] text-white font-semibold tracking-wide text-[9px] lg:text-xs hover:scale-105 transition-transform shadow-md text-center leading-tight";
+const DESKTOP_CTA_STYLES = "flex w-full justify-center items-center gap-1.5 px-3 lg:px-6 py-2.5 lg:py-3 rounded-full bg-amber-600 hover:bg-amber-500 text-white font-sans font-semibold tracking-wide text-[9px] lg:text-xs hover:scale-105 transition-transform shadow-md text-center leading-tight";
 const FOOTER_TEXT_STYLES = "mt-2 text-[10px] lg:text-[11px] text-gray-500 dark:text-gray-400 font-medium font-sans min-h-[32px] text-center lg:text-left";
 
-/* Mobile Carousel Layout */
 const MOBILE_CONTAINER_STYLES = "md:hidden relative group px-0 touch-pan-y";
 const MOBILE_CAROUSEL_BOX_STYLES = "overflow-hidden rounded-[2.5rem] bg-[#f8f9fa] dark:bg-[#0b0e14] border border-gray-100 dark:border-white/5 hover:border-[#b052ff]/30 hover:shadow-[0_0_40px_rgba(176,82,255,0.15)] transition-all duration-500 relative h-[670px] lg:h-[450px]";
 const MOBILE_CARD_INNER_STYLES = "group/card flex flex-col lg:flex-row h-full relative";
 const MOBILE_DESKTOP_IMG_OVERLAY_STYLES = "hidden lg:block absolute top-0 bottom-0 left-0 w-[55%] overflow-hidden pointer-events-none";
 const MOBILE_IMG_WRAPPER_STYLES = "lg:hidden absolute top-0 inset-x-0 h-[220px] overflow-hidden pointer-events-none rounded-t-[2.5rem]";
 const MOBILE_GRADIENT_OVERLAY_STYLES = "absolute inset-0 bg-gradient-to-t from-[#f8f9fa] dark:from-[#0b0e14] to-transparent h-24 top-auto bottom-0";
-const MOBILE_CONTENT_CONTAINER_STYLES = "w-full lg:w-[45%] ml-auto px-6 pb-20 pt-[180px] sm:px-12 lg:p-16 flex flex-col justify-center items-center lg:items-start text-center lg:text-left z-10 relative h-full lg:mt-0 lg:pt-0";
-const MOBILE_TAGLINE_WRAPPER_STYLES = "flex items-center justify-center lg:justify-start mb-4 relative z-20";
-const MOBILE_TAGLINE_STYLES = "inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-white dark:bg-[#1a1525] shadow-[0_4px_15px_rgba(0,0,0,0.1)] border border-gray-100 dark:border-gray-800 text-[#b052ff] dark:text-[#d08bff] font-sans text-[10px] sm:text-xs uppercase tracking-widest font-bold";
-const MOBILE_TITLE_STYLES = "font-sans text-2xl lg:text-3xl text-gray-900 dark:text-white font-bold tracking-tight mb-4 leading-snug";
+const MOBILE_CONTENT_CONTAINER_STYLES = "w-full lg:w-[45%] ml-auto px-6 pb-20 pt-[240px] sm:px-12 lg:p-16 flex flex-col justify-center items-center lg:items-start text-center lg:text-left z-10 relative h-full lg:mt-0 lg:pt-0";
+const MOBILE_TAGLINE_WRAPPER_STYLES = "flex items-center justify-center lg:justify-start mb-5 relative z-20 w-full";
+const MOBILE_TAGLINE_STYLES = "before:content-['✦'] before:mr-2.5 before:text-[#d946ef] flex items-center font-serif text-sm md:text-base uppercase tracking-[0.25em] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#8a2be2] to-[#d946ef] drop-shadow-sm relative z-20";
+const MOBILE_TITLE_STYLES = "font-sans text-[1.35rem] leading-tight lg:text-3xl lg:leading-snug text-gray-900 dark:text-white font-bold tracking-tight mb-4";
 const MOBILE_DESC_STYLES = "font-sans text-gray-600 dark:text-gray-300 text-sm md:text-base leading-relaxed mb-6 max-w-sm mx-auto lg:mx-0";
 const MOBILE_CTA_ALIGNER_STYLES = "flex justify-center w-full mb-3";
-const MOBILE_CTA_STYLES = "inline-flex w-full max-w-[280px] justify-center items-center gap-1.5 px-4 py-3 rounded-full bg-[#b052ff] hover:bg-[#9333ea] text-white font-semibold tracking-wide text-xs sm:text-sm hover:scale-105 transition-transform shadow-lg text-center";
+const MOBILE_CTA_STYLES = "inline-flex w-full max-w-[280px] justify-center items-center gap-1.5 px-4 py-3 rounded-full bg-amber-600 hover:bg-amber-500 text-white font-sans font-semibold tracking-wide text-xs sm:text-sm hover:scale-105 transition-transform shadow-lg text-center";
 const MOBILE_FOOTER_TEXT_STYLES = "text-xs text-gray-500 dark:text-gray-400 font-medium font-sans";
 const NAV_BUTTONS_CONTAINER_STYLES = "absolute top-[17%] -translate-y-1/2 left-0 right-0 flex justify-between px-2 sm:px-4 md:-mx-6 pointer-events-none z-20";
 const NAV_BUTTON_STYLES = "w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/80 hover:bg-white dark:bg-black/30 dark:hover:bg-black/50 backdrop-blur-md border border-gray-200 dark:border-white/10 flex items-center justify-center text-[#b052ff] dark:text-white transition-all hover:scale-110 pointer-events-auto shadow-lg";

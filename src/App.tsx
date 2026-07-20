@@ -9,9 +9,9 @@ import { HoverGlow } from './components/ui/HoverGlow';
 export default function App() {
   return (
     <ThemeProvider>
-      <HoverGlow />
+      {/* <HoverGlow /> */}
       <ScrollToTop />
-      <ClickSpark sparkColor="#f59e0b" sparkSize={12} sparkRadius={24} sparkCount={12} duration={500} />
+      {/* <ClickSpark sparkColor="#f59e0b" sparkSize={12} sparkRadius={24} sparkCount={12} duration={500} /> */}
       <div className="min-h-screen bg-ivory dark:bg-[#0c0f24] text-midnight dark:text-cream font-sans selection:bg-gold/30 selection:text-midnight dark:selection:text-cream transition-colors duration-200 relative overflow-x-hidden">
         <MainLayout>
           <Home />

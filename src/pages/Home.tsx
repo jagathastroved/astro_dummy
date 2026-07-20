@@ -3,6 +3,7 @@ import { SpecialEvents } from '../components/sections/SpecialEvents';
 import { PersonalGuidance } from '../components/sections/PersonalGuidance';
 import { PersonalizedSolutions } from '../components/sections/PersonalizedSolutions';
 import { PersonalizedSupport } from '../components/sections/PersonalizedSupport';
+import { Rituals } from '../components/sections/Rituals';
 import { PremiumPanchang } from '../components/sections/PremiumPanchang';
 import { WhyChooseAstroVed } from '../components/sections/WhyChooseAstroVed';
 import { AIReports } from '../components/sections/AIReports';
@@ -21,6 +22,7 @@ export function Home() {
       <PersonalGuidance />
       <PersonalizedSolutions />
       <PersonalizedSupport />
+      <Rituals />
       {/* <UptimesDowntimes /> */}
       {/* <LiveHorologicalStream /> */}
       {/* <RitualAnimatedBeam /> */}

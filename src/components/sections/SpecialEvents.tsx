@@ -466,17 +466,17 @@ export function SpecialEvents() {
       <div className={CONTENT_WRAPPER_STYLES} >
 
         {/* --- Header --- */}
-        <div className={HEADER_CONTAINER_STYLES}>
-          {/* <p className={HEADER_SUBTITLE_STYLES}>
+        {/* <div className={HEADER_CONTAINER_STYLES}> */}
+        {/* <p className={HEADER_SUBTITLE_STYLES}>
             LIVE THIS WEEK
           </p> */}
-          <h2 className={HEADER_TITLE_STYLES}>
+        {/* <h2 className={HEADER_TITLE_STYLES}>
             Current Divine Powertimes & <em className="text-amber-600 dark:text-amber-400 italic font-bold">Special Events.</em>
           </h2>
           <p className={HEADER_DESC_STYLES} style={{ maxWidth: '100%' }}>
             Explore current AstroVed programs timed to sacred dates, deity blessings, temple traditions, and remedy windows.
           </p>
-        </div>
+        </div> */}
 
         {/* --- Carousel Container --- */}
         <div
