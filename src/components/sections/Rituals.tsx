@@ -1,9 +1,41 @@
-import { ArrowRight } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ArrowRight, Sparkles, Flame, Clock } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import muruganImg from '../../assets/murugan_img.jpeg';
+
+/** --- Promo Carousel Data & Styles --- */
+const PROMO_MESSAGES = [
+  {
+    id: 1,
+    icon: <Flame className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500" />,
+    text: "Guru Purnima special rituals now open — registrations close 29 July.",
+    cta: "Participate",
+    link: "#"
+  },
+  {
+    id: 2,
+    icon: <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400" />,
+    text: "New: Exclusive Skanda Shashti 6-Day Power Rituals available.",
+    cta: "Book Now",
+    link: "#"
+  },
+  {
+    id: 3,
+    icon: <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-rose-500" />,
+    text: "Early bird discount: 15% off all Homas booked this week.",
+    cta: "Claim Offer",
+    link: "#"
+  }
+];
+
+const PROMO_BAR_WRAPPER = "w-full max-w-5xl mx-auto px-4 sm:px-6 mb-6 md:mb-8 relative z-20";
+const PROMO_BAR_CONTAINER = "relative overflow-hidden rounded-2xl sm:rounded-full bg-gradient-to-r from-amber-900 via-rose-950 to-purple-950 dark:from-amber-950 dark:via-rose-950/80 dark:to-indigo-950/80 border border-amber-500/20 shadow-[0_0_20px_rgba(245,158,11,0.15)] flex items-center justify-center p-0.5 group cursor-pointer";
+const PROMO_INNER_GLOW = "absolute inset-0 bg-gradient-to-r from-transparent via-amber-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500";
+const PROMO_CONTENT_WRAPPER = "w-full flex items-center justify-center py-2.5 sm:py-3 px-4 relative z-10 min-h-[48px] sm:min-h-[52px]";
 
 /** --- Modern Top/Bottom Layout CSS Classes --- */
 const SECTION_STYLES = "py-6 md:py-8 relative z-10 w-full transition-colors duration-500 overflow-hidden";
-const CONTENT_WRAPPER_STYLES = "max-w-5xl mx-auto px-6 relative z-10 flex flex-col items-center gap-12";
+const CONTENT_WRAPPER_STYLES = "max-w-5xl mx-auto px-6 relative z-10 flex flex-col items-center gap-6";
 
 /* --- TOP SECTION (Typography) --- */
 const TOP_SECTION_STYLES = "flex flex-col items-center text-center w-full";
@@ -45,13 +77,21 @@ const SUB_CTA_TEXT_STYLES = "text-[11px] sm:text-[11px] lg:text-sm text-slate-50
  * Displays a stunning, modern top-and-bottom layout focusing on huge typography above a wide content card.
  */
 export function Rituals() {
+  const [currentPromo, setCurrentPromo] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentPromo((prev) => (prev + 1) % PROMO_MESSAGES.length);
+    }, 4000); // Rotates every 4 seconds
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <section className={SECTION_STYLES}>
       <div className={CONTENT_WRAPPER_STYLES}>
-
         {/* --- TOP SECTION: Standard Section Title --- */}
         <div className={TOP_SECTION_STYLES}>
-          <span className={BADGE_STYLES}>POWERFUL VEDIC RITUAL</span>
+          <span className={BADGE_STYLES}>POWERFUL VEDIC RITUALS</span>
           <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 mt-2 mb-4">
             <h2 className={HEADER_TITLE_STYLES}>
               Clear Obstacles
@@ -67,7 +107,7 @@ export function Rituals() {
           <div className={DECORATIVE_BLOB_STYLES} />
 
           <div className={CONTENT_CARD_STYLES}>
-            <div className="flex flex-col md:flex-row gap-6 md:gap-8 lg:gap-12 w-full">
+            <div className="flex flex-col md:flex-row gap-4 md:gap-6 lg:gap-10 w-full">
 
               {/* --- Left Column: Image (Stacks on top for mobile, side-by-side on tablet/desktop) --- */}
               <div className="w-full md:w-[35%] lg:w-[40%] shrink-0 flex flex-col order-first md:mb-0 relative">
@@ -123,7 +163,38 @@ export function Rituals() {
             </div>
           </div>
         </div>
-
+        {/* --- PROMO SLIDER --- */}
+        <div className={PROMO_BAR_WRAPPER}>
+          <div className={PROMO_BAR_CONTAINER}>
+            <div className={PROMO_INNER_GLOW} />
+            <div className={PROMO_CONTENT_WRAPPER}>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentPromo}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  className="flex flex-col sm:flex-row items-center gap-1 sm:gap-3 text-center sm:text-left"
+                >
+                  <div className="flex items-center gap-2">
+                    {PROMO_MESSAGES[currentPromo].icon}
+                    <span className="text-white text-xs sm:text-sm md:text-[15px] font-sans font-medium tracking-wide">
+                      {PROMO_MESSAGES[currentPromo].text}
+                    </span>
+                  </div>
+                  <a
+                    href={PROMO_MESSAGES[currentPromo].link}
+                    className="inline-flex items-center gap-1.5 text-amber-400 hover:text-amber-300 font-bold text-xs sm:text-sm tracking-widest uppercase transition-colors shrink-0 mt-1 sm:mt-0"
+                  >
+                    {PROMO_MESSAGES[currentPromo].cta}
+                    <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  </a>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

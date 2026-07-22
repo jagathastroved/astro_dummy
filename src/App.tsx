@@ -2,9 +2,9 @@ import React from 'react';
 import { ThemeProvider } from './context/ThemeProvider';
 import { MainLayout } from './layouts/MainLayout';
 import { Home } from './pages/Home';
-import ClickSpark from './components/ui/ClickSpark';
+// import ClickSpark from './components/ui/ClickSpark';
 import { ScrollToTop } from './components/ui/ScrollToTop';
-import { HoverGlow } from './components/ui/HoverGlow';
+// import { HoverGlow } from './components/ui/HoverGlow';
 
 export default function App() {
   return (

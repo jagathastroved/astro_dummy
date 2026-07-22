@@ -54,7 +54,7 @@ const EXPERTS: ExpertItem[] = [
 
 /** --- Shared Tailwind CSS Classes --- */
 
-const SECTION_STYLES = "py-6 md:py-8 transition-colors duration-500 relative z-10 mt-4 md:mt-6";
+const SECTION_STYLES = "py-6 md:py-8 transition-colors duration-500 relative z-10";
 const DIVIDER_TOP_STYLES = "absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-px bg-gradient-to-r from-transparent via-black/10 dark:via-white/10 to-transparent";
 const DIVIDER_GLOW_STYLES = "absolute top-0 left-1/2 -translate-x-1/2 w-[40%] max-w-md h-[1px] bg-gradient-to-r from-transparent via-amber-500/30 dark:via-amber-400/50 to-transparent shadow-[0_0_15px_rgba(245,158,11,0.5)]";
 const CONTENT_WRAPPER_STYLES = "max-w-7xl mx-auto px-6 relative z-10 mt-2";
@@ -67,7 +67,7 @@ const IMAGE_STYLES = "w-full h-full object-cover object-[center_20%] group-hover
 const IMAGE_GRADIENT_STYLES = "hidden";
 const CARD_CONTENT_STYLES = "relative z-10 p-6 sm:p-8 flex flex-col flex-1 bg-white dark:bg-[#0a0e17]";
 const CARD_ANIMATION_WRAPPER_STYLES = "flex flex-col h-full";
-const BADGE_STYLES = "inline-flex items-center justify-center px-3 sm:px-4 py-1.5 rounded-full bg-amber-50 dark:bg-amber-900/20 border border-amber-200/50 dark:border-amber-700/50 text-amber-800 dark:text-amber-300 font-mono text-[9px] sm:text-[10px] uppercase tracking-wider sm:tracking-widest mb-4 w-fit max-w-full font-bold text-center leading-tight";
+const BADGE_STYLES = "inline-flex items-center justify-center px-4 sm:px-6 py-2 sm:py-2.5 rounded-full bg-yellow-50 dark:bg-amber-900/20 border border-yellow-200 dark:border-amber-700/50 text-amber-700 dark:text-amber-300 font-sans text-[10px] sm:text-xs md:text-sm uppercase tracking-wider sm:tracking-widest mb-4 w-fit max-w-full font-bold text-center leading-tight whitespace-nowrap";
 const DESC_GRID_STYLES = "flex-grow";
 const DESC_TEXT_STYLES = "font-body text-gray-700 dark:text-gray-300 text-sm lg:text-base leading-relaxed mb-6 mt-1 whitespace-pre-line";
 const CTA_WRAPPER_STYLES = "inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-amber-600 hover:bg-amber-500 dark:bg-amber-500 dark:hover:bg-amber-400 text-white dark:text-gray-900 font-sans text-[10px] sm:text-xs md:text-sm uppercase tracking-wider sm:tracking-widest font-bold px-3 sm:px-6 py-3 sm:py-3.5 rounded-xl transition-all duration-300 mt-auto shadow-lg shadow-amber-900/20 w-full group/btn whitespace-nowrap overflow-hidden";

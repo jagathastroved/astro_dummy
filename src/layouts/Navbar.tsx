@@ -198,8 +198,8 @@ const NAV_LINKS = [
 const HEADER_STYLES = "sticky top-0 z-50 bg-gradient-to-r from-purple-100/95 via-fuchsia-100/95 to-pink-100/95 dark:bg-gradient-to-r dark:from-indigo-950/95 dark:via-purple-950/95 dark:to-[#0a0e17]/95 backdrop-blur-md transition-colors duration-500 shadow-sm";
 const MOBILE_TOGGLE_STYLES = "lg:hidden p-2 -ml-2 rounded-full border border-amber-400/25 text-purple-700 dark:text-amber-400 hover:bg-amber-400/10 transition-colors";
 
-const DESKTOP_NAV_LINK_STYLES = "relative flex items-center gap-1 px-1 lg:px-1 xl:px-2 py-1.5 text-midnight/80 dark:text-cream/90 hover:text-amber-600 dark:hover:text-amber-400 transition-colors font-sans uppercase tracking-[0.05em] xl:tracking-widest text-[8px] lg:text-[9px] xl:text-[10px] font-bold group whitespace-nowrap";
-const THEME_TOGGLE_STYLES = "relative p-1.5 lg:p-1.5 xl:p-2.5 rounded-full border border-amber-400/25 text-purple-700 dark:text-amber-400 hover:bg-amber-400/10 transition-all duration-300 shadow-sm";
+const DESKTOP_NAV_LINK_STYLES = "relative flex items-center gap-0.5 px-0.5 lg:px-1 xl:px-2 py-1.5 text-midnight/80 dark:text-cream/90 hover:text-amber-600 dark:hover:text-amber-400 transition-colors font-sans uppercase tracking-normal lg:tracking-[0.05em] text-[9px] lg:text-[11px] xl:text-sm font-bold group whitespace-nowrap";
+const THEME_TOGGLE_STYLES = "hidden relative p-1.5 lg:p-1.5 xl:p-2.5 rounded-full border border-amber-400/25 text-purple-700 dark:text-amber-400 hover:bg-amber-400/10 transition-all duration-300 shadow-sm";
 const MOBILE_DRAWER_STYLES = "lg:hidden fixed top-0 left-0 z-40 w-[85%] sm:w-80 h-[100dvh] overflow-hidden bg-white/90 dark:bg-[#0a0514]/90 backdrop-blur-2xl border-r border-white/20 dark:border-white/5 shadow-2xl flex flex-col";
 const MOBILE_NAV_LINK_WRAPPER_STYLES = "group flex items-center w-full p-3 rounded-xl hover:bg-midnight/5 dark:hover:bg-white/5 transition-all duration-300 relative z-10";
 

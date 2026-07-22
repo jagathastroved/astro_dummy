@@ -194,7 +194,7 @@ interface ApiEventItem {
 /** --- Shared Tailwind CSS Classes --- */
 
 /* Base Section & Headers */
-const SECTION_WRAPPER_STYLES = "pt-2 md:pt-4 pb-6 md:pb-8 relative overflow-hidden transition-colors duration-500 z-10";
+const SECTION_WRAPPER_STYLES = "pt-2 md:pt-4 pb-3 md:pb-6 relative overflow-hidden transition-colors duration-500 z-10";
 const CONTENT_WRAPPER_STYLES = "max-w-[1600px] mx-auto px-4 md:px-8 relative z-10";
 const HEADER_CONTAINER_STYLES = "text-center w-full mx-auto mb-6 md:mb-5 lg:mb-3";
 const HEADER_SUBTITLE_STYLES = "text-amber-600 dark:text-amber-400 font-sans text-xs md:text-sm uppercase tracking-widest font-bold mb-3";
@@ -221,17 +221,15 @@ const PAGINATION_CONTAINER_STYLES = "absolute bottom-4 md:bottom-8 left-0 right-
 
 /* Static CTA Buttons */
 const CTA_BAR_CONTAINER_STYLES = "w-full flex flex-col md:flex-row justify-center items-center gap-4 sm:gap-6 md:gap-8 lg:gap-8 mt-4 sm:mt-5 lg:mt-3 mb-2 lg:mb-0 px-2 sm:px-6 md:px-10 lg:px-8 relative z-30";
-const ASTRO_BTN_STYLES = "relative flex items-center justify-between pl-12 sm:pl-14 pr-3 py-2.5 rounded-full bg-gradient-to-r from-[#20033b] via-[#3a0c6a] to-[#510e8d] hover:to-[#5c0fa0] transition-all duration-300 shadow-[0_10px_30px_rgba(58,12,106,0.3)] hover:shadow-[0_10px_35px_rgba(176,82,255,0.5)] border-[2px] border-amber-400 hover:scale-[1.03] w-full max-w-[260px] sm:max-w-[280px] md:max-w-[270px] lg:max-w-[280px] h-[56px] sm:h-[60px] lg:h-[56px] group ml-4 sm:ml-2 md:ml-4 lg:ml-0";
-const ASTRO_ICON_WRAPPER_STYLES = "absolute left-[-16px] sm:left-[-18px] top-1/2 -translate-y-1/2 w-[56px] h-[56px] lg:w-[56px] lg:h-[56px] rounded-full border-[2.5px] border-amber-400 bg-gradient-to-b from-[#2a0854] to-[#120224] flex items-center justify-center shadow-lg z-20 group-hover:scale-105 transition-transform duration-300";
-const HOMA_BTN_STYLES = "relative flex items-center justify-between pl-12 sm:pl-14 pr-3 py-2.5 rounded-full bg-gradient-to-r from-[#983800] via-[#c65104] to-[#ea6b06] hover:to-[#f2740d] transition-all duration-300 shadow-[0_10px_30px_rgba(198,81,4,0.3)] hover:shadow-[0_10px_35px_rgba(245,158,11,0.5)] border-[2px] border-amber-400 hover:scale-[1.03] w-full max-w-[260px] sm:max-w-[280px] md:max-w-[270px] lg:max-w-[280px] h-[56px] sm:h-[60px] lg:h-[56px] group ml-4 sm:ml-2 md:ml-0";
-const HOMA_ICON_WRAPPER_STYLES = "absolute left-[-16px] sm:left-[-18px] top-1/2 -translate-y-1/2 w-[56px] h-[56px] lg:w-[56px] lg:h-[56px] rounded-full border-[2.5px] border-amber-400 bg-gradient-to-b from-[#8f3a00] to-[#3a1500] flex items-center justify-center shadow-lg z-20 group-hover:scale-105 transition-transform duration-300";
-const CTA_TEXT_WRAPPER_STYLES = "flex flex-col items-start justify-center flex-grow pl-2 lg:pl-1 text-left";
-const CTA_TITLE_STYLES = "font-serif text-white text-[13px] sm:text-[14px] lg:text-[14px] font-bold tracking-wide drop-shadow-md leading-tight whitespace-nowrap";
-const CTA_DESC_ASTRO_STYLES = "font-sans text-[9px] sm:text-[10px] lg:text-[10px] text-amber-200/95 font-semibold tracking-wide mt-0.5";
-const CTA_DESC_HOMA_STYLES = "font-sans text-[9px] sm:text-[10px] lg:text-[10px] text-orange-200/95 font-semibold tracking-wide mt-0.5";
-const CTA_ARROW_WRAPPER_STYLES = "w-6 h-6 sm:w-7 sm:h-7 lg:w-7 lg:h-7 rounded-full bg-white flex items-center justify-center shadow-md z-10 group-hover:translate-x-1 transition-transform duration-300 shrink-0";
-const CTA_ARROW_ICON_ASTRO_STYLES = "w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-4 lg:h-4 text-purple-800 stroke-[2.5]";
-const CTA_ARROW_ICON_HOMA_STYLES = "w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-4 lg:h-4 text-orange-800 stroke-[2.5]";
+const ASTRO_BTN_STYLES = "relative flex items-center justify-center rounded-full bg-gradient-to-r from-[#20033b] via-[#3a0c6a] to-[#510e8d] hover:to-[#5c0fa0] transition-all duration-300 shadow-[0_10px_30px_rgba(58,12,106,0.3)] hover:shadow-[0_10px_35px_rgba(176,82,255,0.5)] border-[2px] border-amber-400 hover:scale-[1.03] w-full max-w-[300px] sm:max-w-[340px] md:max-w-[360px] lg:max-w-[380px] h-[64px] sm:h-[72px] lg:h-[76px] group ml-5 sm:ml-6 md:ml-8 lg:ml-0";
+const ASTRO_ICON_WRAPPER_STYLES = "absolute left-[-20px] sm:left-[-24px] top-1/2 -translate-y-1/2 w-[64px] h-[64px] sm:w-[72px] sm:h-[72px] lg:w-[76px] lg:h-[76px] rounded-full border-[2.5px] border-amber-400 bg-gradient-to-b from-[#2a0854] to-[#120224] flex items-center justify-center shadow-lg z-20 group-hover:scale-105 transition-transform duration-300";
+const HOMA_BTN_STYLES = "relative flex items-center justify-center rounded-full bg-gradient-to-r from-[#983800] via-[#c65104] to-[#ea6b06] hover:to-[#f2740d] transition-all duration-300 shadow-[0_10px_30px_rgba(198,81,4,0.3)] hover:shadow-[0_10px_35px_rgba(245,158,11,0.5)] border-[2px] border-amber-400 hover:scale-[1.03] w-full max-w-[300px] sm:max-w-[340px] md:max-w-[360px] lg:max-w-[380px] h-[64px] sm:h-[72px] lg:h-[76px] group ml-5 sm:ml-6 md:ml-8 lg:ml-0";
+const HOMA_ICON_WRAPPER_STYLES = "absolute left-[-20px] sm:left-[-24px] top-1/2 -translate-y-1/2 w-[64px] h-[64px] sm:w-[72px] sm:h-[72px] lg:w-[76px] lg:h-[76px] rounded-full border-[2.5px] border-amber-400 bg-gradient-to-b from-[#8f3a00] to-[#3a1500] flex items-center justify-center shadow-lg z-20 group-hover:scale-105 transition-transform duration-300";
+const CTA_TEXT_WRAPPER_STYLES = "z-10 text-center w-full px-14 sm:px-16";
+const CTA_TITLE_STYLES = "font-serif text-white text-[17px] sm:text-[19px] lg:text-[22px] font-bold tracking-wide drop-shadow-md leading-tight whitespace-nowrap";
+const CTA_ARROW_WRAPPER_STYLES = "absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 rounded-full bg-white flex items-center justify-center shadow-md z-10 group-hover:translate-x-1 transition-transform duration-300 shrink-0";
+const CTA_ARROW_ICON_ASTRO_STYLES = "w-4 h-4 sm:w-5 sm:h-5 lg:w-5 lg:h-5 text-purple-800 stroke-[2.5]";
+const CTA_ARROW_ICON_HOMA_STYLES = "w-4 h-4 sm:w-5 sm:h-5 lg:w-5 lg:h-5 text-orange-800 stroke-[2.5]";
 
 /**
  * Returns dynamic visibility classes for multi-banner arrays.
@@ -583,20 +581,18 @@ export function SpecialEvents() {
           </div>
         </div>
 
+
         {/* --- Premium Static Theme CTA Bar --- */}
         <div className={CTA_BAR_CONTAINER_STYLES}>
 
           {/* Talk to Astrologer Button */}
           <button className={ASTRO_BTN_STYLES}>
             <div className={ASTRO_ICON_WRAPPER_STYLES}>
-              <PhoneCall className="w-7 h-7 lg:w-7 lg:h-7 text-purple-300 drop-shadow-[0_0_8px_rgba(168,85,247,0.8)] fill-purple-300/20" strokeWidth={1.5} />
+              <PhoneCall className="w-8 h-8 lg:w-9 lg:h-9 text-purple-300 drop-shadow-[0_0_8px_rgba(168,85,247,0.8)] fill-purple-300/20" strokeWidth={1.5} />
             </div>
             <div className={CTA_TEXT_WRAPPER_STYLES}>
               <span className={CTA_TITLE_STYLES}>
                 Talk to Astrologer
-              </span>
-              <span className={CTA_DESC_ASTRO_STYLES}>
-                Get Answers. Gain Clarity.
               </span>
             </div>
             <div className={CTA_ARROW_WRAPPER_STYLES}>
@@ -607,20 +603,33 @@ export function SpecialEvents() {
           {/* Homa & Remedies Button */}
           <button className={HOMA_BTN_STYLES}>
             <div className={HOMA_ICON_WRAPPER_STYLES}>
-              <Flame className="w-7 h-7 lg:w-7 lg:h-7 text-orange-200 drop-shadow-[0_0_8px_rgba(245,158,11,0.8)] fill-orange-500/30" strokeWidth={1.5} />
+              <Flame className="w-8 h-8 lg:w-9 lg:h-9 text-orange-200 drop-shadow-[0_0_8px_rgba(245,158,11,0.8)] fill-orange-500/30" strokeWidth={1.5} />
             </div>
             <div className={CTA_TEXT_WRAPPER_STYLES}>
               <span className={CTA_TITLE_STYLES}>
                 Homa & Remedies
-              </span>
-              <span className={CTA_DESC_HOMA_STYLES}>
-                Balance. Heal. Harmonize.
               </span>
             </div>
             <div className={CTA_ARROW_WRAPPER_STYLES}>
               <ChevronRight className={CTA_ARROW_ICON_HOMA_STYLES} />
             </div>
           </button>
+        </div>
+      </div>
+
+      {/* --- Infinite Scrolling Banner --- */}
+      <div className="w-full bg-[#0b1120] border-t border-b border-white/10 overflow-hidden py-2.5 relative z-20 marquee-container mt-4 md:mt-8">
+        <div className="animate-marquee">
+          {[...Array(2)].map((_, i) => (
+            <div key={i} className="flex gap-12 px-6 items-center text-gray-300 text-xs sm:text-sm font-medium whitespace-nowrap">
+              <span>✦ Since 2000— 25 years of Vedic tradition</span>
+              <span>✦ 3 Lakh+ rituals performed in devotees' names</span>
+              <span>✦ 200+ Vedic scholars & priests on our team</span>
+              <span>✦ 4.8★ from devotees in 50+ countries</span>
+              <span>✦ 100% private— your birth details are never shared</span>
+              <span>✦ Watch your ritual— video of every ceremony</span>
+            </div>
+          ))}
         </div>
       </div>
     </section>
