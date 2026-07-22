@@ -621,7 +621,7 @@ export function SpecialEvents() {
       <div className="w-full bg-[#0b1120] border-t border-b border-white/10 overflow-hidden py-2.5 relative z-20 marquee-container mt-4 md:mt-8">
         <div className="animate-marquee">
           {[...Array(2)].map((_, i) => (
-            <div key={i} className="flex gap-12 px-6 items-center text-gray-300 text-xs sm:text-sm font-medium whitespace-nowrap">
+            <div key={i} className="flex gap-12 px-6 items-center text-gray-300 text-sm sm:text-base md:text-lg font-medium whitespace-nowrap">
               <span>✦ Since 2001— 25 years of Vedic tradition</span>
               <span>✦ 3 Lakh+ rituals performed in devotees' names</span>
               <span>✦ 200+ Vedic scholars & priests on our team</span>
