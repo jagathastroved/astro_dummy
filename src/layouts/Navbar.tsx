@@ -196,16 +196,16 @@ const NAV_LINKS = [
 /** --- Shared Tailwind CSS Classes --- */
 
 const HEADER_STYLES = "sticky top-0 z-50 bg-gradient-to-r from-purple-100/95 via-fuchsia-100/95 to-pink-100/95 dark:bg-gradient-to-r dark:from-indigo-950/95 dark:via-purple-950/95 dark:to-[#0a0e17]/95 backdrop-blur-md transition-colors duration-500 shadow-sm";
-const MOBILE_TOGGLE_STYLES = "lg:hidden p-2 -ml-2 rounded-full border border-amber-400/25 text-purple-700 dark:text-amber-400 hover:bg-amber-400/10 transition-colors";
+const MOBILE_TOGGLE_STYLES = "max-[1070px]:flex min-[1071px]:hidden p-2 -ml-2 rounded-full border border-amber-400/25 text-purple-700 dark:text-amber-400 hover:bg-amber-400/10 transition-colors";
 
-const DESKTOP_NAV_LINK_STYLES = "relative flex items-center gap-0.5 px-0.5 lg:px-1 xl:px-2 py-1.5 text-midnight/80 dark:text-cream/90 hover:text-amber-600 dark:hover:text-amber-400 transition-colors font-sans uppercase tracking-normal lg:tracking-[0.05em] text-[9px] lg:text-[11px] xl:text-sm font-bold group whitespace-nowrap";
+const DESKTOP_NAV_LINK_STYLES = "relative flex items-center gap-0.5 px-0.5 lg:px-0.5 xl:px-0.5 2xl:px-2 py-1.5 text-midnight/80 dark:text-cream/90 hover:text-amber-600 dark:hover:text-amber-400 transition-all duration-300 ease-out font-sans tracking-normal 2xl:tracking-[0.05em] text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[22px] font-semibold group whitespace-nowrap";
 const THEME_TOGGLE_STYLES = "hidden relative p-1.5 lg:p-1.5 xl:p-2.5 rounded-full border border-amber-400/25 text-purple-700 dark:text-amber-400 hover:bg-amber-400/10 transition-all duration-300 shadow-sm";
-const MOBILE_DRAWER_STYLES = "lg:hidden fixed top-0 left-0 z-40 w-[85%] sm:w-80 h-[100dvh] overflow-hidden bg-white/90 dark:bg-[#0a0514]/90 backdrop-blur-2xl border-r border-white/20 dark:border-white/5 shadow-2xl flex flex-col";
+const MOBILE_DRAWER_STYLES = "max-[1070px]:flex min-[1071px]:hidden fixed top-0 left-0 z-40 w-[85%] sm:w-80 h-[100dvh] overflow-hidden bg-white/90 dark:bg-[#0a0514]/90 backdrop-blur-2xl border-r border-white/20 dark:border-white/5 shadow-2xl flex-col";
 const MOBILE_NAV_LINK_WRAPPER_STYLES = "group flex items-center w-full p-3 rounded-xl hover:bg-midnight/5 dark:hover:bg-white/5 transition-all duration-300 relative z-10";
 
 /* Buttons */
-const DESKTOP_KUNDALI_BTN = "hidden lg:block px-3 lg:px-2.5 xl:px-3 py-1.5 xl:py-2 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-midnight text-[8px] lg:text-[9px] xl:text-[10px] font-sans tracking-widest uppercase font-bold hover:from-amber-500 hover:to-orange-500 transition-all shadow-lg shadow-amber-500/25 whitespace-nowrap text-center";
-const DESKTOP_SIGNIN_BTN = "hidden lg:block px-3 lg:px-2.5 xl:px-3 py-1.5 xl:py-2 rounded-full border border-midnight/60 dark:border-cream/60 text-midnight dark:text-cream text-[8px] lg:text-[9px] xl:text-[10px] font-sans tracking-widest uppercase font-bold hover:bg-midnight/5 dark:hover:bg-cream/10 transition-all whitespace-nowrap";
+const DESKTOP_KUNDALI_BTN = "hidden min-[1071px]:block px-3 lg:px-2.5 xl:px-4 2xl:px-6 py-1.5 lg:py-1.5 xl:py-2.5 2xl:py-3 rounded-full bg-gradient-to-r from-purple-600 to-orange-500 text-white text-[14px] lg:text-[16px] xl:text-[17px] 2xl:text-[20px] font-sans tracking-wide 2xl:tracking-widest font-semibold hover:shadow-lg hover:shadow-orange-500/30 hover:-translate-y-0.5 transition-all duration-300 whitespace-nowrap text-center border border-orange-400/30";
+const DESKTOP_SIGNIN_BTN = "hidden min-[1071px]:block px-3 lg:px-2.5 xl:px-4 2xl:px-6 py-1.5 lg:py-1.5 xl:py-2.5 2xl:py-3 rounded-full backdrop-blur-sm bg-white/40 dark:bg-black/20 border border-midnight/20 dark:border-cream/20 text-midnight/90 dark:text-cream text-[14px] lg:text-[16px] xl:text-[17px] 2xl:text-[20px] font-sans tracking-wide 2xl:tracking-widest font-semibold hover:bg-white/80 dark:hover:bg-white/10 hover:border-purple-500/50 hover:text-purple-700 transition-all duration-300 whitespace-nowrap text-center";
 const MOBILE_KUNDALI_BTN = "relative w-full py-3.5 rounded-xl overflow-hidden group shadow-lg shadow-amber-500/25 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-orange-500 transition-colors inline-block text-center";
 const MOBILE_SIGNIN_BTN = "relative w-full py-3.5 rounded-xl overflow-hidden group border-2 border-midnight/60 dark:border-cream/60 hover:bg-midnight/5 dark:hover:bg-cream/10 transition-colors";
 
@@ -289,7 +289,7 @@ export function Navbar() {
         </div>
 
         {/* --- Desktop Navigation --- */}
-        <nav className="hidden lg:flex flex-1 justify-evenly items-center lg:px-4 xl:px-4 font-medium">
+        <nav className="hidden min-[1071px]:flex flex-1 justify-evenly items-center lg:px-4 xl:px-4 font-medium">
           {NAV_LINKS.map((navItem) => (
             <div
               key={navItem.label}
@@ -300,10 +300,7 @@ export function Navbar() {
               <button onClick={() => handleNavClick(navItem.id)} className={DESKTOP_NAV_LINK_STYLES}>
                 {navItem.label}
                 {navItem.items && <ChevronDown className="w-2.5 h-2.5 xl:w-3 xl:h-3 opacity-50 group-hover:opacity-100 transition-opacity" />}
-                <span className="absolute top-0 left-0 w-1.5 h-1.5 sm:w-2 sm:h-2 border-t-[2px] border-l-[2px] border-amber-500 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 -translate-y-2 group-hover:-translate-x-0.5 group-hover:-translate-y-0.5" />
-                <span className="absolute top-0 right-0 w-1.5 h-1.5 sm:w-2 sm:h-2 border-t-[2px] border-r-[2px] border-amber-500 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 -translate-y-2 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                <span className="absolute bottom-0 left-0 w-1.5 h-1.5 sm:w-2 sm:h-2 border-b-[2px] border-l-[2px] border-amber-500 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 translate-y-2 group-hover:-translate-x-0.5 group-hover:translate-y-0.5" />
-                <span className="absolute bottom-0 right-0 w-1.5 h-1.5 sm:w-2 sm:h-2 border-b-[2px] border-r-[2px] border-amber-500 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 translate-y-2 group-hover:translate-x-0.5 group-hover:translate-y-0.5" />
+                <span className="absolute -bottom-1 left-0 w-full h-[2.5px] bg-gradient-to-r from-purple-600 to-orange-500 rounded-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out shadow-[0_0_8px_rgba(249,115,22,0.4)]" />
               </button>
 
               {/* Professional Divided List Dropdown with Mapped Symbols */}
@@ -336,9 +333,9 @@ export function Navbar() {
                               hover:bg-purple-500/5 dark:hover:bg-amber-400/5"
                           >
                             {/* Celestial Mapped Symbol Icon */}
-                            <Icon className="w-4 h-4 text-purple-600/70 dark:text-amber-400/80 group-hover:scale-110 transition-transform duration-200 flex-shrink-0" />
+                            <Icon className="w-4 h-4 lg:w-4 lg:h-4 2xl:w-5 2xl:h-5 text-purple-600/70 dark:text-amber-400/80 group-hover:scale-110 transition-transform duration-200 flex-shrink-0" />
 
-                            <span className="font-sans text-[11.5px] sm:text-[12.5px] font-semibold text-slate-700 dark:text-cream/90 group-hover:text-purple-700 dark:group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all duration-200 text-left whitespace-nowrap flex-1 pr-4">
+                            <span className="font-sans text-[15px] lg:text-[16px] 2xl:text-[18px] font-semibold text-slate-700 dark:text-cream/90 group-hover:text-purple-700 dark:group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all duration-200 text-left whitespace-nowrap flex-1 pr-4">
                               {item}
                             </span>
 
@@ -355,7 +352,7 @@ export function Navbar() {
         </nav>
 
         {/* --- Desktop Actions & Theme Toggle --- */}
-        <div className="flex items-center justify-end gap-1.5 lg:gap-3 xl:gap-5 shrink-0">
+        <div className="flex items-center justify-end gap-1.5 lg:gap-1.5 xl:gap-2 shrink-0">
           <a href="https://kundali-report.vercel.app/" target="_blank" rel="noopener noreferrer" className={DESKTOP_KUNDALI_BTN}>Free Kundali</a>
           <button className={DESKTOP_SIGNIN_BTN}>Sign In</button>
           <button onClick={toggleTheme} className={THEME_TOGGLE_STYLES} aria-label="Toggle Theme">
@@ -378,7 +375,7 @@ export function Navbar() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} onClick={() => setIsMobileMenuOpen(false)} className="lg:hidden fixed inset-0 z-30 bg-black/40 backdrop-blur-sm" />
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} onClick={() => setIsMobileMenuOpen(false)} className="max-[1070px]:block min-[1071px]:hidden fixed inset-0 z-30 bg-black/40 backdrop-blur-sm" />
             <motion.div initial={{ x: '-100%', borderTopRightRadius: '2rem', borderBottomRightRadius: '2rem' }} animate={{ x: 0, borderTopRightRadius: '0rem', borderBottomRightRadius: '0rem' }} exit={{ x: '-100%', borderTopRightRadius: '2rem', borderBottomRightRadius: '2rem' }} transition={{ type: 'spring', damping: 25, stiffness: 200 }} className={MOBILE_DRAWER_STYLES}>
 
               <div className="absolute inset-0 opacity-40 mix-blend-screen pointer-events-none">
@@ -407,7 +404,7 @@ export function Navbar() {
                             <div className={`flex items-center justify-center w-9 h-9 shrink-0 transition-transform duration-300 group-hover:scale-110 ${navItem.color} ${isSubMenuOpen ? 'text-purple-600 dark:text-purple-400 scale-110' : ''}`}>
                               <navItem.icon className="w-[22px] h-[22px] drop-shadow-sm" />
                             </div>
-                            <span className={`font-sans text-[15px] sm:text-[16px] font-semibold tracking-wide transition-colors text-left ${isSubMenuOpen ? 'text-purple-700 dark:text-purple-300' : 'text-slate-800 dark:text-cream/90 group-hover:text-purple-600 dark:group-hover:text-purple-400'}`}>
+                            <span className={`font-sans text-[17px] sm:text-[18px] font-semibold tracking-wide transition-colors text-left whitespace-nowrap ${isSubMenuOpen ? 'text-purple-700 dark:text-purple-300' : 'text-slate-800 dark:text-cream/90 group-hover:text-purple-600 dark:group-hover:text-purple-400'}`}>
                               {navItem.label}
                             </span>
                           </div>
@@ -428,7 +425,7 @@ export function Navbar() {
                               animate={{ height: 'auto', opacity: 1 }}
                               exit={{ height: 0, opacity: 0 }}
                               transition={{ duration: 0.25, ease: 'easeInOut' }}
-                              className="overflow-hidden bg-purple-50/40 dark:bg-[#0d091e]/50 rounded-2xl ml-16 mt-1 mb-2 border border-purple-100/40 dark:border-purple-900/10 flex flex-col gap-0"
+                              className="overflow-x-auto no-scrollbar bg-purple-50/40 dark:bg-[#0d091e]/50 rounded-2xl ml-2 sm:ml-10 mt-1 mb-2 border border-purple-100/40 dark:border-purple-900/10 flex flex-col gap-0"
                             >
                               {navItem.items.map((subItem, subIdx) => {
                                 const SubIcon = ITEM_ICONS[subItem] || Sparkles;
@@ -441,10 +438,10 @@ export function Navbar() {
                                         e.preventDefault();
                                         setIsMobileMenuOpen(false);
                                       }}
-                                      className="flex items-center gap-3 px-4 py-2.5 text-left hover:bg-purple-500/5 dark:hover:bg-amber-400/5 transition-colors duration-150"
+                                      className="flex items-center gap-3.5 px-4 py-3 text-left hover:bg-purple-500/5 dark:hover:bg-amber-400/5 transition-colors duration-150"
                                     >
-                                      <SubIcon className="w-4 h-4 text-purple-600/70 dark:text-amber-400/80 flex-shrink-0" />
-                                      <span className="font-sans text-[13px] font-semibold text-slate-700 dark:text-cream/80 whitespace-normal break-words leading-tight">
+                                      <SubIcon className="w-5 h-5 text-purple-600/70 dark:text-amber-400/80 flex-shrink-0" />
+                                      <span className="font-sans text-[16px] sm:text-[17px] font-semibold text-slate-700 dark:text-cream/80 whitespace-normal leading-snug">
                                         {subItem}
                                       </span>
                                     </a>
