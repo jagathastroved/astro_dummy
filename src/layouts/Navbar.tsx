@@ -289,7 +289,7 @@ export function Navbar() {
         </div>
 
         {/* --- Desktop Navigation --- */}
-        <nav className="hidden min-[1071px]:flex flex-1 justify-evenly items-center lg:px-4 xl:px-4 font-medium">
+        <nav className="hidden min-[1071px]:flex flex-1 justify-end items-center gap-3 pr-2 lg:pr-3 xl:pr-4 font-medium">
           {NAV_LINKS.map((navItem) => (
             <div
               key={navItem.label}
