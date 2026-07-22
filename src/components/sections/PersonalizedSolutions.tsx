@@ -88,7 +88,7 @@ const DESKTOP_DESC_STYLES = "font-sans text-gray-600 dark:text-gray-300 text-xs 
 /* Common Button Styles */
 const CTA_CONTAINER_STYLES = "mt-auto flex flex-col justify-start w-full";
 const CTA_ALIGNER_STYLES = "flex justify-center w-full min-h-[44px]";
-const DESKTOP_CTA_STYLES = "flex w-full justify-center items-center gap-1.5 px-3 lg:px-6 py-2.5 lg:py-3 rounded-full bg-amber-600 hover:bg-amber-500 text-white font-sans font-semibold tracking-wide text-[9px] lg:text-xs hover:scale-105 transition-transform shadow-md text-center leading-tight";
+const DESKTOP_CTA_STYLES = "flex w-full justify-center items-center gap-1.5 px-3 lg:px-6 py-2.5 lg:py-3 rounded-full bg-amber-600 hover:bg-amber-500 text-white font-sans font-semibold tracking-wide text-[9px] lg:text-xs hover:scale-105 transition-transform shadow-md text-center leading-tight cursor-pointer";
 const FOOTER_TEXT_STYLES = "mt-2 text-[10px] lg:text-[11px] text-gray-500 dark:text-gray-400 font-medium font-sans min-h-[32px] text-center lg:text-left";
 
 const MOBILE_CONTAINER_STYLES = "md:hidden relative group px-0 touch-pan-y";
@@ -103,7 +103,7 @@ const MOBILE_TAGLINE_STYLES = "before:content-['✦'] before:mr-2.5 before:text-
 const MOBILE_TITLE_STYLES = "font-sans text-[1.35rem] leading-tight lg:text-3xl lg:leading-snug text-gray-900 dark:text-white font-bold tracking-tight mb-4";
 const MOBILE_DESC_STYLES = "font-sans text-gray-600 dark:text-gray-300 text-sm md:text-base leading-relaxed mb-6 max-w-sm mx-auto lg:mx-0";
 const MOBILE_CTA_ALIGNER_STYLES = "flex justify-center w-full mb-3";
-const MOBILE_CTA_STYLES = "inline-flex w-full max-w-[280px] justify-center items-center gap-1.5 px-4 py-3 rounded-full bg-amber-600 hover:bg-amber-500 text-white font-sans font-semibold tracking-wide text-xs sm:text-sm hover:scale-105 transition-transform shadow-lg text-center";
+const MOBILE_CTA_STYLES = "inline-flex w-full max-w-[280px] justify-center items-center gap-1.5 px-4 py-3 rounded-full bg-amber-600 hover:bg-amber-500 text-white font-sans font-semibold tracking-wide text-xs sm:text-sm hover:scale-105 transition-transform shadow-lg text-center cursor-pointer";
 const MOBILE_FOOTER_TEXT_STYLES = "text-xs text-gray-500 dark:text-gray-400 font-medium font-sans";
 const NAV_BUTTONS_CONTAINER_STYLES = "absolute top-[17%] -translate-y-1/2 left-0 right-0 flex justify-between px-2 sm:px-4 md:-mx-6 pointer-events-none z-20";
 const NAV_BUTTON_STYLES = "w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/80 hover:bg-white dark:bg-black/30 dark:hover:bg-black/50 backdrop-blur-md border border-gray-200 dark:border-white/10 flex items-center justify-center text-[#b052ff] dark:text-white transition-all hover:scale-110 pointer-events-auto shadow-lg";

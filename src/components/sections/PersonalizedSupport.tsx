@@ -165,7 +165,7 @@ export function PersonalizedSupport() {
                 </div>
 
                 <div className={CTA_WRAPPER}>
-                  <button className={`w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-lg text-white font-bold text-sm tracking-widest uppercase transition-colors shadow-md ${support.buttonColor}`}>
+                  <button className={`w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-lg text-white font-bold text-sm tracking-widest uppercase transition-colors shadow-md cursor-pointer ${support.buttonColor}`}>
                     {support.cta}
                     <ArrowRight className="w-4 h-4" />
                   </button>

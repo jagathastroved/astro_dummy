@@ -69,7 +69,7 @@ const URGENCY_TEXT_STYLES = "text-[10px] sm:text-[10px] lg:text-xs text-rose-700
 
 // Action area
 const ACTION_ROW_STYLES = "mt-auto flex flex-col items-center justify-center gap-3 md:gap-2 lg:gap-4 w-full border-t border-slate-100 dark:border-slate-800 pt-5 md:pt-4 lg:pt-6";
-const CTA_WRAPPER_STYLES = "inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#e67e22] to-[#d35400] hover:from-[#d35400] hover:to-[#c0392b] text-white font-sans text-xs sm:text-xs lg:text-sm uppercase tracking-widest font-extrabold px-8 py-3.5 rounded-full transition-all duration-300 w-full sm:w-auto shadow-[0_10px_25px_-5px_rgba(230,126,34,0.4)] hover:shadow-[0_15px_35px_-5px_rgba(230,126,34,0.5)] hover:-translate-y-1 mx-auto text-center whitespace-nowrap shrink-0";
+const CTA_WRAPPER_STYLES = "inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#e67e22] to-[#d35400] hover:from-[#d35400] hover:to-[#c0392b] text-white font-sans text-xs sm:text-xs lg:text-sm uppercase tracking-widest font-extrabold px-8 py-3.5 rounded-full transition-all duration-300 w-full sm:w-auto shadow-[0_10px_25px_-5px_rgba(230,126,34,0.4)] hover:shadow-[0_15px_35px_-5px_rgba(230,126,34,0.5)] hover:-translate-y-1 mx-auto text-center whitespace-nowrap shrink-0 cursor-pointer";
 const SUB_CTA_TEXT_STYLES = "text-[11px] sm:text-[11px] lg:text-sm text-slate-500 dark:text-slate-400 font-sans font-medium text-center flex flex-wrap items-center justify-center gap-1.5";
 
 /**

@@ -84,7 +84,7 @@ const getZodiacNameStyles = (isActive: boolean): string => {
  * @param isActive - Whether the current time tab is actively selected
  */
 const getTabButtonStyles = (isActive: boolean): string => {
-  const baseClasses = "flex-1 sm:flex-none px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg text-[10px] sm:text-xs font-mono uppercase tracking-[0.15em] font-bold transition-all duration-300";
+  const baseClasses = "flex-1 sm:flex-none px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg text-[10px] sm:text-xs font-mono uppercase tracking-[0.15em] font-bold transition-all duration-300 cursor-pointer";
   const activeClasses = "bg-white dark:bg-midnight text-amber-600 dark:text-amber-400 shadow-sm";
   const inactiveClasses = "text-gray-500 hover:text-midnight dark:hover:text-cream";
   return `${baseClasses} ${isActive ? activeClasses : inactiveClasses}`;
@@ -101,7 +101,7 @@ const getGlassPanelStyles = (): string => {
  * Shared classes for the "View full details" primary button.
  */
 const getDetailsButtonStyles = (): string => {
-  return "w-full sm:w-auto px-6 py-4 rounded-xl bg-midnight dark:bg-white text-white dark:text-midnight hover:bg-amber-600 dark:hover:bg-amber-400 hover:text-white font-sans text-[10px] sm:text-xs tracking-widest uppercase font-bold transition-all shadow-md flex items-center justify-center gap-3 group/btn flex-shrink-0";
+  return "w-full sm:w-auto px-6 py-4 rounded-xl bg-midnight dark:bg-white text-white dark:text-midnight hover:bg-amber-600 dark:hover:bg-amber-400 hover:text-white font-sans text-[10px] sm:text-xs tracking-widest uppercase font-bold transition-all shadow-md flex items-center justify-center gap-3 group/btn flex-shrink-0 cursor-pointer";
 };
 
 /**

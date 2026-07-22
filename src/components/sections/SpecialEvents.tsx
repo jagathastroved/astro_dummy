@@ -221,9 +221,9 @@ const PAGINATION_CONTAINER_STYLES = "absolute bottom-4 md:bottom-8 left-0 right-
 
 /* Static CTA Buttons */
 const CTA_BAR_CONTAINER_STYLES = "w-full flex flex-col md:flex-row justify-center items-center gap-4 sm:gap-6 md:gap-8 lg:gap-8 mt-4 sm:mt-5 lg:mt-3 mb-2 lg:mb-0 px-2 sm:px-6 md:px-10 lg:px-8 relative z-30";
-const ASTRO_BTN_STYLES = "relative flex items-center justify-center rounded-full bg-gradient-to-r from-[#20033b] via-[#3a0c6a] to-[#510e8d] hover:to-[#5c0fa0] transition-all duration-300 shadow-[0_10px_30px_rgba(58,12,106,0.3)] hover:shadow-[0_10px_35px_rgba(176,82,255,0.5)] border-[2px] border-amber-400 hover:scale-[1.03] w-full max-w-[300px] sm:max-w-[340px] md:max-w-[360px] lg:max-w-[380px] h-[64px] sm:h-[72px] lg:h-[76px] group ml-5 sm:ml-6 md:ml-8 lg:ml-0";
+const ASTRO_BTN_STYLES = "relative flex items-center justify-center rounded-full bg-gradient-to-r from-[#20033b] via-[#3a0c6a] to-[#510e8d] hover:to-[#5c0fa0] transition-all duration-300 shadow-[0_10px_30px_rgba(58,12,106,0.3)] hover:shadow-[0_10px_35px_rgba(176,82,255,0.5)] border-[2px] border-amber-400 hover:scale-[1.03] w-full max-w-[300px] sm:max-w-[340px] md:max-w-[360px] lg:max-w-[380px] h-[64px] sm:h-[72px] lg:h-[76px] group ml-5 sm:ml-6 md:ml-8 lg:ml-0 cursor-pointer";
 const ASTRO_ICON_WRAPPER_STYLES = "absolute left-[-20px] sm:left-[-24px] top-1/2 -translate-y-1/2 w-[64px] h-[64px] sm:w-[72px] sm:h-[72px] lg:w-[76px] lg:h-[76px] rounded-full border-[2.5px] border-amber-400 bg-gradient-to-b from-[#2a0854] to-[#120224] flex items-center justify-center shadow-lg z-20 group-hover:scale-105 transition-transform duration-300";
-const HOMA_BTN_STYLES = "relative flex items-center justify-center rounded-full bg-gradient-to-r from-[#983800] via-[#c65104] to-[#ea6b06] hover:to-[#f2740d] transition-all duration-300 shadow-[0_10px_30px_rgba(198,81,4,0.3)] hover:shadow-[0_10px_35px_rgba(245,158,11,0.5)] border-[2px] border-amber-400 hover:scale-[1.03] w-full max-w-[300px] sm:max-w-[340px] md:max-w-[360px] lg:max-w-[380px] h-[64px] sm:h-[72px] lg:h-[76px] group ml-5 sm:ml-6 md:ml-8 lg:ml-0";
+const HOMA_BTN_STYLES = "relative flex items-center justify-center rounded-full bg-gradient-to-r from-[#983800] via-[#c65104] to-[#ea6b06] hover:to-[#f2740d] transition-all duration-300 shadow-[0_10px_30px_rgba(198,81,4,0.3)] hover:shadow-[0_10px_35px_rgba(245,158,11,0.5)] border-[2px] border-amber-400 hover:scale-[1.03] w-full max-w-[300px] sm:max-w-[340px] md:max-w-[360px] lg:max-w-[380px] h-[64px] sm:h-[72px] lg:h-[76px] group ml-5 sm:ml-6 md:ml-8 lg:ml-0 cursor-pointer";
 const HOMA_ICON_WRAPPER_STYLES = "absolute left-[-20px] sm:left-[-24px] top-1/2 -translate-y-1/2 w-[64px] h-[64px] sm:w-[72px] sm:h-[72px] lg:w-[76px] lg:h-[76px] rounded-full border-[2.5px] border-amber-400 bg-gradient-to-b from-[#8f3a00] to-[#3a1500] flex items-center justify-center shadow-lg z-20 group-hover:scale-105 transition-transform duration-300";
 const CTA_TEXT_WRAPPER_STYLES = "z-10 text-center w-full px-14 sm:px-16";
 const CTA_TITLE_STYLES = "font-serif text-white text-[17px] sm:text-[19px] lg:text-[22px] font-bold tracking-wide drop-shadow-md leading-tight whitespace-nowrap";
@@ -622,7 +622,7 @@ export function SpecialEvents() {
         <div className="animate-marquee">
           {[...Array(2)].map((_, i) => (
             <div key={i} className="flex gap-12 px-6 items-center text-gray-300 text-xs sm:text-sm font-medium whitespace-nowrap">
-              <span>✦ Since 2000— 25 years of Vedic tradition</span>
+              <span>✦ Since 2001— 25 years of Vedic tradition</span>
               <span>✦ 3 Lakh+ rituals performed in devotees' names</span>
               <span>✦ 200+ Vedic scholars & priests on our team</span>
               <span>✦ 4.8★ from devotees in 50+ countries</span>
