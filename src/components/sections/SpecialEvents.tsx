@@ -203,7 +203,7 @@ const HEADER_DESC_STYLES = "block font-sans text-gray-500 dark:text-gray-400 tex
 
 /* Carousel Container */
 const CAROUSEL_WRAPPER_STYLES = "relative group px-0 touch-pan-y";
-const CAROUSEL_BOX_STYLES = "overflow-hidden rounded-[2.5rem] bg-[#FFF5E1] transition-all duration-500 relative grid aspect-[4/5] md:aspect-[21/9] lg:aspect-[4/1]";
+const CAROUSEL_BOX_STYLES = "overflow-hidden rounded-[2.5rem] bg-[#FFF5E1] transition-all duration-500 relative grid aspect-[42/52] min-[768px]:aspect-[80/29] min-[992px]:aspect-[160/38]";
 const LOADING_CONTAINER_STYLES = "w-full h-full flex items-center justify-center col-start-1 row-start-1 z-20";
 const LOADING_CONTENT_STYLES = "flex flex-col items-center gap-3";
 const LOADING_TEXT_STYLES = "text-xs font-semibold text-amber-600 dark:text-amber-500 uppercase tracking-widest animate-pulse";
