@@ -198,14 +198,14 @@ const NAV_LINKS = [
 const HEADER_STYLES = "sticky top-0 z-50 bg-gradient-to-r from-purple-100/95 via-fuchsia-100/95 to-pink-100/95 dark:bg-gradient-to-r dark:from-indigo-950/95 dark:via-purple-950/95 dark:to-[#0a0e17]/95 backdrop-blur-md transition-colors duration-500 shadow-sm";
 const MOBILE_TOGGLE_STYLES = "max-[1070px]:flex min-[1071px]:hidden p-2 -ml-2 rounded-full border border-amber-400/25 text-purple-700 dark:text-amber-400 hover:bg-amber-400/10 transition-colors";
 
-const DESKTOP_NAV_LINK_STYLES = "relative flex items-center gap-0.5 px-0.5 lg:px-0.5 xl:px-0.5 2xl:px-2 py-1.5 text-midnight/80 dark:text-cream/90 hover:text-amber-600 dark:hover:text-amber-400 transition-all duration-300 ease-out font-sans tracking-normal 2xl:tracking-[0.05em] text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[22px] font-semibold group whitespace-nowrap";
+const DESKTOP_NAV_LINK_STYLES = "relative flex items-center gap-0.5 px-0.5 lg:px-0.5 xl:px-0.5 2xl:px-2 py-1.5 text-midnight/80 dark:text-cream/90 hover:text-amber-600 dark:hover:text-amber-400 transition-all duration-300 ease-out font-sans tracking-normal 2xl:tracking-[0.05em] text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[22px] font-normal group whitespace-nowrap";
 const THEME_TOGGLE_STYLES = "hidden relative p-1.5 lg:p-1.5 xl:p-2.5 rounded-full border border-amber-400/25 text-purple-700 dark:text-amber-400 hover:bg-amber-400/10 transition-all duration-300 shadow-sm";
 const MOBILE_DRAWER_STYLES = "max-[1070px]:flex min-[1071px]:hidden fixed top-0 left-0 z-40 w-[85%] sm:w-80 h-[100dvh] overflow-hidden bg-white/90 dark:bg-[#0a0514]/90 backdrop-blur-2xl border-r border-white/20 dark:border-white/5 shadow-2xl flex-col";
 const MOBILE_NAV_LINK_WRAPPER_STYLES = "group flex items-center w-full p-3 rounded-xl hover:bg-midnight/5 dark:hover:bg-white/5 transition-all duration-300 relative z-10";
 
 /* Buttons */
-const DESKTOP_KUNDALI_BTN = "hidden min-[1071px]:block px-3 lg:px-2.5 xl:px-4 2xl:px-6 py-1.5 lg:py-1.5 xl:py-2.5 2xl:py-3 rounded-full bg-gradient-to-r from-purple-600 to-orange-500 text-white text-[14px] lg:text-[16px] xl:text-[17px] 2xl:text-[20px] font-sans tracking-wide 2xl:tracking-widest font-semibold hover:shadow-lg hover:shadow-orange-500/30 hover:-translate-y-0.5 transition-all duration-300 whitespace-nowrap text-center border border-orange-400/30";
-const DESKTOP_SIGNIN_BTN = "hidden min-[1071px]:block px-3 lg:px-2.5 xl:px-4 2xl:px-6 py-1.5 lg:py-1.5 xl:py-2.5 2xl:py-3 rounded-full backdrop-blur-sm bg-white/40 dark:bg-black/20 border border-midnight/20 dark:border-cream/20 text-midnight/90 dark:text-cream text-[14px] lg:text-[16px] xl:text-[17px] 2xl:text-[20px] font-sans tracking-wide 2xl:tracking-widest font-semibold hover:bg-white/80 dark:hover:bg-white/10 hover:border-purple-500/50 hover:text-purple-700 transition-all duration-300 whitespace-nowrap text-center";
+const DESKTOP_KUNDALI_BTN = "hidden min-[1071px]:block px-3 lg:px-2.5 xl:px-4 2xl:px-6 py-1.5 lg:py-1.5 xl:py-2.5 2xl:py-3 rounded-full bg-gradient-to-r from-purple-600 to-orange-500 text-white text-[14px] lg:text-[16px] xl:text-[17px] 2xl:text-[20px] font-sans tracking-wide 2xl:tracking-widest font-normal hover:shadow-lg hover:shadow-orange-500/30 hover:-translate-y-0.5 transition-all duration-300 whitespace-nowrap text-center border border-orange-400/30";
+const DESKTOP_SIGNIN_BTN = "hidden min-[1071px]:block px-3 lg:px-2.5 xl:px-4 2xl:px-6 py-1.5 lg:py-1.5 xl:py-2.5 2xl:py-3 rounded-full backdrop-blur-sm bg-white/40 dark:bg-black/20 border border-midnight/20 dark:border-cream/20 text-midnight/90 dark:text-cream text-[14px] lg:text-[16px] xl:text-[17px] 2xl:text-[20px] font-sans tracking-wide 2xl:tracking-widest font-normal hover:bg-white/80 dark:hover:bg-white/10 hover:border-purple-500/50 hover:text-purple-700 transition-all duration-300 whitespace-nowrap text-center";
 const MOBILE_KUNDALI_BTN = "relative w-full py-3.5 rounded-xl overflow-hidden group shadow-lg shadow-amber-500/25 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-orange-500 transition-colors inline-block text-center";
 const MOBILE_SIGNIN_BTN = "relative w-full py-3.5 rounded-xl overflow-hidden group border-2 border-midnight/60 dark:border-cream/60 hover:bg-midnight/5 dark:hover:bg-cream/10 transition-colors";
 
@@ -335,7 +335,7 @@ export function Navbar() {
                             {/* Celestial Mapped Symbol Icon */}
                             <Icon className="w-4 h-4 lg:w-4 lg:h-4 2xl:w-5 2xl:h-5 text-purple-600/70 dark:text-amber-400/80 group-hover:scale-110 transition-transform duration-200 flex-shrink-0" />
 
-                            <span className="font-sans text-[15px] lg:text-[16px] 2xl:text-[18px] font-semibold text-slate-700 dark:text-cream/90 group-hover:text-purple-700 dark:group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all duration-200 text-left whitespace-nowrap flex-1 pr-4">
+                            <span className="font-sans text-[15px] lg:text-[16px] 2xl:text-[18px] font-normal text-slate-700 dark:text-cream/90 group-hover:text-purple-700 dark:group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all duration-200 text-left whitespace-nowrap flex-1 pr-4">
                               {item}
                             </span>
 
@@ -404,7 +404,7 @@ export function Navbar() {
                             <div className={`flex items-center justify-center w-9 h-9 shrink-0 transition-transform duration-300 group-hover:scale-110 ${navItem.color} ${isSubMenuOpen ? 'text-purple-600 dark:text-purple-400 scale-110' : ''}`}>
                               <navItem.icon className="w-[22px] h-[22px] drop-shadow-sm" />
                             </div>
-                            <span className={`font-sans text-[17px] sm:text-[18px] font-semibold tracking-wide transition-colors text-left whitespace-nowrap ${isSubMenuOpen ? 'text-purple-700 dark:text-purple-300' : 'text-slate-800 dark:text-cream/90 group-hover:text-purple-600 dark:group-hover:text-purple-400'}`}>
+                            <span className={`font-sans text-[17px] sm:text-[18px] font-normal tracking-wide transition-colors text-left whitespace-nowrap ${isSubMenuOpen ? 'text-purple-700 dark:text-purple-300' : 'text-slate-800 dark:text-cream/90 group-hover:text-purple-600 dark:group-hover:text-purple-400'}`}>
                               {navItem.label}
                             </span>
                           </div>
@@ -441,7 +441,7 @@ export function Navbar() {
                                       className="flex items-center gap-3.5 px-4 py-3 text-left hover:bg-purple-500/5 dark:hover:bg-amber-400/5 transition-colors duration-150"
                                     >
                                       <SubIcon className="w-5 h-5 text-purple-600/70 dark:text-amber-400/80 flex-shrink-0" />
-                                      <span className="font-sans text-[16px] sm:text-[17px] font-semibold text-slate-700 dark:text-cream/80 whitespace-normal leading-snug">
+                                      <span className="font-sans text-[16px] sm:text-[17px] font-normal text-slate-700 dark:text-cream/80 whitespace-normal leading-snug">
                                         {subItem}
                                       </span>
                                     </a>
@@ -458,10 +458,10 @@ export function Navbar() {
 
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: NAV_LINKS.length * 0.05 + 0.2, duration: 0.4 }} className="mt-auto pt-8 flex flex-col gap-3">
                   <a href="https://kundali-report.vercel.app/" target="_blank" rel="noopener noreferrer" className={MOBILE_KUNDALI_BTN}>
-                    <span className="relative z-10 text-[11px] sm:text-xs tracking-[0.2em] font-sans uppercase font-bold text-midnight">Free Kundali</span>
+                    <span className="relative z-10 text-[11px] sm:text-xs tracking-[0.2em] font-sans uppercase font-normal text-midnight">Free Kundali</span>
                   </a>
                   <button className={MOBILE_SIGNIN_BTN}>
-                    <span className="relative z-10 text-[11px] sm:text-xs tracking-[0.2em] font-sans uppercase font-bold text-midnight dark:text-cream">Sign In</span>
+                    <span className="relative z-10 text-[11px] sm:text-xs tracking-[0.2em] font-sans uppercase font-normal text-midnight dark:text-cream">Sign In</span>
                   </button>
                 </motion.div>
               </div>
