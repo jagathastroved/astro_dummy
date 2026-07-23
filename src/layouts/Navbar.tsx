@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Sun, Moon, Menu, X, Sparkles, ShoppingBag, Map, Hand, Crown, Clock, Star, Coins, ShieldCheck, Gift, BookOpen, ChevronRight, Zap, Compass, Gem, Leaf, Flame, Eye, Heart, Users, TrendingUp, Calendar, Award, Settings, User, Mail, Phone, Building, FileText, ShoppingCart, Video, ChevronDown, CircleDot, Hexagon, Target, Medal } from 'lucide-react';
+import { Sun, Moon, Menu, X, Sparkles, ShoppingBag, Map, Hand, Crown, Clock, Star, Coins, ShieldCheck, Gift, BookOpen, ChevronRight, Zap, Compass, Gem, Leaf, Flame, Eye, Heart, Users, TrendingUp, Calendar, Award, Settings, User, Mail, Phone, Building, FileText, ShoppingCart, Video, ChevronDown, CircleDot, Hexagon, Target, Medal, Search } from 'lucide-react';
 import { motion, AnimatePresence, Variants } from 'motion/react';
 import { useTheme } from '../context/ThemeProvider';
 import { scrollToSection } from '../utils/scroll';
@@ -215,6 +215,8 @@ const MOBILE_NAV_LINK_WRAPPER_STYLES = "group flex items-center w-full p-3 round
 /* Buttons — text + padding both scale down with clamp() as the viewport narrows */
 const DESKTOP_KUNDALI_BTN = "hidden min-[901px]:block px-[clamp(8px,1.1vw,24px)] py-[clamp(6px,0.7vw,12px)] rounded-full bg-gradient-to-r from-purple-600 to-orange-500 text-white text-[clamp(11px,1.15vw,16px)] font-sans tracking-wide font-normal hover:shadow-lg hover:shadow-orange-500/30 hover:-translate-y-0.5 transition-all duration-300 whitespace-nowrap text-center border border-orange-400/30";
 const DESKTOP_SIGNIN_BTN = "hidden min-[901px]:block px-[clamp(8px,1.1vw,24px)] py-[clamp(6px,0.7vw,12px)] rounded-full backdrop-blur-sm bg-white/40 dark:bg-black/20 border border-midnight/20 dark:border-cream/20 text-midnight/90 dark:text-cream text-[clamp(11px,1.15vw,16px)] font-sans tracking-wide font-normal hover:bg-white/80 dark:hover:bg-white/10 hover:border-purple-500/50 hover:text-purple-700 transition-all duration-300 whitespace-nowrap text-center";
+// Shared circular icon-button style for Search (mobile trigger) & Cart — scales with clamp() like everything else.
+const ICON_BTN_STYLES = "relative flex items-center justify-center p-[clamp(6px,0.9vw,10px)] rounded-full border border-amber-400/25 text-purple-700 dark:text-amber-400 hover:bg-amber-400/10 transition-all duration-300 shrink-0";
 const MOBILE_KUNDALI_BTN = "relative w-full py-3.5 rounded-xl overflow-hidden group shadow-lg shadow-amber-500/25 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-orange-500 transition-colors inline-block text-center";
 const MOBILE_SIGNIN_BTN = "relative w-full py-3.5 rounded-xl overflow-hidden group border-2 border-midnight/60 dark:border-cream/60 hover:bg-midnight/5 dark:hover:bg-cream/10 transition-colors";
 
@@ -258,6 +260,9 @@ export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
   const [activeMobileSubMenu, setActiveMobileSubMenu] = useState<string | null>(null);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [cartCount, setCartCount] = useState(0);
 
   // Prevent scrolling when mobile menu is open
   useEffect(() => {
@@ -276,6 +281,11 @@ export function Navbar() {
     setTimeout(() => scrollToSection(targetId), 300);
   };
 
+  const closeSearch = () => {
+    setIsSearchOpen(false);
+    setSearchQuery('');
+  };
+
   const handleMobileLinkClick = (navItem: typeof NAV_LINKS[0]) => {
     if (navItem.items) {
       // Toggle accordion submenu in mobile drawer
@@ -287,7 +297,34 @@ export function Navbar() {
 
   return (
     <header className={HEADER_STYLES}>
-      <div className="w-full max-w-[1600px] mx-auto flex items-center justify-between px-[clamp(10px,2vw,24px)] py-3 gap-2">
+      <div className="relative w-full max-w-[1600px] mx-auto flex items-center justify-between px-[clamp(10px,2vw,24px)] py-3 gap-2">
+
+        {/* --- Floating Dropdown Search (All Screen Sizes) --- */}
+        <AnimatePresence>
+          {isSearchOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+              className="absolute top-full right-4 z-50 flex items-center gap-2.5 px-4 py-3 mt-2 w-[calc(100vw-32px)] sm:w-80 rounded-2xl bg-white/95 dark:bg-[#0a0514]/95 backdrop-blur-xl shadow-2xl border border-purple-200/50 dark:border-purple-800/50"
+            >
+              <Search className="w-5 h-5 text-purple-700 dark:text-amber-400 shrink-0" />
+              <input
+                autoFocus
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={(e) => e.key === 'Escape' && closeSearch()}
+                placeholder="Search..."
+                className="flex-1 min-w-0 bg-transparent outline-none text-[16px] text-midnight dark:text-cream placeholder:text-midnight/40 dark:placeholder:text-cream/40"
+              />
+              <button onClick={closeSearch} aria-label="Close search" className="shrink-0 p-1.5 rounded-full text-purple-700 dark:text-amber-400 hover:bg-amber-400/10 transition-colors">
+                <X className="w-5 h-5" />
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* --- Logo & Mobile Toggle --- */}
         <div className="flex items-center gap-1.5 lg:gap-3 shrink-0">
@@ -364,6 +401,26 @@ export function Navbar() {
 
         {/* --- Desktop Actions & Theme Toggle --- */}
         <div className="flex items-center justify-end gap-[clamp(4px,0.6vw,10px)] shrink-0">
+
+          {/* Search — icon-only trigger, opens full-width overlay below navbar */}
+          <button
+            onClick={() => setIsSearchOpen(true)}
+            aria-label="Open search"
+            className={ICON_BTN_STYLES}
+          >
+            <Search className="w-[18px] h-[18px]" />
+          </button>
+
+          {/* Cart — same icon button at every screen size */}
+          <button aria-label="Cart" onClick={() => setCartCount((c) => c + 1)} className={ICON_BTN_STYLES}>
+            <ShoppingCart className="w-[clamp(15px,1.1vw,19px)] h-[clamp(15px,1.1vw,19px)]" />
+            {cartCount > 0 && (
+              <span className="absolute -top-1.5 -right-1.5 flex items-center justify-center min-w-[20px] h-[20px] px-1 rounded-full bg-orange-500 text-white text-[12px] font-bold leading-none">
+                {cartCount}
+              </span>
+            )}
+          </button>
+
           <a href="https://kundali-report.vercel.app/" target="_blank" rel="noopener noreferrer" className={DESKTOP_KUNDALI_BTN}>Free Kundali</a>
           <button className={DESKTOP_SIGNIN_BTN}>Sign In</button>
           <button onClick={toggleTheme} className={THEME_TOGGLE_STYLES} aria-label="Toggle Theme">
