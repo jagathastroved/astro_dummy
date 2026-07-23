@@ -21,11 +21,11 @@ function useAutoCarousel(itemsCount: number, interval: number = 5000) {
   };
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    const timer = setTimeout(() => {
       nextSlide();
     }, interval);
-    return () => clearInterval(timer);
-  }, [itemsCount, interval]);
+    return () => clearTimeout(timer);
+  }, [itemsCount, interval, currentIndex]);
 
   return { currentIndex, direction, nextSlide, prevSlide, setCurrentIndex };
 }
@@ -120,15 +120,15 @@ const BOTTOM_SECTION_STYLES = "w-full relative px-2 md:px-6";
 
 const DECORATIVE_BLOB_STYLES = "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] bg-gradient-to-tr from-amber-200/40 to-rose-200/40 dark:from-amber-900/20 dark:to-rose-900/20 rounded-full blur-[80px] -z-10 pointer-events-none";
 
-const CONTENT_CARD_STYLES = "w-full rounded-[2rem] md:rounded-[2rem] p-5 md:p-5 lg:p-8 flex flex-col bg-white/90 dark:bg-[#0B1221]/90 backdrop-blur-xl border border-white/50 dark:border-slate-800 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] relative z-10";
+const CONTENT_CARD_STYLES = "h-full w-full rounded-[2rem] md:rounded-[2rem] p-5 md:p-5 lg:p-8 flex flex-col bg-white/90 dark:bg-[#0B1221]/90 backdrop-blur-xl border border-white/50 dark:border-slate-800 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] relative z-10";
 
 const BADGE_STYLES = "text-amber-600 dark:text-amber-500 font-sans text-xs md:text-sm uppercase tracking-[0.25em] font-extrabold mb-4 block text-center md:text-left";
 const TITLE_STYLES = "text-xl md:text-base lg:text-xl xl:text-2xl 2xl:text-3xl font-black text-slate-900 dark:text-white font-serif tracking-tight mb-3 md:mb-2 lg:mb-4 leading-tight md:whitespace-nowrap text-center md:text-left";
 const DESC_TEXT_STYLES = "font-sans text-slate-600 dark:text-slate-300 text-sm md:text-sm lg:text-[15px] leading-relaxed mb-5 md:mb-4 lg:mb-6 text-center md:text-left";
 
-const LIST_CONTAINER_STYLES = "grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-2 lg:gap-4 mb-5 md:mb-4 lg:mb-6 w-full";
-const LIST_ITEM_STYLES = "w-full font-sans text-sm md:text-[13px] lg:text-[15px] text-slate-700 dark:text-slate-200 font-medium flex items-center gap-3 md:gap-2 lg:gap-4 bg-slate-50 dark:bg-slate-800/50 p-3 md:p-2.5 lg:p-4 rounded-xl md:rounded-xl";
-const ICON_WRAPPER_STYLES = "w-9 h-9 md:w-8 md:h-8 lg:w-10 lg:h-10 rounded-full bg-white dark:bg-slate-800 shadow-sm flex items-center justify-center shrink-0 text-base md:text-sm lg:text-lg";
+const LIST_CONTAINER_STYLES = "grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-2 lg:gap-3 mb-5 md:mb-4 lg:mb-5 w-full";
+const LIST_ITEM_STYLES = "flex items-center bg-slate-50/50 dark:bg-slate-800/50 rounded-xl p-2.5 md:p-2 lg:p-3 border border-slate-100 dark:border-slate-700/50 font-sans font-semibold text-slate-700 dark:text-slate-300 text-sm md:text-[13px] lg:text-sm leading-tight";
+const ICON_WRAPPER_STYLES = "w-7 h-7 md:w-7 md:h-7 lg:w-8 lg:h-8 rounded-full bg-white dark:bg-slate-700 flex items-center justify-center shrink-0 mr-2.5 shadow-sm border border-slate-100 dark:border-slate-600 text-sm";
 
 const URGENCY_WRAPPER_STYLES = "flex items-start lg:items-center gap-3 border border-rose-200 dark:border-rose-900/50 bg-rose-50 dark:bg-rose-900/20 rounded-2xl lg:rounded-full px-4 lg:px-5 py-3 md:py-2 lg:py-2.5 mb-5 md:mb-4 lg:mb-6 w-full sm:w-fit shadow-sm mx-auto md:mx-0 text-left";
 const URGENCY_DOT_STYLES = "w-2.5 h-2.5 md:w-2 md:h-2 lg:w-2.5 lg:h-2.5 rounded-full bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.4)] animate-pulse shrink-0 mt-[3px] lg:mt-0";
@@ -186,77 +186,79 @@ export function Rituals() {
             <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
           </button>
 
-          <div className="w-full relative overflow-hidden pb-8">
-            <motion.div
-              className="flex w-full cursor-grab active:cursor-grabbing"
-              animate={{ x: `-${currentIndex * 100}%` }}
-              transition={{ type: "spring", stiffness: 250, damping: 30, mass: 0.8 }}
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.2}
-              onDragEnd={(e, { offset, velocity }) => {
-                if (offset.x < -50 || velocity.x < -500) {
-                  nextSlide();
-                } else if (offset.x > 50 || velocity.x > 500) {
-                  prevSlide();
-                }
-              }}
-            >
-              {RITUAL_EVENTS.map((event) => (
-                <div key={event.id} className="w-full shrink-0 px-2 md:px-8 lg:px-10">
-                  <div className={CONTENT_CARD_STYLES}>
-                    <div className="flex flex-col md:flex-row gap-4 md:gap-6 lg:gap-10 w-full">
+          <div className="w-full relative overflow-hidden pb-8 flex">
+            <AnimatePresence mode="popLayout" initial={false} custom={direction}>
+              <motion.div
+                key={currentIndex}
+                custom={direction}
+                initial={{ x: direction === 1 ? "100%" : "-100%", opacity: 0.5 }}
+                animate={{ x: "0%", opacity: 1 }}
+                exit={{ x: direction === 1 ? "-100%" : "100%", opacity: 0.5 }}
+                transition={{ type: "spring", stiffness: 250, damping: 30, mass: 0.8 }}
+                className="w-full shrink-0 px-2 md:px-8 lg:px-10 cursor-grab active:cursor-grabbing"
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.2}
+                onDragEnd={(e, { offset, velocity }) => {
+                  if (offset.x < -50 || velocity.x < -500) {
+                    nextSlide();
+                  } else if (offset.x > 50 || velocity.x > 500) {
+                    prevSlide();
+                  }
+                }}
+              >
+                <div className={CONTENT_CARD_STYLES}>
+                  <div className="flex flex-col md:flex-row gap-4 md:gap-6 lg:gap-10 w-full">
 
-                      {/* --- Left Column: Image --- */}
-                      <div className="w-full md:w-[35%] lg:w-[40%] shrink-0 flex flex-col order-first md:mb-0 relative min-h-[300px] md:min-h-[450px]">
-                        <img
-                          src={event.image}
-                          alt={event.title}
-                          className="w-full absolute inset-0 h-full object-cover rounded-[2rem] shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] border border-slate-100 dark:border-slate-800"
-                        />
+                    {/* --- Left Column: Image --- */}
+                    <div className="w-full md:w-[35%] lg:w-[40%] shrink-0 flex flex-col order-first md:mb-0 relative min-h-[240px] md:min-h-[300px] lg:min-h-[320px]">
+                      <img
+                        src={currentEvent.image}
+                        alt={currentEvent.title}
+                        className="w-full absolute inset-0 h-full object-cover rounded-[2rem] shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] border border-slate-100 dark:border-slate-800"
+                      />
+                    </div>
+
+                    {/* --- Right Column: Content --- */}
+                    <div className="w-full md:w-[65%] lg:w-[60%] flex flex-col min-w-0 md:pr-12 lg:pr-16 pt-4 md:pt-0">
+                      <h3 className={TITLE_STYLES}>{currentEvent.title}</h3>
+
+                      {/* Description */}
+                      <p className={DESC_TEXT_STYLES}>
+                        {currentEvent.description}
+                      </p>
+
+                      {/* Bullet Points */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-2 lg:gap-3 mb-5 md:mb-4 lg:mb-5 w-full">
+                        {currentEvent.bullets.map((bullet, idx) => (
+                          <div key={idx} className={`${LIST_ITEM_STYLES} ${bullet.fullWidth ? 'md:col-span-2' : ''}`}>
+                            <div className={ICON_WRAPPER_STYLES}>{bullet.icon}</div>
+                            <span>{bullet.text}</span>
+                          </div>
+                        ))}
                       </div>
 
-                      {/* --- Right Column: Content --- */}
-                      <div className="w-full md:w-[65%] lg:w-[60%] flex flex-col min-w-0 md:pr-12 lg:pr-16 pt-4 md:pt-0">
-                        <h3 className={TITLE_STYLES}>{event.title}</h3>
+                      {/* Urgency Pill */}
+                      <div className={URGENCY_WRAPPER_STYLES}>
+                        <span className={URGENCY_DOT_STYLES}></span>
+                        <span className={URGENCY_TEXT_STYLES}>{currentEvent.urgencyText}</span>
+                      </div>
 
-                        {/* Description */}
-                        <p className={DESC_TEXT_STYLES}>
-                          {event.description}
-                        </p>
-
-                        {/* Bullet Points */}
-                        <div className={LIST_CONTAINER_STYLES}>
-                          {event.bullets.map((bullet, idx) => (
-                            <div key={idx} className={`${LIST_ITEM_STYLES} ${bullet.fullWidth ? 'md:col-span-2' : ''}`}>
-                              <div className={ICON_WRAPPER_STYLES}>{bullet.icon}</div>
-                              <span>{bullet.text}</span>
-                            </div>
-                          ))}
-                        </div>
-
-                        {/* Urgency Pill */}
-                        <div className={URGENCY_WRAPPER_STYLES}>
-                          <span className={URGENCY_DOT_STYLES}></span>
-                          <span className={URGENCY_TEXT_STYLES}>{event.urgencyText}</span>
-                        </div>
-
-                        {/* Action Row */}
-                        <div className={ACTION_ROW_STYLES}>
-                          <span className={SUB_CTA_TEXT_STYLES}>
-                            <span className="font-bold text-slate-800 dark:text-slate-200 text-sm">{event.priceText}</span>
-                            <span>{event.deliveryText}</span>
-                          </span>
-                          <button className={CTA_WRAPPER_STYLES}>
-                            PARTICIPATE NOW <ArrowRight className="w-5 h-5 ml-1" />
-                          </button>
-                        </div>
+                      {/* Action Row */}
+                      <div className={ACTION_ROW_STYLES}>
+                        <span className={SUB_CTA_TEXT_STYLES}>
+                          <span className="font-bold text-slate-800 dark:text-slate-200 text-sm">{currentEvent.priceText}</span>
+                          <span>{currentEvent.deliveryText}</span>
+                        </span>
+                        <button className={CTA_WRAPPER_STYLES}>
+                          PARTICIPATE NOW <ArrowRight className="w-5 h-5 ml-1" />
+                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
-              ))}
-            </motion.div>
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           {/* Pagination */}
