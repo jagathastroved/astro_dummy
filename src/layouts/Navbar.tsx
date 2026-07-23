@@ -199,7 +199,7 @@ const HEADER_STYLES = "sticky top-0 z-50 bg-gradient-to-r from-purple-100/95 via
 const MOBILE_TOGGLE_STYLES = "max-[1070px]:flex min-[1071px]:hidden p-2 -ml-2 rounded-full border border-amber-400/25 text-purple-700 dark:text-amber-400 hover:bg-amber-400/10 transition-colors";
 
 const DESKTOP_NAV_LINK_STYLES = "relative flex items-center gap-0.5 px-0.5 lg:px-0.5 xl:px-0.5 2xl:px-2 py-1.5 text-midnight/80 dark:text-cream/90 hover:text-amber-600 dark:hover:text-amber-400 transition-all duration-300 ease-out font-sans tracking-normal 2xl:tracking-[0.05em] text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[22px] font-normal group whitespace-nowrap cursor-pointer";
-const THEME_TOGGLE_STYLES = "hidden relative p-1.5 lg:p-1.5 xl:p-2.5 rounded-full border border-amber-400/25 text-purple-700 dark:text-amber-400 hover:bg-amber-400/10 transition-all duration-300 shadow-sm";
+const THEME_TOGGLE_STYLES = "flex lg:hidden items-center justify-center relative p-2 rounded-full border border-amber-400/25 text-purple-700 dark:text-amber-400 hover:bg-amber-400/10 transition-all duration-300 shadow-sm";
 const MOBILE_DRAWER_STYLES = "max-[1070px]:flex min-[1071px]:hidden fixed top-0 left-0 z-40 w-[85%] sm:w-80 h-[100dvh] overflow-hidden bg-white/90 dark:bg-[#0a0514]/90 backdrop-blur-2xl border-r border-white/20 dark:border-white/5 shadow-2xl flex-col";
 const MOBILE_NAV_LINK_WRAPPER_STYLES = "group flex items-center w-full p-3 rounded-xl hover:bg-midnight/5 dark:hover:bg-white/5 transition-all duration-300 relative z-10";
 
