@@ -193,19 +193,28 @@ const NAV_LINKS = [
   { label: 'Resources', id: 'resources', icon: BookOpen, color: 'text-purple-600 dark:text-purple-400', borderColor: 'border-purple-400/40', bgIcon: 'bg-purple-400/5', items: RESOURCES_ITEMS, isWide: true },
 ];
 
-/** --- Shared Tailwind CSS Classes --- */
+/**
+ * --- Shared Tailwind CSS Classes ---
+ * RESPONSIVE STRATEGY:
+ * Nav text, button text, logo size, padding and gaps all use clamp()
+ * so they scale down SMOOTHLY as the viewport narrows below ~1170px —
+ * no sudden jump, no overlap with the logo. The mobile hamburger only
+ * kicks in below 900px, where there truly isn't room left to squeeze
+ * (7 links + 2 buttons + logo).
+ */
 
 const HEADER_STYLES = "sticky top-0 z-50 bg-gradient-to-r from-purple-100/95 via-fuchsia-100/95 to-pink-100/95 dark:bg-gradient-to-r dark:from-indigo-950/95 dark:via-purple-950/95 dark:to-[#0a0e17]/95 backdrop-blur-md transition-colors duration-500 shadow-sm";
-const MOBILE_TOGGLE_STYLES = "max-[1070px]:flex min-[1071px]:hidden p-2 -ml-2 rounded-full border border-amber-400/25 text-purple-700 dark:text-amber-400 hover:bg-amber-400/10 transition-colors";
+const MOBILE_TOGGLE_STYLES = "max-[900px]:flex min-[901px]:hidden p-2 -ml-2 rounded-full border border-amber-400/25 text-purple-700 dark:text-amber-400 hover:bg-amber-400/10 transition-colors";
 
-const DESKTOP_NAV_LINK_STYLES = "relative flex items-center gap-0.5 px-0.5 lg:px-0.5 xl:px-0.5 2xl:px-2 py-1.5 text-midnight/80 dark:text-cream/90 hover:text-amber-600 dark:hover:text-amber-400 transition-all duration-300 ease-out font-sans tracking-normal 2xl:tracking-[0.05em] text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[22px] font-normal group whitespace-nowrap";
+// Text scales smoothly with viewport width (clamp: min 12px, max 17px) so it never overlaps the logo/buttons as the screen narrows.
+const DESKTOP_NAV_LINK_STYLES = "relative flex items-center gap-0.5 px-[clamp(2px,0.4vw,14px)] py-[clamp(6px,0.6vw,12px)] text-midnight/80 dark:text-cream/90 hover:text-amber-600 dark:hover:text-amber-400 transition-all duration-300 ease-out font-sans tracking-normal text-[clamp(12px,1.3vw,17px)] font-normal group whitespace-nowrap";
 const THEME_TOGGLE_STYLES = "hidden relative p-1.5 lg:p-1.5 xl:p-2.5 rounded-full border border-amber-400/25 text-purple-700 dark:text-amber-400 hover:bg-amber-400/10 transition-all duration-300 shadow-sm";
-const MOBILE_DRAWER_STYLES = "max-[1070px]:flex min-[1071px]:hidden fixed top-0 left-0 z-40 w-[85%] sm:w-80 h-[100dvh] overflow-hidden bg-white/90 dark:bg-[#0a0514]/90 backdrop-blur-2xl border-r border-white/20 dark:border-white/5 shadow-2xl flex-col";
+const MOBILE_DRAWER_STYLES = "max-[900px]:flex min-[901px]:hidden fixed top-0 left-0 z-40 w-[85%] sm:w-80 h-[100dvh] overflow-hidden bg-white/90 dark:bg-[#0a0514]/90 backdrop-blur-2xl border-r border-white/20 dark:border-white/5 shadow-2xl flex-col";
 const MOBILE_NAV_LINK_WRAPPER_STYLES = "group flex items-center w-full p-3 rounded-xl hover:bg-midnight/5 dark:hover:bg-white/5 transition-all duration-300 relative z-10";
 
-/* Buttons */
-const DESKTOP_KUNDALI_BTN = "hidden min-[1071px]:block px-3 lg:px-2.5 xl:px-4 2xl:px-6 py-1.5 lg:py-1.5 xl:py-2.5 2xl:py-3 rounded-full bg-gradient-to-r from-purple-600 to-orange-500 text-white text-[14px] lg:text-[16px] xl:text-[17px] 2xl:text-[20px] font-sans tracking-wide 2xl:tracking-widest font-normal hover:shadow-lg hover:shadow-orange-500/30 hover:-translate-y-0.5 transition-all duration-300 whitespace-nowrap text-center border border-orange-400/30";
-const DESKTOP_SIGNIN_BTN = "hidden min-[1071px]:block px-3 lg:px-2.5 xl:px-4 2xl:px-6 py-1.5 lg:py-1.5 xl:py-2.5 2xl:py-3 rounded-full backdrop-blur-sm bg-white/40 dark:bg-black/20 border border-midnight/20 dark:border-cream/20 text-midnight/90 dark:text-cream text-[14px] lg:text-[16px] xl:text-[17px] 2xl:text-[20px] font-sans tracking-wide 2xl:tracking-widest font-normal hover:bg-white/80 dark:hover:bg-white/10 hover:border-purple-500/50 hover:text-purple-700 transition-all duration-300 whitespace-nowrap text-center";
+/* Buttons — text + padding both scale down with clamp() as the viewport narrows */
+const DESKTOP_KUNDALI_BTN = "hidden min-[901px]:block px-[clamp(8px,1.1vw,24px)] py-[clamp(6px,0.7vw,12px)] rounded-full bg-gradient-to-r from-purple-600 to-orange-500 text-white text-[clamp(11px,1.15vw,16px)] font-sans tracking-wide font-normal hover:shadow-lg hover:shadow-orange-500/30 hover:-translate-y-0.5 transition-all duration-300 whitespace-nowrap text-center border border-orange-400/30";
+const DESKTOP_SIGNIN_BTN = "hidden min-[901px]:block px-[clamp(8px,1.1vw,24px)] py-[clamp(6px,0.7vw,12px)] rounded-full backdrop-blur-sm bg-white/40 dark:bg-black/20 border border-midnight/20 dark:border-cream/20 text-midnight/90 dark:text-cream text-[clamp(11px,1.15vw,16px)] font-sans tracking-wide font-normal hover:bg-white/80 dark:hover:bg-white/10 hover:border-purple-500/50 hover:text-purple-700 transition-all duration-300 whitespace-nowrap text-center";
 const MOBILE_KUNDALI_BTN = "relative w-full py-3.5 rounded-xl overflow-hidden group shadow-lg shadow-amber-500/25 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-orange-500 transition-colors inline-block text-center";
 const MOBILE_SIGNIN_BTN = "relative w-full py-3.5 rounded-xl overflow-hidden group border-2 border-midnight/60 dark:border-cream/60 hover:bg-midnight/5 dark:hover:bg-cream/10 transition-colors";
 
@@ -241,6 +250,8 @@ const itemVariants: Variants = {
 /**
  * Navbar Component
  * Top-level global navigation component for the application.
+ * Fully responsive: text size stays fixed at every breakpoint,
+ * padding/gaps shrink with viewport width instead.
  */
 export function Navbar() {
   const { theme, toggleTheme } = useTheme();
@@ -276,24 +287,24 @@ export function Navbar() {
 
   return (
     <header className={HEADER_STYLES}>
-      <div className="w-full max-w-[1600px] mx-auto flex items-center justify-between px-4 lg:px-6 py-3">
+      <div className="w-full max-w-[1600px] mx-auto flex items-center justify-between px-[clamp(10px,2vw,24px)] py-3 gap-2">
 
         {/* --- Logo & Mobile Toggle --- */}
         <div className="flex items-center gap-1.5 lg:gap-3 shrink-0">
           <button className={MOBILE_TOGGLE_STYLES} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
             {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
-          <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="cursor-pointer hover:opacity-80 transition-opacity">
-            <img src="https://cdn.astroved.com/images/images-av/AstroVed-Logo.svg" alt="AstroVed Logo" className="h-6 lg:h-8 xl:h-10 w-[90px] lg:w-[110px] xl:w-[150px] object-contain brightness-100 dark:brightness-110" />
+          <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="cursor-pointer hover:opacity-80 transition-opacity shrink-0">
+            <img src="https://cdn.astroved.com/images/images-av/AstroVed-Logo.svg" alt="AstroVed Logo" className="h-[clamp(22px,3vw,40px)] w-auto max-w-[clamp(85px,10vw,150px)] object-contain brightness-100 dark:brightness-110" />
           </button>
         </div>
 
         {/* --- Desktop Navigation --- */}
-        <nav className="hidden min-[1071px]:flex flex-1 justify-end items-center gap-3 pr-2 lg:pr-3 xl:pr-4 font-medium">
+        <nav className="hidden min-[901px]:flex flex-1 justify-end items-center gap-[clamp(0px,0.5vw,10px)] pr-[clamp(2px,0.8vw,16px)] font-medium min-w-0">
           {NAV_LINKS.map((navItem) => (
             <div
               key={navItem.label}
-              className="relative py-2"
+              className="relative py-2 shrink-0"
               onMouseEnter={() => navItem.items && setHoveredLink(navItem.label)}
               onMouseLeave={() => setHoveredLink(null)}
             >
@@ -352,7 +363,7 @@ export function Navbar() {
         </nav>
 
         {/* --- Desktop Actions & Theme Toggle --- */}
-        <div className="flex items-center justify-end gap-1.5 lg:gap-1.5 xl:gap-2 shrink-0">
+        <div className="flex items-center justify-end gap-[clamp(4px,0.6vw,10px)] shrink-0">
           <a href="https://kundali-report.vercel.app/" target="_blank" rel="noopener noreferrer" className={DESKTOP_KUNDALI_BTN}>Free Kundali</a>
           <button className={DESKTOP_SIGNIN_BTN}>Sign In</button>
           <button onClick={toggleTheme} className={THEME_TOGGLE_STYLES} aria-label="Toggle Theme">
@@ -375,7 +386,7 @@ export function Navbar() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} onClick={() => setIsMobileMenuOpen(false)} className="max-[1070px]:block min-[1071px]:hidden fixed inset-0 z-30 bg-black/40 backdrop-blur-sm" />
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} onClick={() => setIsMobileMenuOpen(false)} className="max-[900px]:block min-[901px]:hidden fixed inset-0 z-30 bg-black/40 backdrop-blur-sm" />
             <motion.div initial={{ x: '-100%', borderTopRightRadius: '2rem', borderBottomRightRadius: '2rem' }} animate={{ x: 0, borderTopRightRadius: '0rem', borderBottomRightRadius: '0rem' }} exit={{ x: '-100%', borderTopRightRadius: '2rem', borderBottomRightRadius: '2rem' }} transition={{ type: 'spring', damping: 25, stiffness: 200 }} className={MOBILE_DRAWER_STYLES}>
 
               <div className="absolute inset-0 opacity-40 mix-blend-screen pointer-events-none">
