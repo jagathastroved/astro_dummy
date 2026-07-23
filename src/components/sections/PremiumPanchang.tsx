@@ -770,7 +770,7 @@ export function PremiumPanchang() {
                     <div className={Styles.CONTENT_GRID_STYLES}>
 
                         {/* Column 1: Detailed Panchang Data */}
-                        <div className="lg:col-span-4 space-y-5 md:space-y-8">
+                        <div className="lg:col-span-6 space-y-5 md:space-y-8">
 
                             {/* Auspicious & Inauspicious Timings */}
                             <div className={Styles.DATA_BOX_BASE_STYLES}>
@@ -836,7 +836,7 @@ export function PremiumPanchang() {
                         </div>
 
                         {/* Column 2: Nakshatram & Yoga/Karana */}
-                        <div className="lg:col-span-4 space-y-5 md:space-y-8">
+                        <div className="lg:col-span-6 space-y-5 md:space-y-8">
 
                             {/* Additional Elements Box */}
                             <div className={Styles.DATA_BOX_ALT_STYLES}>
@@ -880,92 +880,21 @@ export function PremiumPanchang() {
                             </div>
 
                             {/* Auspicious Quick Info */}
-                            <div className="pt-4 space-y-4">
-                                <div className="flex gap-3 items-start">
-                                    <span className="text-[9px] font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 min-w-[50px] pt-[2px]">To Do</span>
-                                    <span className="text-[12px] text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
-                                        {todayContentData?.DosDonts?.Dos || 'Monetary transactions, litigation, progressive acts'}
-                                    </span>
-                                </div>
-                                <div className="flex gap-3 items-start">
-                                    <span className="text-[9px] font-bold uppercase tracking-widest text-purple-600 dark:text-purple-400 min-w-[50px] pt-[2px]">Avoid</span>
-                                    <span className="text-[12px] text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
-                                        {todayContentData?.DosDonts?.Donts || 'Travel, new meetings, important signings'}
-                                    </span>
-                                </div>
+                            <div className="pt-6 grid grid-cols-[80px_1fr] gap-y-4 gap-x-2 items-start">
+                                <span className="text-[9px] font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 pt-[2px]">To Do</span>
+                                <span className="text-[12px] text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+                                    {todayContentData?.DosDonts?.Dos || 'Monetary transactions, litigation, progressive acts'}
+                                </span>
+
+                                <span className="text-[9px] font-bold uppercase tracking-widest text-purple-600 dark:text-purple-400 pt-[2px]">Avoid</span>
+                                <span className="text-[12px] text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+                                    {todayContentData?.DosDonts?.Donts || 'Travel, new meetings, important signings'}
+                                </span>
                             </div>
 
                         </div>
 
-                        {/* Column 3: Beautiful Live Chart adapted for both themes */}
-                        <div className="lg:col-span-4 flex flex-col items-center lg:items-end space-y-5 md:space-y-6">
-                            <h3 className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-cream font-bold mb-6 flex items-center gap-3 w-full justify-center lg:justify-end">
-                                Chart of Now
-                                <span className="h-[1px] w-4 bg-purple/20 dark:bg-gold/20" />
-                            </h3>
 
-                            <div className={Styles.CHART_CONTAINER_STYLES}>
-                                {/* Chart ambient glow */}
-                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150px] h-[150px] bg-purple/10 dark:bg-gold/10 blur-[50px] rounded-full pointer-events-none transition-colors duration-500" />
-
-                                {/* South Indian Chart Grid (4x4) */}
-                                <div className={Styles.CHART_GRID_STYLES}>
-                                    {/* Row 1 */}
-                                    <div className={Styles.CHART_CELL_STYLES}>
-                                        <div className="absolute top-0 left-0 border-t-2 border-l-2 border-purple/30 dark:border-gold/50 w-2 h-2 opacity-50" />
-                                        <span className={Styles.CHART_CELL_TEXT_STYLES}>{getPlanetsForSign(11).join(' ')}</span>
-                                    </div>
-                                    <div className={Styles.CHART_CELL_STYLES}>
-                                        <span className={Styles.CHART_CELL_TEXT_STYLES}>{getPlanetsForSign(0).join(' ')}</span>
-                                    </div>
-                                    <div className={Styles.CHART_CELL_STYLES}>
-                                        <span className={Styles.CHART_CELL_TEXT_STYLES}>{getPlanetsForSign(1).join(' ')}</span>
-                                    </div>
-                                    <div className={Styles.CHART_CELL_STYLES}>
-                                        <span className={Styles.CHART_CELL_TEXT_STYLES}>{getPlanetsForSign(2).join(' ')}</span>
-                                    </div>
-
-                                    {/* Row 2 */}
-                                    <div className={Styles.CHART_CELL_STYLES}>
-                                        <span className={Styles.CHART_CELL_TEXT_STYLES}>{getPlanetsForSign(10).join(' ')}</span>
-                                    </div>
-                                    <div className={Styles.CENTER_CHART_CELL_STYLES}>
-                                        <div className="absolute inset-0 bg-gradient-to-br from-purple/5 dark:from-indigo/5 to-transparent pointer-events-none" />
-                                        <Clock className="w-5 h-5 text-purple/40 dark:text-gold/30 mb-1" />
-                                        <span className="text-[8px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-cream/30 text-center">Live Sky<br />over {locationName.split(',')[0]}</span>
-                                    </div>
-                                    <div className={Styles.CHART_CELL_STYLES}>
-                                        <span className={Styles.CHART_CELL_TEXT_STYLES}>{getPlanetsForSign(3).join(' ')}</span>
-                                    </div>
-
-                                    {/* Row 3 */}
-                                    <div className={Styles.CHART_CELL_STYLES}>
-                                        <span className={Styles.CHART_CELL_TEXT_STYLES}>{getPlanetsForSign(9).join(' ')}</span>
-                                    </div>
-                                    <div className={Styles.CHART_CELL_STYLES}>
-                                        <span className={Styles.CHART_CELL_TEXT_STYLES}>{getPlanetsForSign(4).join(' ')}</span>
-                                    </div>
-
-                                    {/* Row 4 */}
-                                    <div className={Styles.CHART_CELL_STYLES}>
-                                        <span className={Styles.CHART_CELL_TEXT_STYLES}>{getPlanetsForSign(8).join(' ')}</span>
-                                    </div>
-                                    <div className={Styles.CHART_CELL_STYLES}>
-                                        <span className={Styles.CHART_CELL_TEXT_STYLES}>{getPlanetsForSign(7).join(' ')}</span>
-                                    </div>
-                                    <div className={Styles.CHART_CELL_STYLES}>
-                                        <span className={Styles.CHART_CELL_TEXT_STYLES}>{getPlanetsForSign(6).join(' ')}</span>
-                                    </div>
-                                    <div className={Styles.CHART_CELL_STYLES}>
-                                        <span className={Styles.CHART_CELL_TEXT_STYLES}>{getPlanetsForSign(5).join(' ')}</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium text-center lg:text-right max-w-[280px]">
-                                The chart updates in real-time according to Sidereal calculations.
-                            </p>
-                        </div>
                     </div>
                 </motion.div>
             </div>

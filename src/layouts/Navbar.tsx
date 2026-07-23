@@ -276,7 +276,7 @@ export function Navbar() {
 
   return (
     <header className={HEADER_STYLES}>
-      <div className="w-full max-w-[1600px] mx-auto flex items-center justify-between px-4 lg:px-6 py-3">
+      <div className="w-full max-w-[1600px] mx-auto flex items-center justify-between gap-1 xl:gap-4 px-2 xl:px-6 py-3">
 
         {/* --- Logo & Mobile Toggle --- */}
         <div className="flex items-center gap-1.5 lg:gap-3 shrink-0">
@@ -289,7 +289,7 @@ export function Navbar() {
         </div>
 
         {/* --- Desktop Navigation --- */}
-        <nav className="hidden min-[1071px]:flex flex-1 justify-end items-center gap-3 pr-2 lg:pr-3 xl:pr-4 font-medium">
+        <nav className="hidden min-[1071px]:flex flex-1 justify-center items-center gap-2 xl:gap-6 2xl:gap-8 font-medium">
           {NAV_LINKS.map((navItem) => (
             <div
               key={navItem.label}
