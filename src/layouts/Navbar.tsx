@@ -198,14 +198,14 @@ const NAV_LINKS = [
 const HEADER_STYLES = "sticky top-0 z-50 bg-gradient-to-r from-purple-100/95 via-fuchsia-100/95 to-pink-100/95 dark:bg-gradient-to-r dark:from-indigo-950/95 dark:via-purple-950/95 dark:to-[#0a0e17]/95 backdrop-blur-md transition-colors duration-500 shadow-sm";
 const MOBILE_TOGGLE_STYLES = "max-[1070px]:flex min-[1071px]:hidden p-2 -ml-2 rounded-full border border-amber-400/25 text-purple-700 dark:text-amber-400 hover:bg-amber-400/10 transition-colors";
 
-const DESKTOP_NAV_LINK_STYLES = "relative flex items-center gap-0.5 px-0.5 lg:px-0.5 xl:px-0.5 2xl:px-2 py-1.5 text-midnight/80 dark:text-cream/90 hover:text-amber-600 dark:hover:text-amber-400 transition-all duration-300 ease-out font-sans tracking-normal 2xl:tracking-[0.05em] text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[22px] font-normal group whitespace-nowrap cursor-pointer";
-const THEME_TOGGLE_STYLES = "flex lg:hidden items-center justify-center relative p-2 rounded-full border border-amber-400/25 text-purple-700 dark:text-amber-400 hover:bg-amber-400/10 transition-all duration-300 shadow-sm";
+const DESKTOP_NAV_LINK_STYLES = "relative flex items-center gap-0.5 px-0.5 lg:px-0.5 xl:px-0.5 2xl:px-2 py-1.5 text-midnight/80 dark:text-cream/90 hover:text-amber-600 dark:hover:text-amber-400 transition-all duration-300 ease-out font-sans tracking-normal 2xl:tracking-[0.05em] text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[22px] font-normal group whitespace-nowrap";
+const THEME_TOGGLE_STYLES = "hidden relative p-1.5 lg:p-1.5 xl:p-2.5 rounded-full border border-amber-400/25 text-purple-700 dark:text-amber-400 hover:bg-amber-400/10 transition-all duration-300 shadow-sm";
 const MOBILE_DRAWER_STYLES = "max-[1070px]:flex min-[1071px]:hidden fixed top-0 left-0 z-40 w-[85%] sm:w-80 h-[100dvh] overflow-hidden bg-white/90 dark:bg-[#0a0514]/90 backdrop-blur-2xl border-r border-white/20 dark:border-white/5 shadow-2xl flex-col";
 const MOBILE_NAV_LINK_WRAPPER_STYLES = "group flex items-center w-full p-3 rounded-xl hover:bg-midnight/5 dark:hover:bg-white/5 transition-all duration-300 relative z-10";
 
 /* Buttons */
-const DESKTOP_KUNDALI_BTN = "hidden min-[1071px]:block px-3 lg:px-2.5 xl:px-4 2xl:px-6 py-1.5 lg:py-1.5 xl:py-2.5 2xl:py-3 rounded-full bg-gradient-to-r from-purple-600 to-orange-500 text-white text-[14px] lg:text-[16px] xl:text-[17px] 2xl:text-[20px] font-sans tracking-wide 2xl:tracking-widest font-normal hover:shadow-lg hover:shadow-orange-500/30 hover:-translate-y-0.5 transition-all duration-300 whitespace-nowrap text-center border border-orange-400/30 cursor-pointer";
-const DESKTOP_SIGNIN_BTN = "hidden min-[1071px]:block px-3 lg:px-2.5 xl:px-4 2xl:px-6 py-1.5 lg:py-1.5 xl:py-2.5 2xl:py-3 rounded-full backdrop-blur-sm bg-white/40 dark:bg-black/20 border border-midnight/20 dark:border-cream/20 text-midnight/90 dark:text-cream text-[14px] lg:text-[16px] xl:text-[17px] 2xl:text-[20px] font-sans tracking-wide 2xl:tracking-widest font-normal hover:bg-white/80 dark:hover:bg-white/10 hover:border-purple-500/50 hover:text-purple-700 transition-all duration-300 whitespace-nowrap text-center cursor-pointer";
+const DESKTOP_KUNDALI_BTN = "hidden min-[1071px]:block px-3 lg:px-2.5 xl:px-4 2xl:px-6 py-1.5 lg:py-1.5 xl:py-2.5 2xl:py-3 rounded-full bg-gradient-to-r from-purple-600 to-orange-500 text-white text-[14px] lg:text-[16px] xl:text-[17px] 2xl:text-[20px] font-sans tracking-wide 2xl:tracking-widest font-normal hover:shadow-lg hover:shadow-orange-500/30 hover:-translate-y-0.5 transition-all duration-300 whitespace-nowrap text-center border border-orange-400/30";
+const DESKTOP_SIGNIN_BTN = "hidden min-[1071px]:block px-3 lg:px-2.5 xl:px-4 2xl:px-6 py-1.5 lg:py-1.5 xl:py-2.5 2xl:py-3 rounded-full backdrop-blur-sm bg-white/40 dark:bg-black/20 border border-midnight/20 dark:border-cream/20 text-midnight/90 dark:text-cream text-[14px] lg:text-[16px] xl:text-[17px] 2xl:text-[20px] font-sans tracking-wide 2xl:tracking-widest font-normal hover:bg-white/80 dark:hover:bg-white/10 hover:border-purple-500/50 hover:text-purple-700 transition-all duration-300 whitespace-nowrap text-center";
 const MOBILE_KUNDALI_BTN = "relative w-full py-3.5 rounded-xl overflow-hidden group shadow-lg shadow-amber-500/25 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-orange-500 transition-colors inline-block text-center";
 const MOBILE_SIGNIN_BTN = "relative w-full py-3.5 rounded-xl overflow-hidden group border-2 border-midnight/60 dark:border-cream/60 hover:bg-midnight/5 dark:hover:bg-cream/10 transition-colors";
 
@@ -276,7 +276,7 @@ export function Navbar() {
 
   return (
     <header className={HEADER_STYLES}>
-      <div className="w-full max-w-[1600px] mx-auto flex items-center justify-between gap-1 xl:gap-4 px-2 xl:px-6 py-3">
+      <div className="w-full max-w-[1600px] mx-auto flex items-center justify-between px-4 lg:px-6 py-3">
 
         {/* --- Logo & Mobile Toggle --- */}
         <div className="flex items-center gap-1.5 lg:gap-3 shrink-0">
@@ -289,7 +289,7 @@ export function Navbar() {
         </div>
 
         {/* --- Desktop Navigation --- */}
-        <nav className="hidden min-[1071px]:flex flex-1 justify-center items-center gap-2 xl:gap-6 2xl:gap-8 font-medium">
+        <nav className="hidden min-[1071px]:flex flex-1 justify-end items-center gap-3 pr-2 lg:pr-3 xl:pr-4 font-medium">
           {NAV_LINKS.map((navItem) => (
             <div
               key={navItem.label}
