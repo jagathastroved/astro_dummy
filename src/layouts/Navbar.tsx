@@ -362,36 +362,38 @@ export function Navbar() {
                     className="absolute top-full left-1/2 -translate-x-1/2 mt-2 backdrop-blur-2xl rounded-2xl p-2 z-50 border
                       bg-white/95 border-purple-200/50 shadow-[0_15px_45px_rgba(93,95,239,0.08)]
                       dark:bg-[#080512]/98 dark:border-purple-900/30 dark:shadow-[0_20px_50px_rgba(0,0,0,0.75)]
-                      w-max min-w-[280px] flex flex-col gap-0 max-h-[calc(100vh-100px)] overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-purple-200/50 dark:[&::-webkit-scrollbar-thumb]:bg-purple-900/50 [&::-webkit-scrollbar-thumb]:rounded-full"
+                      w-[320px] flex flex-col gap-0"
                   >
                     {/* Glowing Top Slim Divider */}
                     <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-purple-500 dark:via-amber-400 to-transparent pointer-events-none" />
 
-                    {navItem.items.map((item, idx) => {
-                      const Icon = ITEM_ICONS[item] || Sparkles;
-                      return (
-                        <div key={idx} className="flex flex-col">
-                          {idx > 0 && (
-                            <div className="h-[1px] bg-purple-200/10 dark:bg-purple-900/15 w-[90%] mx-auto" />
-                          )}
-                          <motion.a
-                            href="#"
-                            variants={itemVariants}
-                            className="group relative flex items-center gap-4 px-4 py-3 rounded-lg transition-all duration-150 cursor-pointer min-w-0
-                              hover:bg-purple-500/5 dark:hover:bg-amber-400/5"
-                          >
-                            {/* Celestial Mapped Symbol Icon */}
-                            <Icon className="w-4 h-4 lg:w-4 lg:h-4 2xl:w-5 2xl:h-5 text-purple-600/70 dark:text-amber-400/80 group-hover:scale-110 transition-transform duration-200 flex-shrink-0" />
+                    <div className="flex flex-col gap-0 overflow-y-auto overscroll-contain max-h-[380px] pr-1 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-purple-200/60 dark:[&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded-full">
+                      {navItem.items.map((item, idx) => {
+                        const Icon = ITEM_ICONS[item] || Sparkles;
+                        return (
+                          <div key={idx} className="flex flex-col">
+                            {idx > 0 && (
+                              <div className="border-t border-dotted border-purple-300/50 dark:border-purple-800/50 w-[90%] mx-auto" />
+                            )}
+                            <motion.a
+                              href="#"
+                              variants={itemVariants}
+                              className="group relative flex items-center gap-4 px-4 py-3 rounded-lg transition-all duration-150 cursor-pointer min-w-0
+                                hover:bg-purple-500/5 dark:hover:bg-amber-400/5"
+                            >
+                              {/* Celestial Mapped Symbol Icon */}
+                              <Icon className="w-4 h-4 lg:w-4 lg:h-4 2xl:w-5 2xl:h-5 text-purple-600/70 dark:text-amber-400/80 group-hover:scale-110 transition-transform duration-200 flex-shrink-0" />
 
-                            <span className="font-sans text-[15px] lg:text-[16px] 2xl:text-[18px] font-normal text-slate-700 dark:text-cream/90 group-hover:text-purple-700 dark:group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all duration-200 text-left whitespace-nowrap flex-1 pr-4">
-                              {item}
-                            </span>
+                              <span className="font-sans text-[15px] lg:text-[16px] 2xl:text-[18px] font-normal text-slate-700 dark:text-cream/90 group-hover:text-purple-700 dark:group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all duration-200 text-left whitespace-normal break-words leading-snug flex-1 pr-4">
+                                {item}
+                              </span>
 
-                            <ChevronRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-60 transition-opacity duration-200 text-purple-600 dark:text-amber-400 flex-shrink-0" />
-                          </motion.a>
-                        </div>
-                      );
-                    })}
+                              <ChevronRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-60 transition-opacity duration-200 text-purple-600 dark:text-amber-400 flex-shrink-0" />
+                            </motion.a>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
