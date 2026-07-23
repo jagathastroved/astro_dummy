@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { AnimatedGrid } from '../ui/AnimatedGrid';
 import { AnimatedCard } from '../ui/AnimatedCard';
@@ -87,12 +87,13 @@ const getCardTitleStyles = (titleColor: string): string => {
  */
 export function PersonalGuidance() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [lastInteraction, setLastInteraction] = useState(0);
 
   /**
    * Auto-scroll functionality for mobile views.
    */
   useEffect(() => {
-    const autoScrollInterval = setInterval(() => {
+    const autoScrollInterval = setTimeout(() => {
       if (scrollRef.current && window.innerWidth < 1024) {
         const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
         if (scrollLeft + clientWidth >= scrollWidth - 20) {
@@ -101,10 +102,11 @@ export function PersonalGuidance() {
           scrollRef.current.scrollBy({ left: clientWidth * 0.85, behavior: 'smooth' });
         }
       }
-    }, 4000);
+      setLastInteraction(Date.now());
+    }, 5000);
 
-    return () => clearInterval(autoScrollInterval);
-  }, []);
+    return () => clearTimeout(autoScrollInterval);
+  }, [lastInteraction]);
 
   return (
     <section className={SECTION_STYLES}>
@@ -130,6 +132,8 @@ export function PersonalGuidance() {
           ref={scrollRef}
           className={GRID_CONTAINER_STYLES}
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          onTouchStart={() => setLastInteraction(Date.now())}
+          onMouseDown={() => setLastInteraction(Date.now())}
         >
           {EXPERTS.map((expert, expertIndex) => (
             <AnimatedCard

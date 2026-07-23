@@ -194,11 +194,11 @@ export function PersonalizedSolutions() {
    * Auto-scroll functionality for the mobile carousel.
    */
   useEffect(() => {
-    const timer = setInterval(() => {
+    const timer = setTimeout(() => {
       nextSlide();
     }, 5000);
-    return () => clearInterval(timer);
-  }, []);
+    return () => clearTimeout(timer);
+  }, [currentIndex]);
 
   return (
     <section className={SECTION_WRAPPER_STYLES} id="auspicious-actions">

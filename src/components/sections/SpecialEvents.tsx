@@ -447,11 +447,11 @@ export function SpecialEvents() {
    * Auto-scroll timer.
    */
   useEffect(() => {
-    const timer = setInterval(() => {
+    const timer = setTimeout(() => {
       nextSlide();
     }, 5000);
-    return () => clearInterval(timer);
-  }, [displayEvents]);
+    return () => clearTimeout(timer);
+  }, [displayEvents, currentIndex]);
 
   // Image preloading is now handled in fetchEvents
 

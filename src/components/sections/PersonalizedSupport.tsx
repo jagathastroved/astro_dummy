@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { ArrowRight, MapPin, CalendarDays } from 'lucide-react';
 import shreemBrzeeImg from '../../assets/personalized_support/shreem_brzee_new.png';
 import tarpanamNewImg from '../../assets/personalized_support/tarpanam_new.png';
@@ -80,12 +80,13 @@ const CTA_WRAPPER = "w-full mt-auto";
 
 export function PersonalizedSupport() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [lastInteraction, setLastInteraction] = useState(0);
 
   /**
    * Auto-scroll functionality for mobile views.
    */
   useEffect(() => {
-    const autoScrollInterval = setInterval(() => {
+    const autoScrollInterval = setTimeout(() => {
       if (scrollRef.current && window.innerWidth < 768) {
         const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
         if (scrollLeft + clientWidth >= scrollWidth - 20) {
@@ -94,10 +95,11 @@ export function PersonalizedSupport() {
           scrollRef.current.scrollBy({ left: clientWidth * 0.85, behavior: 'smooth' });
         }
       }
-    }, 4000);
+      setLastInteraction(Date.now());
+    }, 5000);
 
-    return () => clearInterval(autoScrollInterval);
-  }, []);
+    return () => clearTimeout(autoScrollInterval);
+  }, [lastInteraction]);
 
   return (
     <section id="personalized-support" className={SECTION_WRAPPER_STYLES}>
@@ -121,6 +123,8 @@ export function PersonalizedSupport() {
           ref={scrollRef}
           className={GRID_STYLES}
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          onTouchStart={() => setLastInteraction(Date.now())}
+          onMouseDown={() => setLastInteraction(Date.now())}
         >
           {SUPPORT_SOLUTIONS.map((support) => (
             <div key={support.id} className={CARD_STYLES}>
