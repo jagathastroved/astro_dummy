@@ -23,19 +23,13 @@ export function Home() {
       <PersonalizedSolutions />
       <PersonalizedSupport />
       <Rituals />
-      {/* <UptimesDowntimes /> */}
-      {/* <LiveHorologicalStream /> */}
-      {/* <RitualAnimatedBeam /> */}
       <PremiumPanchang />
       <WhyChooseAstroVed />
       <AIReports />
       <TrustTicker />
       <Horoscope onCalculateChart={(zodiac) => { scrollToSection('birth-form'); }} />
-      {/* <AncestralHealing /> */}
-      {/* <TimingEvaluation /> */}
       <Testimonials />
       <TrustStats />
-      {/* <LeadCapture /> */}
       <FAQ />
     </>
   );

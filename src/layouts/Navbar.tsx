@@ -28,86 +28,6 @@ function GalleryIcon({ className }: { className?: string }) {
 
 /** --- Data Definitions --- */
 
-const ASTROLOGY_SERVICES_ITEMS = [
-  "Live Astrology Consultation",
-  "Instant Insight",
-  "Consult & Counsel With Vijayalakshmi",
-  "Nadi Astrology",
-  "Talk To Astrologer",
-  "Chat With Astrologer",
-  "Palm Reading",
-  "Agastya Live Channel Reading",
-  "Goddess Angali Channel Reading",
-  "Karuppasamy Channel Reading",
-  "Personalized Astrology Reports",
-  "Planetary Transit Reports",
-  "2026 Prediction Report"
-];
-
-const WEALTH_REMEDIES_ITEMS = [
-  "Coconut Smashing",
-  "Pradosham",
-  "Rameshwaram Remedies",
-  "Planetary Remedies",
-  "Ancestral Remedies",
-  "Cow Feeding & Donation",
-  "Dosha Remedies",
-  "Kerala Remedies",
-  "Proxy Mantra Writing"
-];
-
-const SUCCESS_HOMAS_ITEMS = [
-  "Homas",
-  "Grand Homas",
-  "AstroVed Temple Services",
-  "Instant Pooja And Homa",
-  "Special Poojas",
-  "Special Abishekams",
-  "Online Priest Service"
-];
-
-const STORE_ITEMS = [
-  "Energized Products",
-  "Rudraksha",
-  "Yantras",
-  "Copper Amulets",
-  "Statues",
-  "Malas",
-  "Bracelets",
-  "Pendants",
-  "Incense Sticks"
-];
-
-const FREE_ASTROLOGY_ITEMS = [
-  "Free Horoscope - Daily, Weekly & Monthly",
-  "Free Birth Chart Astrology Report",
-  "Free Birth Star Astrology Report",
-  "Free Moon Sign Report",
-  "Free Numerology Report",
-  "Free Planetary Influence Report",
-  "Free Hora Astrology Report",
-  "Check Zodiac Compatibility",
-  "Panchang & Nakshatra",
-  "More Astrology Services",
-  "Full 30 2026"
-];
-
-const RESOURCES_ITEMS = [
-  "Astropedia",
-  "Article",
-  "Blog",
-  "Free 2026 Calendar",
-  "Newsletter",
-  "Contact Us",
-  "AstroVed Apps",
-  "Astrology Podcast",
-  "Events Calendar",
-  "Gallery",
-  "Store Reviews",
-  "Testimonials",
-  "Live TV"
-];
-
 // Icon mapping for dropdown items using strictly safe and guaranteed exports
 const ITEM_ICONS: Record<string, any> = {
   "Live Astrology Consultation": Users,
@@ -183,15 +103,7 @@ function DropletIcon({ className }: { className?: string }) {
   );
 }
 
-const NAV_LINKS = [
-  { label: 'Special Events', id: 'special-events', icon: Sparkles, color: 'text-amber-500 dark:text-amber-400', borderColor: 'border-amber-400/40', bgIcon: 'bg-amber-400/5', isWide: false },
-  { label: 'Services', id: 'astrology-services', icon: Star, color: 'text-purple-600 dark:text-purple-400', borderColor: 'border-purple-400/40', bgIcon: 'bg-purple-400/5', items: ASTROLOGY_SERVICES_ITEMS, isWide: true },
-  { label: 'Remedies', id: 'wealth-remedies', icon: Coins, color: 'text-purple-600 dark:text-purple-400', borderColor: 'border-purple-400/40', bgIcon: 'bg-purple-400/5', items: WEALTH_REMEDIES_ITEMS, isWide: true },
-  { label: 'Homas', id: 'success-homas', icon: ShieldCheck, color: 'text-purple-600 dark:text-purple-400', borderColor: 'border-purple-400/40', bgIcon: 'bg-purple-400/5', items: SUCCESS_HOMAS_ITEMS, isWide: true },
-  { label: 'Store', id: 'store', icon: ShoppingBag, color: 'text-purple-600 dark:text-purple-400', borderColor: 'border-purple-400/40', bgIcon: 'bg-purple-400/5', items: STORE_ITEMS, isWide: true },
-  { label: 'Free Astrology', id: 'free-astrology', icon: Gift, color: 'text-purple-600 dark:text-purple-400', borderColor: 'border-purple-400/40', bgIcon: 'bg-purple-400/5', items: FREE_ASTROLOGY_ITEMS, isWide: true },
-  { label: 'Resources', id: 'resources', icon: BookOpen, color: 'text-purple-600 dark:text-purple-400', borderColor: 'border-purple-400/40', bgIcon: 'bg-purple-400/5', items: RESOURCES_ITEMS, isWide: true },
-];
+
 
 /**
  * --- Shared Tailwind CSS Classes ---
@@ -209,15 +121,20 @@ const MOBILE_TOGGLE_STYLES = "max-[900px]:flex min-[901px]:hidden p-2 -ml-2 roun
 // Text scales smoothly with viewport width (clamp: min 12px, max 17px) so it never overlaps the logo/buttons as the screen narrows.
 const DESKTOP_NAV_LINK_STYLES = "relative flex items-center gap-0.5 px-[clamp(2px,0.4vw,14px)] py-[clamp(6px,0.6vw,12px)] text-midnight/80 dark:text-cream/90 hover:text-amber-600 dark:hover:text-amber-400 transition-all duration-300 ease-out font-sans tracking-normal text-[clamp(12px,1.3vw,17px)] font-normal group whitespace-nowrap";
 const THEME_TOGGLE_STYLES = "hidden relative p-1.5 lg:p-1.5 xl:p-2.5 rounded-full border border-amber-400/25 text-purple-700 dark:text-amber-400 hover:bg-amber-400/10 transition-all duration-300 shadow-sm";
-const MOBILE_DRAWER_STYLES = "max-[900px]:flex min-[901px]:hidden fixed top-0 left-0 z-40 w-[85%] sm:w-80 h-[100dvh] overflow-hidden bg-white/90 dark:bg-[#0a0514]/90 backdrop-blur-2xl border-r border-white/20 dark:border-white/5 shadow-2xl flex-col";
+const MOBILE_DRAWER_STYLES = "max-[900px]:flex min-[901px]:hidden fixed top-0 left-0 z-40 w-[85%] sm:w-80 h-[100dvh] overflow-hidden bg-[#F8F6FC] dark:bg-[#0a0514] shadow-2xl flex-col";
 const MOBILE_NAV_LINK_WRAPPER_STYLES = "group flex items-center w-full p-3 rounded-xl hover:bg-midnight/5 dark:hover:bg-white/5 transition-all duration-300 relative z-10";
 
 /* Buttons — text + padding both scale down with clamp() as the viewport narrows */
-const DESKTOP_KUNDALI_BTN = "hidden min-[901px]:block px-[clamp(8px,1.1vw,24px)] py-[clamp(6px,0.7vw,12px)] rounded-full bg-gradient-to-r from-purple-600 to-orange-500 text-white text-[clamp(11px,1.15vw,16px)] font-sans tracking-wide font-normal hover:shadow-lg hover:shadow-orange-500/30 hover:-translate-y-0.5 transition-all duration-300 whitespace-nowrap text-center border border-orange-400/30";
-const DESKTOP_SIGNIN_BTN = "hidden min-[901px]:block px-[clamp(8px,1.1vw,24px)] py-[clamp(6px,0.7vw,12px)] rounded-full backdrop-blur-sm bg-white/40 dark:bg-black/20 border border-midnight/20 dark:border-cream/20 text-midnight/90 dark:text-cream text-[clamp(11px,1.15vw,16px)] font-sans tracking-wide font-normal hover:bg-white/80 dark:hover:bg-white/10 hover:border-purple-500/50 hover:text-purple-700 transition-all duration-300 whitespace-nowrap text-center";
+
+// const DESKTOP_KUNDALI_BTN = "hidden min-[901px]:block px-[clamp(8px,1.1vw,24px)] py-[clamp(6px,0.7vw,12px)] rounded-full bg-gradient-to-r from-purple-600 to-orange-500 text-white text-[clamp(11px,1.15vw,16px)] font-sans tracking-wide font-normal hover:shadow-lg hover:shadow-orange-500/30 hover:-translate-y-0.5 transition-all duration-300 whitespace-nowrap text-center border border-orange-400/30";
+// const DESKTOP_SIGNIN_BTN = "hidden min-[901px]:block px-[clamp(8px,1.1vw,24px)] py-[clamp(6px,0.7vw,12px)] rounded-full backdrop-blur-sm bg-white/40 dark:bg-black/20 border border-midnight/20 dark:border-cream/20 text-midnight/90 dark:text-cream text-[clamp(11px,1.15vw,16px)] font-sans tracking-wide font-normal hover:bg-white/80 dark:hover:bg-white/10 hover:border-purple-500/50 hover:text-purple-700 transition-all duration-300 whitespace-nowrap text-center";
+
+const DESKTOP_SIGNIN_BTN = "hidden min-[901px]:block px-[clamp(6px,0.8vw,16px)] py-[clamp(6px,0.7vw,12px)] rounded-full backdrop-blur-sm bg-white/40 dark:bg-black/20 border border-midnight/20 dark:border-cream/20 text-midnight/90 dark:text-cream text-[clamp(10px,1vw,14px)] font-sans tracking-wide font-normal hover:bg-white/80 dark:hover:bg-white/10 hover:border-purple-500/50 hover:text-purple-700 transition-all duration-300 whitespace-nowrap text-center";
 // Shared circular icon-button style for Search (mobile trigger) & Cart — scales with clamp() like everything else.
 const ICON_BTN_STYLES = "relative flex items-center justify-center p-[clamp(6px,0.9vw,10px)] rounded-full border border-amber-400/25 text-purple-700 dark:text-amber-400 hover:bg-amber-400/10 transition-all duration-300 shrink-0";
-const MOBILE_KUNDALI_BTN = "relative w-full py-3.5 rounded-xl overflow-hidden group shadow-lg shadow-amber-500/25 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-orange-500 transition-colors inline-block text-center";
+
+// const MOBILE_KUNDALI_BTN = "relative w-full py-3.5 rounded-xl overflow-hidden group shadow-lg shadow-amber-500/25 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-orange-500 transition-colors inline-block text-center";
+
 const MOBILE_SIGNIN_BTN = "relative w-full py-3.5 rounded-xl overflow-hidden group border-2 border-midnight/60 dark:border-cream/60 hover:bg-midnight/5 dark:hover:bg-cream/10 transition-colors";
 
 /** Stagger Animation Variants for Menu Items */
@@ -263,6 +180,44 @@ export function Navbar() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [cartCount, setCartCount] = useState(0);
+  const [navLinks, setNavLinks] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch('https://qa.astroved.com/mainmenunew.json')
+      .then(res => res.json())
+      .then(data => {
+        const formatUrl = (url: string) => {
+          if (!url || url === 'javascript:void(0)') return undefined;
+          if (url.startsWith('http')) return url;
+          return `https://www.astroved.com${url.startsWith('/') ? url : '/' + url}`;
+        };
+
+        const formatted = data.map((menu: any) => {
+          let icon = Sparkles;
+          let label = menu.name;
+
+          if (menu.name === 'Services' || menu.name === 'Astrology Services') { icon = Star; label = 'Services'; }
+          if (menu.name === 'Remedies' || menu.name === 'Wealth Remedies') { icon = Coins; label = 'Remedies'; }
+          if (menu.name === 'Homas' || menu.name === 'Success Homas') { icon = ShieldCheck; label = 'Homas'; }
+          if (menu.name === 'Store') icon = ShoppingBag;
+          if (menu.name === 'Free Astrology') icon = Gift;
+          if (menu.name === 'Resources') icon = BookOpen;
+
+          return {
+            label: label,
+            id: menu.name.toLowerCase().replace(/\s+/g, '-'),
+            href: formatUrl(menu.link),
+            icon: icon,
+            color: 'text-purple-600 dark:text-purple-400',
+            items: menu.sub && menu.sub.length > 0
+              ? menu.sub.map((s: any) => ({ label: s.name, href: formatUrl(s.link) }))
+              : undefined
+          };
+        });
+        setNavLinks(formatted);
+      })
+      .catch(err => console.error("Error fetching menu:", err));
+  }, []);
 
   // Prevent scrolling when mobile menu is open
   useEffect(() => {
@@ -286,12 +241,16 @@ export function Navbar() {
     setSearchQuery('');
   };
 
-  const handleMobileLinkClick = (navItem: typeof NAV_LINKS[0]) => {
+  const handleMobileLinkClick = (navItem: any) => {
     if (navItem.items) {
       // Toggle accordion submenu in mobile drawer
       setActiveMobileSubMenu(activeMobileSubMenu === navItem.label ? null : navItem.label);
     } else {
-      handleNavClick(navItem.id);
+      if (navItem.href) {
+        window.location.href = navItem.href;
+      } else {
+        handleNavClick(navItem.id);
+      }
     }
   };
 
@@ -338,18 +297,26 @@ export function Navbar() {
 
         {/* --- Desktop Navigation --- */}
         <nav className="hidden min-[901px]:flex flex-1 justify-end items-center gap-[clamp(0px,0.5vw,10px)] pr-[clamp(2px,0.8vw,16px)] font-medium min-w-0">
-          {NAV_LINKS.map((navItem) => (
+          {navLinks.map((navItem) => (
             <div
               key={navItem.label}
               className="relative py-2 shrink-0"
               onMouseEnter={() => navItem.items && setHoveredLink(navItem.label)}
               onMouseLeave={() => setHoveredLink(null)}
             >
-              <button onClick={() => handleNavClick(navItem.id)} className={DESKTOP_NAV_LINK_STYLES}>
-                {navItem.label}
-                {navItem.items && <ChevronDown className="w-2.5 h-2.5 xl:w-3 xl:h-3 opacity-50 group-hover:opacity-100 transition-opacity" />}
-                <span className="absolute -bottom-1 left-0 w-full h-[2.5px] bg-gradient-to-r from-purple-600 to-orange-500 rounded-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out shadow-[0_0_8px_rgba(249,115,22,0.4)]" />
-              </button>
+              {navItem.href ? (
+                <a href={navItem.href} className={DESKTOP_NAV_LINK_STYLES}>
+                  {navItem.label}
+                  {navItem.items && <ChevronDown className="w-2.5 h-2.5 xl:w-3 xl:h-3 opacity-50 group-hover:opacity-100 transition-opacity" />}
+                  <span className="absolute -bottom-1 left-0 w-full h-[2.5px] bg-gradient-to-r from-purple-600 to-orange-500 rounded-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out shadow-[0_0_8px_rgba(249,115,22,0.4)]" />
+                </a>
+              ) : (
+                <button onClick={() => handleNavClick(navItem.id)} className={DESKTOP_NAV_LINK_STYLES}>
+                  {navItem.label}
+                  {navItem.items && <ChevronDown className="w-2.5 h-2.5 xl:w-3 xl:h-3 opacity-50 group-hover:opacity-100 transition-opacity" />}
+                  <span className="absolute -bottom-1 left-0 w-full h-[2.5px] bg-gradient-to-r from-purple-600 to-orange-500 rounded-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out shadow-[0_0_8px_rgba(249,115,22,0.4)]" />
+                </button>
+              )}
 
               {/* Professional Divided List Dropdown with Mapped Symbols */}
               <AnimatePresence>
@@ -368,15 +335,15 @@ export function Navbar() {
                     <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-purple-500 dark:via-amber-400 to-transparent pointer-events-none" />
 
                     <div className="flex flex-col gap-0 overflow-y-auto overscroll-contain max-h-[380px] pr-1 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-purple-200/60 dark:[&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded-full">
-                      {navItem.items.map((item, idx) => {
-                        const Icon = ITEM_ICONS[item] || Sparkles;
+                      {navItem.items.map((item: any, idx: number) => {
+                        const Icon = ITEM_ICONS[item.label] || Sparkles;
                         return (
                           <div key={idx} className="flex flex-col">
                             {idx > 0 && (
                               <div className="border-t border-dotted border-purple-300/50 dark:border-purple-800/50 w-[90%] mx-auto" />
                             )}
                             <motion.a
-                              href="#"
+                              href={item.href}
                               variants={itemVariants}
                               className="group relative flex items-center gap-4 px-4 py-3 rounded-lg transition-all duration-150 cursor-pointer min-w-0
                                 hover:bg-purple-500/5 dark:hover:bg-amber-400/5"
@@ -385,7 +352,7 @@ export function Navbar() {
                               <Icon className="w-4 h-4 lg:w-4 lg:h-4 2xl:w-5 2xl:h-5 text-purple-600/70 dark:text-amber-400/80 group-hover:scale-110 transition-transform duration-200 flex-shrink-0" />
 
                               <span className="font-sans text-[15px] lg:text-[16px] 2xl:text-[18px] font-normal text-slate-700 dark:text-cream/90 group-hover:text-purple-700 dark:group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all duration-200 text-left whitespace-normal break-words leading-snug flex-1 pr-4">
-                                {item}
+                                {item.label}
                               </span>
 
                               <ChevronRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-60 transition-opacity duration-200 text-purple-600 dark:text-amber-400 flex-shrink-0" />
@@ -423,7 +390,6 @@ export function Navbar() {
             )}
           </button>
 
-          <a href="https://kundali-report.vercel.app/" target="_blank" rel="noopener noreferrer" className={DESKTOP_KUNDALI_BTN}>Free Kundali</a>
           <button className={DESKTOP_SIGNIN_BTN}>Sign In</button>
           <button onClick={toggleTheme} className={THEME_TOGGLE_STYLES} aria-label="Toggle Theme">
             <AnimatePresence mode="wait">
@@ -446,44 +412,37 @@ export function Navbar() {
         {isMobileMenuOpen && (
           <>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} onClick={() => setIsMobileMenuOpen(false)} className="max-[900px]:block min-[901px]:hidden fixed inset-0 z-30 bg-black/40 backdrop-blur-sm" />
-            <motion.div initial={{ x: '-100%', borderTopRightRadius: '2rem', borderBottomRightRadius: '2rem' }} animate={{ x: 0, borderTopRightRadius: '0rem', borderBottomRightRadius: '0rem' }} exit={{ x: '-100%', borderTopRightRadius: '2rem', borderBottomRightRadius: '2rem' }} transition={{ type: 'spring', damping: 25, stiffness: 200 }} className={MOBILE_DRAWER_STYLES}>
+            <motion.div initial={{ x: '-100%' }} animate={{ x: 0 }} exit={{ x: '-100%' }} transition={{ type: 'spring', damping: 25, stiffness: 200 }} className={MOBILE_DRAWER_STYLES}>
 
-              <div className="absolute inset-0 opacity-40 mix-blend-screen pointer-events-none">
-                <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-fuchsia-400/20 dark:from-fuchsia-600/20 via-transparent to-transparent" />
-                <div className="absolute bottom-0 left-0 w-[200px] h-[200px] bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-amber-400/20 dark:from-amber-600/20 via-transparent to-transparent" />
-              </div>
-
-              <div className="flex-1 px-6 pt-20 pb-12 flex flex-col relative z-10 overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-purple-200/50 dark:[&::-webkit-scrollbar-thumb]:bg-purple-900/50 [&::-webkit-scrollbar-thumb]:rounded-full">
-                <button onClick={() => setIsMobileMenuOpen(false)} className="absolute top-6 right-6 p-2 rounded-full bg-midnight/5 dark:bg-white/10 text-midnight dark:text-cream hover:bg-midnight/10 dark:hover:bg-white/20 transition-colors">
+              {/* Drawer Header with Logo and Close Button */}
+              <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-gray-200/50 dark:border-gray-800">
+                <img src="https://cdn.astroved.com/images/images-av/AstroVed-Logo.svg" alt="AstroVed Logo" className="h-7 w-auto object-contain brightness-100 dark:brightness-110" />
+                <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 rounded-full bg-[#EBE9FE] dark:bg-purple-900/40 text-[#675df3] dark:text-purple-300 hover:bg-[#d0cff6] dark:hover:bg-purple-800/40 transition-colors">
                   <X className="w-5 h-5" />
                 </button>
+              </div>
 
-                <nav className="flex flex-col gap-1.5 mt-4 relative">
-                  {NAV_LINKS.map((navItem, itemIndex) => {
+              {/* Drawer Scrollable Content */}
+              <div className="flex-1 px-6 pb-12 flex flex-col relative z-10 overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-thumb]:bg-gray-700 [&::-webkit-scrollbar-thumb]:rounded-full">
+                <nav className="flex flex-col relative">
+                  {navLinks.map((navItem, itemIndex) => {
                     const isSubMenuOpen = activeMobileSubMenu === navItem.label;
                     return (
-                      <div key={navItem.id} className="flex flex-col">
+                      <div key={navItem.id} className="flex flex-col border-b border-gray-200/60 dark:border-gray-800/60">
                         <motion.button
                           onClick={() => handleMobileLinkClick(navItem)}
                           initial={{ opacity: 0, x: 20 }}
                           animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: itemIndex * 0.05 + 0.1, duration: 0.4, type: 'spring' }}
-                          className={`group flex items-center justify-between w-full p-3.5 sm:p-4 rounded-2xl hover:bg-white/60 dark:hover:bg-white/5 transition-all duration-300 relative z-10 ${isSubMenuOpen ? 'bg-white/80 dark:bg-white/10 shadow-sm border border-purple-100/30 dark:border-purple-800/30' : 'border border-transparent'}`}
+                          transition={{ delay: itemIndex * 0.05 + 0.05, duration: 0.3, type: 'spring' }}
+                          className="group flex items-center justify-between w-full py-4 text-left"
                         >
-                          <div className="flex items-center gap-4 sm:gap-5">
-                            <div className={`flex items-center justify-center w-9 h-9 shrink-0 transition-transform duration-300 group-hover:scale-110 ${navItem.color} ${isSubMenuOpen ? 'text-purple-600 dark:text-purple-400 scale-110' : ''}`}>
-                              <navItem.icon className="w-[22px] h-[22px] drop-shadow-sm" />
-                            </div>
-                            <span className={`font-sans text-[17px] sm:text-[18px] font-normal tracking-wide transition-colors text-left whitespace-nowrap ${isSubMenuOpen ? 'text-purple-700 dark:text-purple-300' : 'text-slate-800 dark:text-cream/90 group-hover:text-purple-600 dark:group-hover:text-purple-400'}`}>
-                              {navItem.label}
-                            </span>
-                          </div>
+                          <span className={`font-sans text-[16px] sm:text-[17px] font-normal tracking-wide transition-colors whitespace-nowrap ${isSubMenuOpen ? 'text-[#675df3]' : 'text-midnight/80 dark:text-cream/90'}`}>
+                            {navItem.label}
+                          </span>
 
-                          {/* Arrow indicators matching astroved.com */}
-                          {navItem.items ? (
-                            <ChevronDown className={`w-5 h-5 text-midnight/40 dark:text-cream/40 transition-transform duration-300 ${isSubMenuOpen ? 'rotate-180 text-amber-500' : ''}`} />
-                          ) : (
-                            <ChevronRight className="w-5 h-5 text-midnight/40 dark:text-cream/40" />
+                          {/* Chevron matching design */}
+                          {navItem.items && (
+                            <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform duration-300 ${isSubMenuOpen ? 'rotate-180 text-[#675df3]' : ''}`} />
                           )}
                         </motion.button>
 
@@ -495,27 +454,22 @@ export function Navbar() {
                               animate={{ height: 'auto', opacity: 1 }}
                               exit={{ height: 0, opacity: 0 }}
                               transition={{ duration: 0.25, ease: 'easeInOut' }}
-                              className="overflow-x-auto no-scrollbar bg-purple-50/40 dark:bg-[#0d091e]/50 rounded-2xl ml-2 sm:ml-10 mt-1 mb-2 border border-purple-100/40 dark:border-purple-900/10 flex flex-col gap-0"
+                              className="overflow-y-auto pr-2 mb-3 max-h-[350px] [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-[#d0cff6] dark:[&::-webkit-scrollbar-thumb]:bg-[#675df3]/50 [&::-webkit-scrollbar-thumb]:rounded-full flex flex-col gap-0"
                             >
-                              {navItem.items.map((subItem, subIdx) => {
-                                const SubIcon = ITEM_ICONS[subItem] || Sparkles;
+                              {navItem.items.map((subItem: any, subIdx: number) => {
+                                const SubIcon = ITEM_ICONS[subItem.label] || Sparkles;
                                 return (
-                                  <div key={subIdx} className="flex flex-col">
-                                    {subIdx > 0 && <div className="h-[1px] bg-purple-200/10 dark:bg-purple-900/10 w-[90%] mx-auto" />}
-                                    <a
-                                      href="#"
-                                      onClick={(e) => {
-                                        e.preventDefault();
-                                        setIsMobileMenuOpen(false);
-                                      }}
-                                      className="flex items-center gap-3.5 px-4 py-3 text-left hover:bg-purple-500/5 dark:hover:bg-amber-400/5 transition-colors duration-150"
-                                    >
-                                      <SubIcon className="w-5 h-5 text-purple-600/70 dark:text-amber-400/80 flex-shrink-0" />
-                                      <span className="font-sans text-[16px] sm:text-[17px] font-normal text-slate-700 dark:text-cream/80 whitespace-normal leading-snug">
-                                        {subItem}
-                                      </span>
-                                    </a>
-                                  </div>
+                                  <a
+                                    key={subIdx}
+                                    href={subItem.href}
+                                    onClick={() => { setIsMobileMenuOpen(false); }}
+                                    className="flex items-center gap-4 py-3.5 border-b border-gray-100 dark:border-gray-800/50 last:border-0 hover:bg-gray-50 dark:hover:bg-gray-800/20 transition-colors"
+                                  >
+                                    <SubIcon className="w-[18px] h-[18px] text-[#675df3] dark:text-[#8880f5] flex-shrink-0" strokeWidth={1.5} />
+                                    <span className="font-sans text-[15px] font-medium text-gray-700 dark:text-gray-300 whitespace-normal leading-snug">
+                                      {subItem.label}
+                                    </span>
+                                  </a>
                                 );
                               })}
                             </motion.div>
@@ -526,12 +480,9 @@ export function Navbar() {
                   })}
                 </nav>
 
-                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: NAV_LINKS.length * 0.05 + 0.2, duration: 0.4 }} className="mt-auto pt-8 flex flex-col gap-3">
-                  <a href="https://kundali-report.vercel.app/" target="_blank" rel="noopener noreferrer" className={MOBILE_KUNDALI_BTN}>
-                    <span className="relative z-10 text-[11px] sm:text-xs tracking-[0.2em] font-sans uppercase font-normal text-midnight">Free Kundali</span>
-                  </a>
-                  <button className={MOBILE_SIGNIN_BTN}>
-                    <span className="relative z-10 text-[11px] sm:text-xs tracking-[0.2em] font-sans uppercase font-normal text-midnight dark:text-cream">Sign In</span>
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: navLinks.length * 0.05 + 0.1, duration: 0.4 }} className="mt-auto pt-8 flex flex-col">
+                  <button className="w-full py-3.5 rounded-[20px] bg-[#675df3] hover:bg-[#5249db] transition-colors text-white font-sans font-normal text-[15px] shadow-sm">
+                    Sign In
                   </button>
                 </motion.div>
               </div>

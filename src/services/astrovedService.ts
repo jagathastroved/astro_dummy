@@ -32,8 +32,41 @@ export const fetchTodayContent = async (timezone: string, lat: number, lng: numb
     }
 };
 
-export const fetchSpecialEvents = async (currency: string) => {
+export const getUserCurrency = (): string => {
+    // 1. Check cookies for currentcurrency
+    const getCookie = (name: string) => {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop()?.split(';').shift();
+        return null;
+    };
+    
+    const cookieCurrency = getCookie('currentcurrency');
+    if (cookieCurrency) {
+        return cookieCurrency;
+    }
+    
+    // 2. Check localStorage for location fallback
+    const savedLocation = localStorage.getItem('panchang_location_name');
+    if (!savedLocation) {
+        return 'USD';
+    }
+    
+    const normalizedLocation = savedLocation.toLowerCase();
+    if (normalizedLocation.includes('india')) {
+        return 'INR';
+    }
+    
+    if (normalizedLocation.includes('malaysia')) {
+        return 'MYR';
+    }
+    
+    return 'USD';
+};
+
+export const fetchSpecialEvents = async (currencyOverride?: string) => {
     try {
+        const currency = currencyOverride || getUserCurrency();
         const response = await axios.get(`https://phplexus.astroved.com/wp-json/api/v1/new-home-slider/${currency}`);
         return response.data;
     } catch (error) {

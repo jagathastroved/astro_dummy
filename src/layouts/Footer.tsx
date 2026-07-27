@@ -147,13 +147,12 @@ export function Footer() {
             </p>
           </div>
 
-          <div className="flex items-center gap-4 pt-4">
-            <div className="w-12 h-12 bg-purple-600 rounded-full flex flex-col items-center justify-center text-white p-1">
-              <span className="text-[6px] font-bold uppercase text-center leading-tight">25 Years<br />Excellence</span>
-            </div>
-            <div className="text-xs font-bold text-slate-500">
-              ISO 9001:2015<br />CERTIFIED
-            </div>
+          <div className="flex items-center pt-4">
+            <img
+              src="https://www.astroved.com/new/images/astroved-iso.png"
+              alt="ISO 9001:2015 Certified"
+              className="h-10 w-auto object-contain mix-blend-multiply dark:mix-blend-normal dark:bg-white/90 dark:px-2 dark:py-1 dark:rounded"
+            />
           </div>
         </div>
 

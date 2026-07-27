@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Flame, PhoneCall } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { fetchSpecialEvents } from '../../services/astrovedService';
 import Vastu_Homa from '../../assets/Special_events/Vastu_Homa.jpg';
 import Ashada_Navratri from '../../assets/Special_events/Ashada_Navratri.jpg';
 import Sudarshana_Jayanthi from '../../assets/Special_events/Sudarshana_Jayanthi.jpg';
@@ -297,11 +298,7 @@ export function SpecialEvents() {
     const fetchEvents = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch('https://phplexus.astroved.com/wp-json/api/v1/new-home-slider/USD');
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
+        const data = await fetchSpecialEvents();
 
         if (Array.isArray(data) && data.length > 0 && data[0].desktop_content) {
           const parser = new DOMParser();
