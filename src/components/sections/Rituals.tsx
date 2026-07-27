@@ -120,23 +120,23 @@ const BOTTOM_SECTION_STYLES = "w-full relative px-2 md:px-6";
 
 const DECORATIVE_BLOB_STYLES = "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] bg-gradient-to-tr from-amber-200/40 to-rose-200/40 dark:from-amber-900/20 dark:to-rose-900/20 rounded-full blur-[80px] -z-10 pointer-events-none";
 
-const CONTENT_CARD_STYLES = "h-full w-full rounded-[2rem] md:rounded-[2rem] p-5 md:p-5 lg:p-8 flex flex-col bg-white/90 dark:bg-[#0B1221]/90 backdrop-blur-xl border border-white/50 dark:border-slate-800 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] relative z-10";
+const CONTENT_CARD_STYLES = "h-full w-full rounded-[2rem] p-5 md:p-5 lg:p-8 flex flex-col bg-white/90 dark:bg-[#0B1221]/90 lg:bg-white lg:dark:bg-white backdrop-blur-xl lg:backdrop-blur-none border border-white/50 dark:border-slate-800 lg:border-gray-100 lg:dark:border-gray-100 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] lg:shadow-[0_15px_50px_-15px_rgba(0,0,0,0.08)] lg:dark:shadow-[0_15px_50px_-15px_rgba(0,0,0,0.08)] relative z-10";
 
 const BADGE_STYLES = "text-amber-600 dark:text-amber-500 font-sans text-xs md:text-sm uppercase tracking-[0.25em] font-extrabold mb-4 block text-center md:text-left";
-const TITLE_STYLES = "text-xl md:text-base lg:text-xl xl:text-2xl 2xl:text-3xl font-black text-slate-900 dark:text-white font-serif tracking-tight mb-3 md:mb-2 lg:mb-4 leading-tight md:whitespace-nowrap text-center md:text-left";
-const DESC_TEXT_STYLES = "font-sans text-slate-600 dark:text-slate-300 text-sm md:text-sm lg:text-[15px] leading-relaxed mb-5 md:mb-4 lg:mb-6 text-center md:text-left";
+const TITLE_STYLES = "text-xl md:text-base lg:text-3xl xl:text-[32px] font-black lg:font-bold text-slate-900 dark:text-white lg:text-[#0a192f] lg:dark:text-[#0a192f] font-serif tracking-tight mb-3 md:mb-2 lg:mb-4 leading-tight md:whitespace-nowrap lg:whitespace-normal lg:break-words text-center md:text-left";
+const DESC_TEXT_STYLES = "font-sans text-slate-600 dark:text-slate-300 lg:text-gray-500 lg:dark:text-gray-500 text-sm md:text-sm lg:text-[15px] leading-relaxed mb-5 md:mb-4 lg:mb-8 text-center md:text-left";
 
-const LIST_CONTAINER_STYLES = "grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-2 lg:gap-3 mb-5 md:mb-4 lg:mb-5 w-full";
-const LIST_ITEM_STYLES = "flex items-center bg-slate-50/50 dark:bg-slate-800/50 rounded-xl p-2.5 md:p-2 lg:p-3 border border-slate-100 dark:border-slate-700/50 font-sans font-semibold text-slate-700 dark:text-slate-300 text-sm md:text-[13px] lg:text-sm leading-tight";
-const ICON_WRAPPER_STYLES = "w-7 h-7 md:w-7 md:h-7 lg:w-8 lg:h-8 rounded-full bg-white dark:bg-slate-700 flex items-center justify-center shrink-0 mr-2.5 shadow-sm border border-slate-100 dark:border-slate-600 text-sm";
+const LIST_CONTAINER_STYLES = "grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-2 lg:gap-4 mb-5 md:mb-4 lg:mb-8 w-full";
+const LIST_ITEM_STYLES = "flex items-center bg-slate-50/50 dark:bg-slate-800/50 lg:bg-[#F9F9FB] lg:dark:bg-[#F9F9FB] rounded-xl lg:rounded-2xl p-2.5 md:p-2 lg:p-4 border border-slate-100 dark:border-slate-700/50 lg:border-[#F0F0F4] lg:dark:border-[#F0F0F4] font-sans font-semibold text-slate-700 dark:text-slate-300 lg:text-slate-600 lg:dark:text-slate-600 text-sm md:text-[13px] lg:text-sm leading-tight lg:leading-snug";
+const ICON_WRAPPER_STYLES = "w-7 h-7 md:w-7 md:h-7 lg:w-8 lg:h-8 rounded-full bg-white dark:bg-slate-700 lg:bg-transparent lg:dark:bg-transparent flex items-center justify-center shrink-0 mr-2.5 lg:mr-3 shadow-sm lg:shadow-none border border-slate-100 dark:border-slate-600 lg:border-transparent lg:dark:border-transparent text-sm lg:text-lg";
 
-const URGENCY_WRAPPER_STYLES = "flex items-start lg:items-center gap-3 border border-rose-200 dark:border-rose-900/50 bg-rose-50 dark:bg-rose-900/20 rounded-2xl lg:rounded-full px-4 lg:px-5 py-3 md:py-2 lg:py-2.5 mb-5 md:mb-4 lg:mb-6 w-full sm:w-fit shadow-sm mx-auto md:mx-0 text-left";
-const URGENCY_DOT_STYLES = "w-2.5 h-2.5 md:w-2 md:h-2 lg:w-2.5 lg:h-2.5 rounded-full bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.4)] animate-pulse shrink-0 mt-[3px] lg:mt-0";
-const URGENCY_TEXT_STYLES = "text-[10px] sm:text-[10px] lg:text-xs text-rose-700 dark:text-rose-400 font-sans font-bold uppercase tracking-[0.15em] leading-snug";
+const URGENCY_WRAPPER_STYLES = "flex items-start lg:items-center gap-3 border border-rose-200 dark:border-rose-900/50 lg:border-[#FFD6DC] lg:dark:border-[#FFD6DC] bg-rose-50 dark:bg-rose-900/20 lg:bg-[#FFF0F2] lg:dark:bg-[#FFF0F2] rounded-2xl lg:rounded-full px-4 lg:px-5 py-3 md:py-2 lg:py-3.5 mb-5 md:mb-4 lg:mb-8 w-full sm:w-fit shadow-sm lg:shadow-none mx-auto md:mx-0 text-left";
+const URGENCY_DOT_STYLES = "w-2.5 h-2.5 md:w-2 md:h-2 lg:w-2.5 lg:h-2.5 rounded-full bg-rose-500 lg:bg-[#E83E8C] lg:dark:bg-[#E83E8C] shadow-[0_0_8px_rgba(244,63,94,0.4)] lg:shadow-[0_0_8px_rgba(232,62,140,0.4)] lg:dark:shadow-[0_0_8px_rgba(232,62,140,0.4)] animate-pulse shrink-0 mt-[3px] lg:mt-0";
+const URGENCY_TEXT_STYLES = "text-[10px] sm:text-[10px] lg:text-xs text-rose-700 dark:text-rose-400 lg:text-[#C6165B] lg:dark:text-[#C6165B] font-sans font-bold uppercase tracking-[0.15em] lg:tracking-[0.1em] leading-snug";
 
-const ACTION_ROW_STYLES = "mt-auto flex flex-col items-center justify-center gap-3 md:gap-2 lg:gap-4 w-full border-t border-slate-100 dark:border-slate-800 pt-5 md:pt-4 lg:pt-6";
-const CTA_WRAPPER_STYLES = "inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#e67e22] to-[#d35400] hover:from-[#d35400] hover:to-[#c0392b] text-white font-sans text-xs sm:text-xs lg:text-sm uppercase tracking-widest font-extrabold px-8 py-3.5 rounded-full transition-all duration-300 w-full sm:w-auto shadow-[0_10px_25px_-5px_rgba(230,126,34,0.4)] hover:shadow-[0_15px_35px_-5px_rgba(230,126,34,0.5)] hover:-translate-y-1 mx-auto text-center whitespace-nowrap shrink-0 cursor-pointer";
-const SUB_CTA_TEXT_STYLES = "text-[11px] sm:text-[11px] lg:text-sm text-slate-500 dark:text-slate-400 font-sans font-medium text-center flex flex-wrap items-center justify-center gap-1.5";
+const ACTION_ROW_STYLES = "mt-auto flex flex-col items-center justify-center gap-3 md:gap-2 lg:gap-4 w-full border-t border-slate-100 dark:border-slate-800 lg:border-transparent lg:dark:border-transparent pt-5 md:pt-4 lg:pt-2";
+const CTA_WRAPPER_STYLES = "inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#e67e22] to-[#d35400] hover:from-[#d35400] hover:to-[#c0392b] lg:from-[#E27625] lg:to-[#E27625] lg:hover:from-[#d35400] lg:hover:to-[#d35400] text-white font-sans text-xs sm:text-xs lg:text-sm uppercase tracking-widest font-extrabold px-8 lg:px-10 py-3.5 rounded-full transition-all duration-300 w-full sm:w-auto shadow-[0_10px_25px_-5px_rgba(230,126,34,0.4)] hover:shadow-[0_15px_35px_-5px_rgba(230,126,34,0.5)] lg:shadow-[0_8px_20px_-5px_rgba(226,118,37,0.4)] lg:hover:shadow-[0_12px_25px_-5px_rgba(226,118,37,0.5)] hover:-translate-y-1 lg:hover:-translate-y-0.5 mx-auto text-center whitespace-nowrap shrink-0 cursor-pointer";
+const SUB_CTA_TEXT_STYLES = "text-[11px] sm:text-[11px] lg:text-[14px] text-slate-500 dark:text-slate-400 lg:text-gray-500 lg:dark:text-gray-500 font-sans font-medium text-center flex flex-wrap items-center justify-center gap-1.5";
 
 export function Rituals() {
   const [currentPromo, setCurrentPromo] = useState(0);
@@ -247,11 +247,11 @@ export function Rituals() {
                       {/* Action Row */}
                       <div className={ACTION_ROW_STYLES}>
                         <span className={SUB_CTA_TEXT_STYLES}>
-                          <span className="font-bold text-slate-800 dark:text-slate-200 text-sm">{currentEvent.priceText}</span>
+                          <span className="font-bold text-slate-800 dark:text-slate-200 lg:text-[#0a192f] lg:dark:text-[#0a192f] text-sm lg:text-[14px]">{currentEvent.priceText}</span>
                           <span>{currentEvent.deliveryText}</span>
                         </span>
                         <button className={CTA_WRAPPER_STYLES}>
-                          PARTICIPATE NOW <ArrowRight className="w-5 h-5 ml-1" />
+                          PARTICIPATE NOW <ArrowRight className="w-5 h-5 lg:w-4 lg:h-4 ml-1" />
                         </button>
                       </div>
                     </div>
