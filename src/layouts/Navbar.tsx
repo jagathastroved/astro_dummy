@@ -3,6 +3,9 @@ import { Sun, Moon, Menu, X, Sparkles, ShoppingBag, Map, Hand, Crown, Clock, Sta
 import { motion, AnimatePresence, Variants } from 'motion/react';
 import { useTheme } from '../context/ThemeProvider';
 import { scrollToSection } from '../utils/scroll';
+import { LoginModal } from '../components/sections/Account/LoginModel';
+import { MyAccount } from '../components/sections/Account/MyAccount';
+import '../components/sections/Account/Account.css';
 
 /** --- Custom Hoisted SVG Icon Components to prevent TDZ errors --- */
 
@@ -103,7 +106,34 @@ function DropletIcon({ className }: { className?: string }) {
   );
 }
 
-
+interface CurrentUser {
+  fullName: string
+}
+function readStoredUser(): CurrentUser | null {
+  try {
+    var GetName = document.cookie.match(new RegExp("(^| )" + "FullName" + "=([^;]+)"));
+    var match1 = GetName ? GetName[2] : null;
+    var GetAuth = document.cookie.match(new RegExp("(^| )" + ".ASPXFORMSAUTH" + "=([^;]+)"));
+    var match2 = GetAuth ? GetAuth[2] : null;
+    var GetCustomerId = document.cookie.match(new RegExp("(^| )" + "C_Id" + "=([^;]+)"));
+    var match3 = GetCustomerId ? GetCustomerId[2] : null;
+    if (match3 != null) {
+      const tempObj: CurrentUser = {
+        fullName: match1 ?? ""
+      }
+      return tempObj;
+    }
+    return null
+  } catch {
+    return null
+  }
+}
+const UserIcon = (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="8" r="4" />
+    <path d="M4 21c0-4 4-6.5 8-6.5s8 2.5 8 6.5" />
+  </svg>
+)
 
 /**
  * --- Shared Tailwind CSS Classes ---
@@ -129,7 +159,7 @@ const MOBILE_NAV_LINK_WRAPPER_STYLES = "group flex items-center w-full p-3 round
 // const DESKTOP_KUNDALI_BTN = "hidden min-[901px]:block px-[clamp(8px,1.1vw,24px)] py-[clamp(6px,0.7vw,12px)] rounded-full bg-gradient-to-r from-purple-600 to-orange-500 text-white text-[clamp(11px,1.15vw,16px)] font-sans tracking-wide font-normal hover:shadow-lg hover:shadow-orange-500/30 hover:-translate-y-0.5 transition-all duration-300 whitespace-nowrap text-center border border-orange-400/30";
 // const DESKTOP_SIGNIN_BTN = "hidden min-[901px]:block px-[clamp(8px,1.1vw,24px)] py-[clamp(6px,0.7vw,12px)] rounded-full backdrop-blur-sm bg-white/40 dark:bg-black/20 border border-midnight/20 dark:border-cream/20 text-midnight/90 dark:text-cream text-[clamp(11px,1.15vw,16px)] font-sans tracking-wide font-normal hover:bg-white/80 dark:hover:bg-white/10 hover:border-purple-500/50 hover:text-purple-700 transition-all duration-300 whitespace-nowrap text-center";
 
-const DESKTOP_SIGNIN_BTN = "hidden min-[901px]:block px-[clamp(6px,0.8vw,16px)] py-[clamp(6px,0.7vw,12px)] rounded-full backdrop-blur-sm bg-white/40 dark:bg-black/20 border border-midnight/20 dark:border-cream/20 text-midnight/90 dark:text-cream text-[clamp(10px,1vw,14px)] font-sans tracking-wide font-normal hover:bg-white/80 dark:hover:bg-white/10 hover:border-purple-500/50 hover:text-purple-700 transition-all duration-300 whitespace-nowrap text-center";
+const DESKTOP_SIGNIN_BTN = "hidden min-[901px]:block px-[clamp(12px,1.5vw,24px)] py-[clamp(6px,0.7vw,12px)] rounded-[20px] bg-[#675df3] hover:bg-[#5249db] transition-colors text-white font-sans font-normal text-[clamp(11px,1.15vw,15px)] shadow-sm whitespace-nowrap text-center";
 // Shared circular icon-button style for Search (mobile trigger) & Cart — scales with clamp() like everything else.
 const ICON_BTN_STYLES = "relative flex items-center justify-center p-[clamp(6px,0.9vw,10px)] rounded-full border border-amber-400/25 text-purple-700 dark:text-amber-400 hover:bg-amber-400/10 transition-all duration-300 shrink-0";
 
@@ -181,6 +211,14 @@ export function Navbar() {
   const [searchQuery, setSearchQuery] = useState('');
   const [cartCount, setCartCount] = useState(0);
   const [navLinks, setNavLinks] = useState<any[]>([]);
+  const [currentUser, setCurrentUser] = useState<CurrentUser | null>(() => readStoredUser());
+  const [isAccountPanelOpen, setAccountPanelOpen] = useState(false);
+  const [isPanelOpen, setPanelOpen] = useState(false);
+
+  const openLoginPanel = async () => {
+    setPanelOpen(true);
+    setAccountPanelOpen(false);
+  };
 
   useEffect(() => {
     fetch('/api/proxy/menu')
@@ -255,241 +293,265 @@ export function Navbar() {
   };
 
   return (
-    <header className={HEADER_STYLES}>
-      <div className="relative w-full max-w-[1600px] mx-auto flex items-center justify-between px-[clamp(10px,2vw,24px)] py-3 gap-2">
+    <>
+      <header className={HEADER_STYLES}>
+        <div className="relative w-full max-w-[1600px] mx-auto flex items-center justify-between px-[clamp(10px,2vw,24px)] py-3 gap-2">
 
-        {/* --- Floating Dropdown Search (All Screen Sizes) --- */}
-        <AnimatePresence>
-          {isSearchOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
-              className="absolute top-full right-4 z-50 flex items-center gap-2.5 px-4 py-3 mt-2 w-[calc(100vw-32px)] sm:w-80 rounded-2xl bg-white/95 dark:bg-[#0a0514]/95 backdrop-blur-xl shadow-2xl border border-purple-200/50 dark:border-purple-800/50"
-            >
-              <Search className="w-5 h-5 text-purple-700 dark:text-amber-400 shrink-0" />
-              <input
-                autoFocus
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyDown={(e) => e.key === 'Escape' && closeSearch()}
-                placeholder="Search..."
-                className="flex-1 min-w-0 bg-transparent outline-none text-[16px] text-midnight dark:text-cream placeholder:text-midnight/40 dark:placeholder:text-cream/40"
-              />
-              <button onClick={closeSearch} aria-label="Close search" className="shrink-0 p-1.5 rounded-full text-purple-700 dark:text-amber-400 hover:bg-amber-400/10 transition-colors">
-                <X className="w-5 h-5" />
-              </button>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* --- Logo & Mobile Toggle --- */}
-        <div className="flex items-center gap-1.5 lg:gap-3 shrink-0">
-          <button className={MOBILE_TOGGLE_STYLES} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-            {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
-          <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="cursor-pointer hover:opacity-80 transition-opacity shrink-0">
-            <img src="https://cdn.astroved.com/images/images-av/AstroVed-Logo.svg" alt="AstroVed Logo" className="h-[clamp(22px,3vw,40px)] w-auto max-w-[clamp(85px,10vw,150px)] object-contain brightness-100 dark:brightness-110" />
-          </button>
-        </div>
-
-        {/* --- Desktop Navigation --- */}
-        <nav className="hidden min-[901px]:flex flex-1 justify-end items-center gap-[clamp(0px,0.5vw,10px)] pr-[clamp(2px,0.8vw,16px)] font-medium min-w-0">
-          {navLinks.map((navItem) => (
-            <div
-              key={navItem.label}
-              className="relative py-2 shrink-0"
-              onMouseEnter={() => navItem.items && setHoveredLink(navItem.label)}
-              onMouseLeave={() => setHoveredLink(null)}
-            >
-              {navItem.href ? (
-                <a href={navItem.href} className={DESKTOP_NAV_LINK_STYLES}>
-                  {navItem.label}
-                  {navItem.items && <ChevronDown className="w-2.5 h-2.5 xl:w-3 xl:h-3 opacity-50 group-hover:opacity-100 transition-opacity" />}
-                  <span className="absolute -bottom-1 left-0 w-full h-[2.5px] bg-gradient-to-r from-purple-600 to-orange-500 rounded-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out shadow-[0_0_8px_rgba(249,115,22,0.4)]" />
-                </a>
-              ) : (
-                <button onClick={() => handleNavClick(navItem.id)} className={DESKTOP_NAV_LINK_STYLES}>
-                  {navItem.label}
-                  {navItem.items && <ChevronDown className="w-2.5 h-2.5 xl:w-3 xl:h-3 opacity-50 group-hover:opacity-100 transition-opacity" />}
-                  <span className="absolute -bottom-1 left-0 w-full h-[2.5px] bg-gradient-to-r from-purple-600 to-orange-500 rounded-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out shadow-[0_0_8px_rgba(249,115,22,0.4)]" />
+          {/* --- Floating Dropdown Search (All Screen Sizes) --- */}
+          <AnimatePresence>
+            {isSearchOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+                className="absolute top-full right-4 z-50 flex items-center gap-2.5 px-4 py-3 mt-2 w-[calc(100vw-32px)] sm:w-80 rounded-2xl bg-white/95 dark:bg-[#0a0514]/95 backdrop-blur-xl shadow-2xl border border-purple-200/50 dark:border-purple-800/50"
+              >
+                <Search className="w-5 h-5 text-purple-700 dark:text-amber-400 shrink-0" />
+                <input
+                  autoFocus
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Escape' && closeSearch()}
+                  placeholder="Search..."
+                  className="flex-1 min-w-0 bg-transparent outline-none text-[16px] text-midnight dark:text-cream placeholder:text-midnight/40 dark:placeholder:text-cream/40"
+                />
+                <button onClick={closeSearch} aria-label="Close search" className="shrink-0 p-1.5 rounded-full text-purple-700 dark:text-amber-400 hover:bg-amber-400/10 transition-colors">
+                  <X className="w-5 h-5" />
                 </button>
-              )}
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-              {/* Professional Divided List Dropdown with Mapped Symbols */}
-              <AnimatePresence>
-                {navItem.items && hoveredLink === navItem.label && (
-                  <motion.div
-                    variants={dropdownVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 backdrop-blur-2xl rounded-2xl p-2 z-50 border
+          {/* --- Logo & Mobile Toggle --- */}
+          <div className="flex items-center gap-1.5 lg:gap-3 shrink-0">
+            <button className={MOBILE_TOGGLE_STYLES} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+            <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="cursor-pointer hover:opacity-80 transition-opacity shrink-0">
+              <img src="https://cdn.astroved.com/images/images-av/AstroVed-Logo.svg" alt="AstroVed Logo" className="h-[clamp(22px,3vw,40px)] w-auto max-w-[clamp(85px,10vw,150px)] object-contain brightness-100 dark:brightness-110" />
+            </button>
+          </div>
+
+          {/* --- Desktop Navigation --- */}
+          <nav className="hidden min-[901px]:flex flex-1 justify-end items-center gap-[clamp(0px,0.5vw,10px)] pr-[clamp(2px,0.8vw,16px)] font-medium min-w-0">
+            {navLinks.map((navItem) => (
+              <div
+                key={navItem.label}
+                className="relative py-2 shrink-0"
+                onMouseEnter={() => navItem.items && setHoveredLink(navItem.label)}
+                onMouseLeave={() => setHoveredLink(null)}
+              >
+                {navItem.href ? (
+                  <a href={navItem.href} className={DESKTOP_NAV_LINK_STYLES}>
+                    {navItem.label}
+                    {navItem.items && <ChevronDown className="w-2.5 h-2.5 xl:w-3 xl:h-3 opacity-50 group-hover:opacity-100 transition-opacity" />}
+                    <span className="absolute -bottom-1 left-0 w-full h-[2.5px] bg-gradient-to-r from-purple-600 to-orange-500 rounded-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out shadow-[0_0_8px_rgba(249,115,22,0.4)]" />
+                  </a>
+                ) : (
+                  <button onClick={() => handleNavClick(navItem.id)} className={DESKTOP_NAV_LINK_STYLES}>
+                    {navItem.label}
+                    {navItem.items && <ChevronDown className="w-2.5 h-2.5 xl:w-3 xl:h-3 opacity-50 group-hover:opacity-100 transition-opacity" />}
+                    <span className="absolute -bottom-1 left-0 w-full h-[2.5px] bg-gradient-to-r from-purple-600 to-orange-500 rounded-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out shadow-[0_0_8px_rgba(249,115,22,0.4)]" />
+                  </button>
+                )}
+
+                {/* Professional Divided List Dropdown with Mapped Symbols */}
+                <AnimatePresence>
+                  {navItem.items && hoveredLink === navItem.label && (
+                    <motion.div
+                      variants={dropdownVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      className="absolute top-full left-1/2 -translate-x-1/2 mt-2 backdrop-blur-2xl rounded-2xl p-2 z-50 border
                       bg-white/95 border-purple-200/50 shadow-[0_15px_45px_rgba(93,95,239,0.08)]
                       dark:bg-[#080512]/98 dark:border-purple-900/30 dark:shadow-[0_20px_50px_rgba(0,0,0,0.75)]
                       w-[320px] flex flex-col gap-0"
-                  >
-                    {/* Glowing Top Slim Divider */}
-                    <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-purple-500 dark:via-amber-400 to-transparent pointer-events-none" />
+                    >
+                      {/* Glowing Top Slim Divider */}
+                      <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-purple-500 dark:via-amber-400 to-transparent pointer-events-none" />
 
-                    <div className="flex flex-col gap-0 overflow-y-auto overscroll-contain max-h-[380px] pr-1 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-purple-200/60 dark:[&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded-full">
-                      {navItem.items.map((item: any, idx: number) => {
-                        const Icon = ITEM_ICONS[item.label] || Sparkles;
-                        return (
-                          <div key={idx} className="flex flex-col">
-                            {idx > 0 && (
-                              <div className="border-t border-dotted border-purple-300/50 dark:border-purple-800/50 w-[90%] mx-auto" />
-                            )}
-                            <motion.a
-                              href={item.href}
-                              variants={itemVariants}
-                              className="group relative flex items-center gap-4 px-4 py-3 rounded-lg transition-all duration-150 cursor-pointer min-w-0
+                      <div className="flex flex-col gap-0 overflow-y-auto overscroll-contain max-h-[380px] pr-1 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-purple-200/60 dark:[&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded-full">
+                        {navItem.items.map((item: any, idx: number) => {
+                          const Icon = ITEM_ICONS[item.label] || Sparkles;
+                          return (
+                            <div key={idx} className="flex flex-col">
+                              {idx > 0 && (
+                                <div className="border-t border-dotted border-purple-300/50 dark:border-purple-800/50 w-[90%] mx-auto" />
+                              )}
+                              <motion.a
+                                href={item.href}
+                                variants={itemVariants}
+                                className="group relative flex items-center gap-4 px-4 py-3 rounded-lg transition-all duration-150 cursor-pointer min-w-0
                                 hover:bg-purple-500/5 dark:hover:bg-amber-400/5"
-                            >
-                              {/* Celestial Mapped Symbol Icon */}
-                              <Icon className="w-4 h-4 lg:w-4 lg:h-4 2xl:w-5 2xl:h-5 text-purple-600/70 dark:text-amber-400/80 group-hover:scale-110 transition-transform duration-200 flex-shrink-0" />
+                              >
+                                {/* Celestial Mapped Symbol Icon */}
+                                <Icon className="w-4 h-4 lg:w-4 lg:h-4 2xl:w-5 2xl:h-5 text-purple-600/70 dark:text-amber-400/80 group-hover:scale-110 transition-transform duration-200 flex-shrink-0" />
 
-                              <span className="font-sans text-[15px] lg:text-[16px] 2xl:text-[18px] font-normal text-slate-700 dark:text-cream/90 group-hover:text-purple-700 dark:group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all duration-200 text-left whitespace-normal break-words leading-snug flex-1 pr-4">
-                                {item.label}
-                              </span>
+                                <span className="font-sans text-[15px] lg:text-[16px] 2xl:text-[18px] font-normal text-slate-700 dark:text-cream/90 group-hover:text-purple-700 dark:group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all duration-200 text-left whitespace-normal break-words leading-snug flex-1 pr-4">
+                                  {item.label}
+                                </span>
 
-                              <ChevronRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-60 transition-opacity duration-200 text-purple-600 dark:text-amber-400 flex-shrink-0" />
-                            </motion.a>
-                          </div>
-                        );
-                      })}
-                    </div>
+                                <ChevronRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-60 transition-opacity duration-200 text-purple-600 dark:text-amber-400 flex-shrink-0" />
+                              </motion.a>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ))}
+          </nav>
+
+          {/* --- Desktop Actions & Theme Toggle --- */}
+          <div className="flex items-center justify-end gap-[clamp(4px,0.6vw,10px)] shrink-0">
+
+            {/* Search — icon-only trigger, opens full-width overlay below navbar */}
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              aria-label="Open search"
+              className={ICON_BTN_STYLES}
+            >
+              <Search className="w-[18px] h-[18px]" />
+            </button>
+
+            {/* Cart — same icon button at every screen size */}
+            <button aria-label="Cart" onClick={() => setCartCount((c) => c + 1)} className={ICON_BTN_STYLES}>
+              <ShoppingCart className="w-[clamp(15px,1.1vw,19px)] h-[clamp(15px,1.1vw,19px)]" />
+              {cartCount > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 flex items-center justify-center min-w-[20px] h-[20px] px-1 rounded-full bg-orange-500 text-white text-[12px] font-bold leading-none">
+                  {cartCount}
+                </span>
+              )}
+            </button>
+
+            {currentUser ? (
+              <button type="button" className="user-chip" onClick={() => setAccountPanelOpen(true)}>
+                <span className="user-chip__icon">{UserIcon}</span>
+                <span className="user-chip__name">{currentUser.fullName}</span>
+              </button>
+            ) : (
+              <button className={DESKTOP_SIGNIN_BTN} onClick={openLoginPanel}>Sign In</button>
+            )}
+
+            <button onClick={toggleTheme} className={THEME_TOGGLE_STYLES} aria-label="Toggle Theme">
+              <AnimatePresence mode="wait">
+                {theme === 'light' ? (
+                  <motion.div key="sun" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.35 }}>
+                    <Sun className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </motion.div>
+                ) : (
+                  <motion.div key="moon" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.35 }}>
+                    <Moon className="w-4 h-4 sm:w-5 sm:h-5" />
                   </motion.div>
                 )}
               </AnimatePresence>
-            </div>
-          ))}
-        </nav>
-
-        {/* --- Desktop Actions & Theme Toggle --- */}
-        <div className="flex items-center justify-end gap-[clamp(4px,0.6vw,10px)] shrink-0">
-
-          {/* Search — icon-only trigger, opens full-width overlay below navbar */}
-          <button
-            onClick={() => setIsSearchOpen(true)}
-            aria-label="Open search"
-            className={ICON_BTN_STYLES}
-          >
-            <Search className="w-[18px] h-[18px]" />
-          </button>
-
-          {/* Cart — same icon button at every screen size */}
-          <button aria-label="Cart" onClick={() => setCartCount((c) => c + 1)} className={ICON_BTN_STYLES}>
-            <ShoppingCart className="w-[clamp(15px,1.1vw,19px)] h-[clamp(15px,1.1vw,19px)]" />
-            {cartCount > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 flex items-center justify-center min-w-[20px] h-[20px] px-1 rounded-full bg-orange-500 text-white text-[12px] font-bold leading-none">
-                {cartCount}
-              </span>
-            )}
-          </button>
-
-          <button className={DESKTOP_SIGNIN_BTN}>Sign In</button>
-          <button onClick={toggleTheme} className={THEME_TOGGLE_STYLES} aria-label="Toggle Theme">
-            <AnimatePresence mode="wait">
-              {theme === 'light' ? (
-                <motion.div key="sun" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.35 }}>
-                  <Sun className="w-4 h-4 sm:w-5 sm:h-5" />
-                </motion.div>
-              ) : (
-                <motion.div key="moon" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.35 }}>
-                  <Moon className="w-4 h-4 sm:w-5 sm:h-5" />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </button>
+            </button>
+          </div>
         </div>
-      </div>
 
-      {/* --- Mobile Drawer --- */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} onClick={() => setIsMobileMenuOpen(false)} className="max-[900px]:block min-[901px]:hidden fixed inset-0 z-30 bg-black/40 backdrop-blur-sm" />
-            <motion.div initial={{ x: '-100%' }} animate={{ x: 0 }} exit={{ x: '-100%' }} transition={{ type: 'spring', damping: 25, stiffness: 200 }} className={MOBILE_DRAWER_STYLES}>
+        {/* --- Mobile Drawer --- */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <>
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} onClick={() => setIsMobileMenuOpen(false)} className="max-[900px]:block min-[901px]:hidden fixed inset-0 z-30 bg-black/40 backdrop-blur-sm" />
+              <motion.div initial={{ x: '-100%' }} animate={{ x: 0 }} exit={{ x: '-100%' }} transition={{ type: 'spring', damping: 25, stiffness: 200 }} className={MOBILE_DRAWER_STYLES}>
 
-              {/* Drawer Header with Logo and Close Button */}
-              <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-gray-200/50 dark:border-gray-800">
-                <img src="https://cdn.astroved.com/images/images-av/AstroVed-Logo.svg" alt="AstroVed Logo" className="h-7 w-auto object-contain brightness-100 dark:brightness-110" />
-                <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 rounded-full bg-[#EBE9FE] dark:bg-purple-900/40 text-[#675df3] dark:text-purple-300 hover:bg-[#d0cff6] dark:hover:bg-purple-800/40 transition-colors">
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-
-              {/* Drawer Scrollable Content */}
-              <div className="flex-1 px-6 pb-12 flex flex-col relative z-10 overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-thumb]:bg-gray-700 [&::-webkit-scrollbar-thumb]:rounded-full">
-                <nav className="flex flex-col relative">
-                  {navLinks.map((navItem, itemIndex) => {
-                    const isSubMenuOpen = activeMobileSubMenu === navItem.label;
-                    return (
-                      <div key={navItem.id} className="flex flex-col border-b border-gray-200/60 dark:border-gray-800/60">
-                        <motion.button
-                          onClick={() => handleMobileLinkClick(navItem)}
-                          initial={{ opacity: 0, x: 20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: itemIndex * 0.05 + 0.05, duration: 0.3, type: 'spring' }}
-                          className="group flex items-center justify-between w-full py-4 text-left"
-                        >
-                          <span className={`font-sans text-[16px] sm:text-[17px] font-normal tracking-wide transition-colors whitespace-nowrap ${isSubMenuOpen ? 'text-[#675df3]' : 'text-midnight/80 dark:text-cream/90'}`}>
-                            {navItem.label}
-                          </span>
-
-                          {/* Chevron matching design */}
-                          {navItem.items && (
-                            <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform duration-300 ${isSubMenuOpen ? 'rotate-180 text-[#675df3]' : ''}`} />
-                          )}
-                        </motion.button>
-
-                        {/* Collapsible Mobile/Tablet Submenu Accordion */}
-                        <AnimatePresence initial={false}>
-                          {navItem.items && isSubMenuOpen && (
-                            <motion.div
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: 'auto', opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.25, ease: 'easeInOut' }}
-                              className="overflow-y-auto pr-2 mb-3 max-h-[350px] [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-[#d0cff6] dark:[&::-webkit-scrollbar-thumb]:bg-[#675df3]/50 [&::-webkit-scrollbar-thumb]:rounded-full flex flex-col gap-0"
-                            >
-                              {navItem.items.map((subItem: any, subIdx: number) => {
-                                const SubIcon = ITEM_ICONS[subItem.label] || Sparkles;
-                                return (
-                                  <a
-                                    key={subIdx}
-                                    href={subItem.href}
-                                    onClick={() => { setIsMobileMenuOpen(false); }}
-                                    className="flex items-center gap-4 py-3.5 border-b border-gray-100 dark:border-gray-800/50 last:border-0 hover:bg-gray-50 dark:hover:bg-gray-800/20 transition-colors"
-                                  >
-                                    <SubIcon className="w-[18px] h-[18px] text-[#675df3] dark:text-[#8880f5] flex-shrink-0" strokeWidth={1.5} />
-                                    <span className="font-sans text-[15px] font-medium text-gray-700 dark:text-gray-300 whitespace-normal leading-snug">
-                                      {subItem.label}
-                                    </span>
-                                  </a>
-                                );
-                              })}
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </div>
-                    );
-                  })}
-                </nav>
-
-                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: navLinks.length * 0.05 + 0.1, duration: 0.4 }} className="mt-auto pt-8 flex flex-col">
-                  <button className="w-full py-3.5 rounded-[20px] bg-[#675df3] hover:bg-[#5249db] transition-colors text-white font-sans font-normal text-[15px] shadow-sm">
-                    Sign In
+                {/* Drawer Header with Logo and Close Button */}
+                <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-gray-200/50 dark:border-gray-800">
+                  <img src="https://cdn.astroved.com/images/images-av/AstroVed-Logo.svg" alt="AstroVed Logo" className="h-7 w-auto object-contain brightness-100 dark:brightness-110" />
+                  <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 rounded-full bg-[#EBE9FE] dark:bg-purple-900/40 text-[#675df3] dark:text-purple-300 hover:bg-[#d0cff6] dark:hover:bg-purple-800/40 transition-colors">
+                    <X className="w-5 h-5" />
                   </button>
-                </motion.div>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-    </header>
+                </div>
+
+                {/* Drawer Scrollable Content */}
+                <div className="flex-1 px-6 pb-12 flex flex-col relative z-10 overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-thumb]:bg-gray-700 [&::-webkit-scrollbar-thumb]:rounded-full">
+                  <nav className="flex flex-col relative">
+                    {navLinks.map((navItem, itemIndex) => {
+                      const isSubMenuOpen = activeMobileSubMenu === navItem.label;
+                      return (
+                        <div key={navItem.id} className="flex flex-col border-b border-gray-200/60 dark:border-gray-800/60">
+                          <motion.button
+                            onClick={() => handleMobileLinkClick(navItem)}
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: itemIndex * 0.05 + 0.05, duration: 0.3, type: 'spring' }}
+                            className="group flex items-center justify-between w-full py-4 text-left"
+                          >
+                            <span className={`font-sans text-[16px] sm:text-[17px] font-normal tracking-wide transition-colors whitespace-nowrap ${isSubMenuOpen ? 'text-[#675df3]' : 'text-midnight/80 dark:text-cream/90'}`}>
+                              {navItem.label}
+                            </span>
+
+                            {/* Chevron matching design */}
+                            {navItem.items && (
+                              <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform duration-300 ${isSubMenuOpen ? 'rotate-180 text-[#675df3]' : ''}`} />
+                            )}
+                          </motion.button>
+
+                          {/* Collapsible Mobile/Tablet Submenu Accordion */}
+                          <AnimatePresence initial={false}>
+                            {navItem.items && isSubMenuOpen && (
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: 'auto', opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.25, ease: 'easeInOut' }}
+                                className="overflow-y-auto pr-2 mb-3 max-h-[350px] [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-[#d0cff6] dark:[&::-webkit-scrollbar-thumb]:bg-[#675df3]/50 [&::-webkit-scrollbar-thumb]:rounded-full flex flex-col gap-0"
+                              >
+                                {navItem.items.map((subItem: any, subIdx: number) => {
+                                  const SubIcon = ITEM_ICONS[subItem.label] || Sparkles;
+                                  return (
+                                    <a
+                                      key={subIdx}
+                                      href={subItem.href}
+                                      onClick={() => { setIsMobileMenuOpen(false); }}
+                                      className="flex items-center gap-4 py-3.5 border-b border-gray-100 dark:border-gray-800/50 last:border-0 hover:bg-gray-50 dark:hover:bg-gray-800/20 transition-colors"
+                                    >
+                                      <SubIcon className="w-[18px] h-[18px] text-[#675df3] dark:text-[#8880f5] flex-shrink-0" strokeWidth={1.5} />
+                                      <span className="font-sans text-[15px] font-medium text-gray-700 dark:text-gray-300 whitespace-normal leading-snug">
+                                        {subItem.label}
+                                      </span>
+                                    </a>
+                                  );
+                                })}
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      );
+                    })}
+                  </nav>
+
+                  <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: navLinks.length * 0.05 + 0.1, duration: 0.4 }} className="mt-auto pt-8 flex flex-col">
+                    {currentUser ? (
+                      <button type="button" className="user-chip" onClick={() => setAccountPanelOpen(true)}>
+                        <span className="user-chip__icon">{UserIcon}</span>
+                        <span className="user-chip__name">{currentUser.fullName}</span>
+                      </button>
+                    ) : (
+                      <button className="w-full py-3.5 rounded-[20px] bg-[#675df3] hover:bg-[#5249db] transition-colors text-white font-sans font-normal text-[15px] shadow-sm" onClick={openLoginPanel}>
+                        Sign In
+                      </button>
+                    )}
+                  </motion.div>
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
+      </header>
+      {isPanelOpen && (<div className="panel-backdrop" onClick={() => setPanelOpen(false)} />)}
+      <aside className={`login-panell ${isPanelOpen ? 'login-panell--open' : ''}`}>
+        <LoginModal onClose={() => setPanelOpen(false)} />
+      </aside>
+      <aside className={`account-panel ${isAccountPanelOpen ? 'account-panel--open' : ''}`}>
+        <MyAccount onClose={() => setAccountPanelOpen(false)} />
+      </aside>
+    </>
   );
 }

@@ -158,25 +158,27 @@ export function Footer() {
             </p>
           </div>
 
-          <div className="flex items-center pt-4">
-            <img
-              src="https://www.astroved.com/new/images/astroved-iso.png"
-              alt="ISO 9001:2015 Certified"
-              className="h-10 w-auto object-contain mix-blend-multiply dark:mix-blend-normal dark:bg-white/90 dark:px-2 dark:py-1 dark:rounded"
-            />
-          </div>
         </div>
 
       </div>
 
-      {/* --- App Download Badges (Restored properly outside columns) --- */}
-      <div className="relative max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-start gap-4 mb-8">
-        <a href="https://play.google.com/store/apps/details?id=com.astroved.birthchartnew&pli=1" target="_blank" rel="noopener noreferrer" className="hover:opacity-90 transition-opacity">
-          <img src="https://cdn.astroved.com/images/images-av/play-store.png" alt="Get it on Google Play" className="h-10 w-auto" />
-        </a>
-        <a href="https://apps.apple.com/us/app/astroved-astrology-remedies/id1406242342" target="_blank" rel="noopener noreferrer" className="hover:opacity-90 transition-opacity">
-          <img src="https://cdn.astroved.com/images/images-av/app-store.png" alt="Download on the App Store" className="h-10 w-auto" />
-        </a>
+      {/* --- App Download Badges & Trust Seals --- */}
+      <div className="relative max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 mb-8 flex-wrap w-full">
+        <div className="flex items-center gap-4">
+          <a href="https://play.google.com/store/apps/details?id=com.astroved.birthchartnew&pli=1" target="_blank" rel="noopener noreferrer" className="hover:opacity-90 transition-opacity">
+            <img src="https://cdn.astroved.com/images/images-av/play-store.png" alt="Get it on Google Play" className="h-10 w-auto" />
+          </a>
+          <a href="https://apps.apple.com/us/app/astroved-astrology-remedies/id1406242342" target="_blank" rel="noopener noreferrer" className="hover:opacity-90 transition-opacity">
+            <img src="https://cdn.astroved.com/images/images-av/app-store.png" alt="Download on the App Store" className="h-10 w-auto" />
+          </a>
+        </div>
+
+        <div className="flex flex-wrap items-center justify-center gap-6 md:ml-auto">
+          <img src="https://www.astroved.com/new/images/astroved-iso.png" alt="ISO 9001:2015 Certified" className="h-10 w-auto object-contain mix-blend-multiply dark:mix-blend-normal dark:bg-white/90 dark:px-2 dark:py-1 dark:rounded" />
+          <img src="https://cdn.astroved.com/images/images-av/years-of-services.png" alt="Years of Service" className="h-12 w-auto object-contain dark:drop-shadow-sm" />
+          <img src="https://cdn.astroved.com/images/images-av/sectigo_trust_seal.jpg" alt="Sectigo Trust Seal" className="h-10 w-auto object-contain mix-blend-multiply dark:mix-blend-normal dark:bg-white/90 dark:px-1 dark:rounded" />
+          <img src="https://cdn.astroved.com/images/images-av/podbean-logo.png" alt="Podbean" className="h-10 w-auto object-contain mix-blend-multiply dark:mix-blend-normal dark:bg-white/90 dark:px-2 dark:py-1 dark:rounded" />
+        </div>
       </div>
 
       {/* --- Social Icons & Legal Footer Bar Section --- */}
