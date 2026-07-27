@@ -4,7 +4,7 @@ export interface Testimonial {
 }
 
 const PROXY_URL = "https://proxy.cors.sh/";
-const API_URL = "https://www.astroved.com/wp-json/api/v1/testimonials";
+const API_URL = import.meta.env.VITE_WORDPRESS_API_URL + "/testimonials";
 
 export async function fetchTestimonialsData(): Promise<Testimonial[]> {
     const response = await fetch(`${PROXY_URL}${API_URL}`);

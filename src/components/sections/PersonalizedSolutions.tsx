@@ -48,7 +48,7 @@ const SOLUTIONS: SolutionItem[] = [
     footerText: "Ships across India & worldwide",
     image: astroved_store,
     imagePosition: "object-[center_30%]",
-    link: "https://www.astroved.com",
+    link: import.meta.env.VITE_SITE_URL,
     isExternal: true
   },
   {
@@ -60,7 +60,7 @@ const SOLUTIONS: SolutionItem[] = [
     footerText: "Serving seekers across the globe",
     image: Pilgrimage_Tours,
     imagePosition: "object-[center_10%]",
-    link: "https://www.astroved.com",
+    link: import.meta.env.VITE_SITE_URL,
     isExternal: true
   }
 ];

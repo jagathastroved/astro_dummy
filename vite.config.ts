@@ -19,5 +19,5 @@ export default defineConfig({
       },
     },
   },
-  base: '/ReactHome/'
+  // base: '/ReactHome/'
 });

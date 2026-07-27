@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const fetchCitySuggestions = async (country: string, city: string) => {
     try {
-        const response = await axios.get(`https://webservice.astroved.com/Api/Panchang/PopulateCityBycountry/${encodeURIComponent(country)}/${encodeURIComponent(city)}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/Panchang/PopulateCityBycountry/${encodeURIComponent(country)}/${encodeURIComponent(city)}`);
         return response.data;
     } catch (error) {
         throw new Error('Failed to fetch city suggestions');
@@ -12,7 +12,7 @@ export const fetchCitySuggestions = async (country: string, city: string) => {
 export const fetchPanchangData = async (timezone: string, lat: number, lng: number, localISOTime: string) => {
     try {
         const encodedTz = btoa(timezone).replace(/=/g, '');
-        const url = `https://api.astroved.com/node/newpanchangam/${encodedTz}/${lat}/${lng}/${localISOTime}`;
+        const url = `${import.meta.env.VITE_ASTROVED_API_URL}/node/newpanchangam/${encodedTz}/${lat}/${lng}/${localISOTime}`;
         const response = await axios.get(url);
         console.log('Punchang Data', response.data)
         return response.data;
@@ -24,7 +24,7 @@ export const fetchPanchangData = async (timezone: string, lat: number, lng: numb
 export const fetchTodayContent = async (timezone: string, lat: number, lng: number, localISOTime: string) => {
     try {
         const encodedTz = btoa(timezone).replace(/=/g, '');
-        const url = `https://api.astroved.com/node/todaycontent/${encodedTz}/${lat}/${lng}/${localISOTime}`;
+        const url = `${import.meta.env.VITE_ASTROVED_API_URL}/node/todaycontent/${encodedTz}/${lat}/${lng}/${localISOTime}`;
         const response = await axios.get(url);
         return response.data;
     } catch (error) {
@@ -67,7 +67,7 @@ export const getUserCurrency = (): string => {
 export const fetchSpecialEvents = async (currencyOverride?: string) => {
     try {
         const currency = currencyOverride || getUserCurrency();
-        const response = await axios.get(`https://phplexus.astroved.com/wp-json/api/v1/new-home-slider/${currency}`);
+        const response = await axios.get(`${import.meta.env.VITE_ASTROVED_PHP_API_URL}/new-home-slider/${currency}`);
         return response.data;
     } catch (error) {
         throw new Error('Failed to fetch special events');

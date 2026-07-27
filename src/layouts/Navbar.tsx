@@ -227,7 +227,7 @@ export function Navbar() {
         const formatUrl = (url: string) => {
           if (!url || url === 'javascript:void(0)') return undefined;
           if (url.startsWith('http')) return url;
-          return `https://www.astroved.com${url.startsWith('/') ? url : '/' + url}`;
+          return `${import.meta.env.VITE_SITE_URL}${url.startsWith('/') ? url : '/' + url}`;
         };
 
         const formatted = data.map((menu: any) => {
@@ -330,7 +330,7 @@ export function Navbar() {
               {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
             <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="cursor-pointer hover:opacity-80 transition-opacity shrink-0">
-              <img src="https://cdn.astroved.com/images/images-av/AstroVed-Logo.svg" alt="AstroVed Logo" className="h-[clamp(22px,3vw,40px)] w-auto max-w-[clamp(85px,10vw,150px)] object-contain brightness-100 dark:brightness-110" />
+              <img src={`${import.meta.env.VITE_CDN_URL}/images/images-av/AstroVed-Logo.svg`} alt="AstroVed Logo" className="h-[clamp(22px,3vw,40px)] w-auto max-w-[clamp(85px,10vw,150px)] object-contain brightness-100 dark:brightness-110" />
             </button>
           </div>
 
@@ -463,7 +463,7 @@ export function Navbar() {
 
                 {/* Drawer Header with Logo and Close Button */}
                 <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-gray-200/50 dark:border-gray-800">
-                  <img src="https://cdn.astroved.com/images/images-av/AstroVed-Logo.svg" alt="AstroVed Logo" className="h-7 w-auto object-contain brightness-100 dark:brightness-110" />
+                  <img src={`${import.meta.env.VITE_CDN_URL}/images/images-av/AstroVed-Logo.svg`} alt="AstroVed Logo" className="h-7 w-auto object-contain brightness-100 dark:brightness-110" />
                   <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 rounded-full bg-[#EBE9FE] dark:bg-purple-900/40 text-[#675df3] dark:text-purple-300 hover:bg-[#d0cff6] dark:hover:bg-purple-800/40 transition-colors">
                     <X className="w-5 h-5" />
                   </button>

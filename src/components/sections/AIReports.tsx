@@ -24,7 +24,7 @@ const aiReportList: AIReport[] = [
     description: "Get an instant, comprehensive analysis of your birth chart. Discover your planetary positions, doshas, and predictions powered by cutting-edge AI.",
     cta: "Generate Report",
     image: aiKundali,
-    link: "https://kundali-report.vercel.app/"
+    link: import.meta.env.VITE_KUNDALI_REPORT_URL
   },
   {
     id: 2,
@@ -32,7 +32,7 @@ const aiReportList: AIReport[] = [
     description: "Uncover the hidden meanings behind your numbers. Get an AI-driven report on your life path, expression, and soul urge numbers.",
     cta: "Generate Report",
     image: aiNumerology,
-    link: "https://numerologyreport-umber.vercel.app/"
+    link: import.meta.env.VITE_NUMEROLOGY_REPORT_URL
   }
 ];
 
