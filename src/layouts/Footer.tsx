@@ -3,20 +3,20 @@ import { scrollToSection } from '../utils/scroll';
 /** --- Data Definitions --- */
 
 const QUICK_LINKS = [
-  { label: 'Timing Check', targetId: 'timing-check' },
-  { label: 'Live Transits', targetId: 'live-moments' },
-  { label: 'Our Guidance', targetId: 'guidance-services' },
+  { label: 'Special Events', targetId: 'special-events' },
+  { label: 'Panchang', targetId: 'daily-panchang' },
+  { label: 'Store', targetId: 'https://www.astroved.com/us/specials/astrology-products' },
   { label: 'Daily Horoscope', targetId: 'daily-widget' },
   { label: 'FAQ', targetId: 'faq-section' },
-  { label: 'Membership', targetId: 'membership' }
+  { label: 'Membership', targetId: 'personalized-support' }
 ];
 
 const SUPPORT_LINKS = [
   { label: 'support@astroved.com', href: 'mailto:support@astroved.com' },
-  { label: 'Offline Payment', href: '#' },
-  { label: 'Contact Us', href: '#' },
-  { label: 'Feedback', href: '#' },
-  { label: 'Site Map', href: '#' }
+  { label: 'Offline Payment', href: '/corporate-info/offline-payment' },
+  { label: 'Contact Us', href: '/corporate-info/contact-us' },
+  { label: 'Feedback', href: '/feedback' },
+  { label: 'Site Map', href: '/corporate-info/sitemap' }
 ];
 
 const CONTACT_INFO = [
@@ -90,12 +90,23 @@ export function Footer() {
           <ul className="space-y-2 text-[13px] text-slate-600 dark:text-slate-400 font-medium">
             {QUICK_LINKS.map((linkData, linkIndex) => (
               <li key={linkIndex}>
-                <button
-                  onClick={() => scrollToSection(linkData.targetId)}
-                  className={getLinkStyles()}
-                >
-                  {linkData.label}
-                </button>
+                {linkData.targetId.startsWith('http') ? (
+                  <a
+                    href={linkData.targetId}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={getLinkStyles()}
+                  >
+                    {linkData.label}
+                  </a>
+                ) : (
+                  <button
+                    onClick={() => scrollToSection(linkData.targetId)}
+                    className={getLinkStyles()}
+                  >
+                    {linkData.label}
+                  </button>
+                )}
               </li>
             ))}
           </ul>
@@ -125,7 +136,7 @@ export function Footer() {
                   {contactBlock.title}
                 </p>
                 {contactBlock.lines.map((textLine, lineIndex) => (
-                  <p key={lineIndex}>{textLine}</p>
+                  <p key={lineIndex} className="text-[#4a5c71] dark:text-slate-400 font-medium">{textLine}</p>
                 ))}
               </div>
             ))}
@@ -158,15 +169,86 @@ export function Footer() {
 
       </div>
 
-      {/* --- Legal Footer Bar Section --- */}
-      <div className="relative max-w-7xl mx-auto pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-        <span className="text-[11px] font-medium uppercase tracking-[0.15em] text-slate-500 dark:text-slate-500/80">
-          &copy; {new Date().getFullYear()} AstroVed. All traditional rights reserved.
-        </span>
-        <div className="flex gap-6 text-[10px] font-bold uppercase tracking-[0.2em]">
-          <a href="https://www.astroved.com" className="text-slate-400 dark:text-slate-500 hover:text-indigo dark:hover:text-cream transition-colors">Privacy Directives</a>
-          <span className="text-purple/20 dark:text-slate-700">&bull;</span>
-          <a href="https://www.astroved.com" className="text-slate-400 dark:text-slate-500 hover:text-indigo dark:hover:text-cream transition-colors">Calculations Disclaimer</a>
+      {/* --- App Download Badges (Restored properly outside columns) --- */}
+      <div className="relative max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-start gap-4 mb-8">
+        <a href="https://play.google.com/store/apps/details?id=com.astroved.birthchartnew&pli=1" target="_blank" rel="noopener noreferrer" className="hover:opacity-90 transition-opacity">
+          <img src="https://cdn.astroved.com/images/images-av/play-store.png" alt="Get it on Google Play" className="h-10 w-auto" />
+        </a>
+        <a href="https://apps.apple.com/us/app/astroved-astrology-remedies/id1406242342" target="_blank" rel="noopener noreferrer" className="hover:opacity-90 transition-opacity">
+          <img src="https://cdn.astroved.com/images/images-av/app-store.png" alt="Download on the App Store" className="h-10 w-auto" />
+        </a>
+      </div>
+
+      {/* --- Social Icons & Legal Footer Bar Section --- */}
+      <div className="relative max-w-7xl mx-auto pt-6 flex flex-col md:flex-row items-center justify-between gap-6 border-t border-purple/10 dark:border-amber-500/20">
+
+        {/* Social Icons */}
+        <div className="av-social-icons">
+          <ul className="flex flex-wrap items-center gap-3">
+            <li>
+              <div className="text-[14px] font-bold text-midnight dark:text-cream mr-2">Follow us :</div>
+            </li>
+            <li>
+              <a href="https://www.facebook.com/astroved" rel="nofollow" target="_blank" className="hover:opacity-80 transition-opacity">
+                <picture>
+                  <source srcSet="https://cdn.astroved.com/images/images-av/facebook.webp" type="image/webp" />
+                  <img src="https://cdn.astroved.com/images/images-av/facebook.jpg" loading="lazy" width="36" height="36" alt="Facebook" className="rounded-full shadow-sm" />
+                </picture>
+              </a>
+            </li>
+            <li>
+              <a href="https://whatsapp.com/channel/0029VaAG971AInPbquhYnI3u" rel="nofollow" target="_blank" className="hover:opacity-80 transition-opacity">
+                <picture>
+                  <source srcSet="https://cdn.astroved.com/images/images-av/whatsapp.webp" type="image/webp" />
+                  <img src="https://cdn.astroved.com/images/images-av/whatsapp.jpg" alt="Whatsapp" loading="lazy" width="36" height="36" className="rounded-full shadow-sm" />
+                </picture>
+              </a>
+            </li>
+            <li>
+              <a href="https://twitter.com/astroved" rel="nofollow" target="_blank" className="hover:opacity-80 transition-opacity">
+                <picture>
+                  <source srcSet="https://cdn.astroved.com/images/images-av/Twitter.webp" type="image/webp" />
+                  <img src="https://cdn.astroved.com/images/images-av/twitter.jpg" alt="Twitter" loading="lazy" width="36" height="36" className="rounded-full shadow-sm" />
+                </picture>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/channel/UCLzw8opUlMnSA2TQfj34K9w" rel="nofollow" target="_blank" className="hover:opacity-80 transition-opacity">
+                <picture>
+                  <source srcSet="https://cdn.astroved.com/images/images-av/youtube.webp" type="image/webp" />
+                  <img src="https://cdn.astroved.com/images/images-av/youtube.jpg" alt="Youtube" loading="lazy" width="36" height="36" className="rounded-full shadow-sm" />
+                </picture>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com/astroved/" rel="nofollow" target="_blank" className="hover:opacity-80 transition-opacity">
+                <picture>
+                  <source srcSet="https://cdn.astroved.com/images/images-av/instagram.webp" type="image/webp" />
+                  <img src="https://cdn.astroved.com/images/images-av/instagram.jpg" alt="instagram" loading="lazy" width="36" height="36" className="rounded-full shadow-sm" />
+                </picture>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/company/astroved-com" rel="nofollow" target="_blank" className="hover:opacity-80 transition-opacity">
+                <picture>
+                  <source srcSet="https://cdn.astroved.com/images/images-av/linkedin.webp" type="image/webp" />
+                  <img src="https://cdn.astroved.com/images/images-av/linkedin.jpg" alt="linkedin" loading="lazy" width="36" height="36" className="rounded-full shadow-sm" />
+                </picture>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        {/* Legal Text */}
+        <div className="flex flex-col md:items-end gap-2 text-center md:text-right">
+          <span className="text-[11px] font-medium uppercase tracking-[0.15em] text-slate-500 dark:text-slate-500/80">
+            &copy; {new Date().getFullYear()} AstroVed. All traditional rights reserved.
+          </span>
+          <div className="flex gap-4 justify-center md:justify-end text-[10px] font-bold uppercase tracking-[0.2em]">
+            <a href="https://www.astroved.com" className="text-slate-400 dark:text-slate-500 hover:text-indigo dark:hover:text-cream transition-colors">Privacy Directives</a>
+            <span className="text-purple/20 dark:text-slate-700">&bull;</span>
+            <a href="https://www.astroved.com" className="text-slate-400 dark:text-slate-500 hover:text-indigo dark:hover:text-cream transition-colors">Calculations Disclaimer</a>
+          </div>
         </div>
       </div>
     </footer>

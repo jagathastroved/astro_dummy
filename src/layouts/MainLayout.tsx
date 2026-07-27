@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
+import { FloatingActions } from '../components/FloatingActions';
 import { useTheme } from '../context/ThemeProvider';
 import Particles from '../components/ui/Particles';
 
@@ -29,7 +30,7 @@ function ParticlesBackground() {
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
   return (
-    <>
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
       {/* Abstract global glowing orbs */}
       <div className="fixed top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-gold/10 dark:bg-gold/5 blur-[120px] pointer-events-none z-0" />
       <div className="fixed bottom-[-20%] right-[-10%] w-[60%] h-[60%] rounded-full bg-purple/10 dark:bg-indigo/10 blur-[150px] pointer-events-none z-0" />
@@ -44,6 +45,9 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
       </main>
 
       <Footer />
-    </>
+
+      {/* Floating Action Buttons */}
+      <FloatingActions />
+    </div>
   );
 }
