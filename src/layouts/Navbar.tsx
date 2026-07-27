@@ -183,7 +183,7 @@ export function Navbar() {
   const [navLinks, setNavLinks] = useState<any[]>([]);
 
   useEffect(() => {
-    fetch('https://corsproxy.io/?https://qa.astroved.com/mainmenunew.json')
+    fetch('/api/proxy/menu')
       .then(res => res.json())
       .then(data => {
         const formatUrl = (url: string) => {

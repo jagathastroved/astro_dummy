@@ -10,4 +10,13 @@ export default defineConfig({
       "@": path.resolve(__dirname, "."),
     },
   },
+  server: {
+    proxy: {
+      '/api/proxy/menu': {
+        target: 'https://qa.astroved.com/mainmenunew.json',
+        changeOrigin: true,
+        rewrite: () => '',
+      },
+    },
+  },
 });
