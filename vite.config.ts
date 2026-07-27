@@ -13,7 +13,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api/proxy/menu': {
-        target: 'https://qa.astroved.com/mainmenunew.json',
+        target: 'https://www.astroved.com/mainmenunew.json',
         changeOrigin: true,
         rewrite: () => '',
       },

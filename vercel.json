@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/proxy/menu",
-      "destination": "https://qa.astroved.com/mainmenunew.json"
+      "destination": "https://www.astroved.com/mainmenunew.json"
     }
   ]
 }
