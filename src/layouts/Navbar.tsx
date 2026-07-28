@@ -145,7 +145,7 @@ const UserIcon = (
  * (7 links + 2 buttons + logo).
  */
 
-const HEADER_STYLES = "sticky top-0 z-50 bg-gradient-to-r from-purple-100/95 via-fuchsia-100/95 to-pink-100/95 dark:bg-gradient-to-r dark:from-indigo-950/95 dark:via-purple-950/95 dark:to-[#0a0e17]/95 backdrop-blur-md transition-colors duration-500 shadow-sm";
+const HEADER_STYLES = "sticky top-0 z-50 bg-gradient-to-r from-[#f3e8ff]/95 via-[#fae8ff]/95 to-[#fce7f3]/95 dark:bg-gradient-to-r dark:from-[#1e1b4b]/95 dark:via-[#3b0764]/95 dark:to-[#0a0e17]/95 backdrop-blur-md transition-colors duration-500 shadow-sm";
 const MOBILE_TOGGLE_STYLES = "max-[900px]:flex min-[901px]:hidden p-2 -ml-2 rounded-full border border-amber-400/25 text-purple-700 dark:text-amber-400 hover:bg-amber-400/10 transition-colors";
 
 // Text scales smoothly with viewport width (clamp: min 12px, max 17px) so it never overlaps the logo/buttons as the screen narrows.
@@ -347,13 +347,13 @@ export function Navbar() {
                   <a href={navItem.href} className={DESKTOP_NAV_LINK_STYLES}>
                     {navItem.label}
                     {navItem.items && <ChevronDown className="w-2.5 h-2.5 xl:w-3 xl:h-3 opacity-50 group-hover:opacity-100 transition-opacity" />}
-                    <span className="absolute -bottom-1 left-0 w-full h-[2.5px] bg-gradient-to-r from-purple-600 to-orange-500 rounded-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out shadow-[0_0_8px_rgba(249,115,22,0.4)]" />
+                    <span className="absolute -bottom-1 left-0 w-full h-[2.5px] bg-gradient-to-r from-[#9333ea] to-orange-500 rounded-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out shadow-[0_0_8px_rgba(249,115,22,0.4)]" />
                   </a>
                 ) : (
                   <button onClick={() => handleNavClick(navItem.id)} className={DESKTOP_NAV_LINK_STYLES}>
                     {navItem.label}
                     {navItem.items && <ChevronDown className="w-2.5 h-2.5 xl:w-3 xl:h-3 opacity-50 group-hover:opacity-100 transition-opacity" />}
-                    <span className="absolute -bottom-1 left-0 w-full h-[2.5px] bg-gradient-to-r from-purple-600 to-orange-500 rounded-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out shadow-[0_0_8px_rgba(249,115,22,0.4)]" />
+                    <span className="absolute -bottom-1 left-0 w-full h-[2.5px] bg-gradient-to-r from-[#9333ea] to-orange-500 rounded-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out shadow-[0_0_8px_rgba(249,115,22,0.4)]" />
                   </button>
                 )}
 
@@ -385,16 +385,16 @@ export function Navbar() {
                                 href={item.href}
                                 variants={itemVariants}
                                 className="group relative flex items-center gap-4 px-4 py-3 rounded-lg transition-all duration-150 cursor-pointer min-w-0
-                                hover:bg-purple-500/5 dark:hover:bg-amber-400/5"
+                                hover:bg-[#a855f7]/5 dark:hover:bg-amber-400/5"
                               >
                                 {/* Celestial Mapped Symbol Icon */}
-                                <Icon className="w-4 h-4 lg:w-4 lg:h-4 2xl:w-5 2xl:h-5 text-purple-600/70 dark:text-amber-400/80 group-hover:scale-110 transition-transform duration-200 flex-shrink-0" />
+                                <Icon className="w-4 h-4 lg:w-4 lg:h-4 2xl:w-5 2xl:h-5 text-[#9333ea]/70 dark:text-amber-400/80 group-hover:scale-110 transition-transform duration-200 flex-shrink-0" />
 
-                                <span className="font-sans text-[15px] lg:text-[16px] 2xl:text-[18px] font-normal text-slate-700 dark:text-cream/90 group-hover:text-purple-700 dark:group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all duration-200 text-left whitespace-normal break-words leading-snug flex-1 pr-4">
+                                <span className="font-sans text-[15px] lg:text-[16px] 2xl:text-[18px] font-normal text-slate-700 dark:text-cream/90 group-hover:text-[#7e22ce] dark:group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all duration-200 text-left whitespace-normal break-words leading-snug flex-1 pr-4">
                                   {item.label}
                                 </span>
 
-                                <ChevronRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-60 transition-opacity duration-200 text-purple-600 dark:text-amber-400 flex-shrink-0" />
+                                <ChevronRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-60 transition-opacity duration-200 text-[#9333ea] dark:text-amber-400 flex-shrink-0" />
                               </motion.a>
                             </div>
                           );
