@@ -43,7 +43,10 @@ const RITUAL_EVENTS: any[] = [
     ],
     urgencyText: "SPONSOR THE ONGOING WORSHIP",
     buttonText: "SPONSOR NOW",
-    link: "https://www.astroved.com/us/specials/deity-statue-sponsporship-program?promo=SL_HOME_deity_statue_sponsporship_program-12"
+    link: "https://www.astroved.com/us/specials/deity-statue-sponsporship-program?promo=SL_HOME_deity_statue_sponsporship_program-12",
+    badgeText: "DIVINE PRESENCE",
+    headerTitle: "Sponsor Living",
+    headerItalic: "Divine Statues."
   },
   {
     id: 2,
@@ -57,7 +60,10 @@ const RITUAL_EVENTS: any[] = [
     ],
     urgencyText: "REVERSE KARMA & PROSPER IN LIFE",
     buttonText: "DONATE NOW",
-    link: "https://www.astroved.com/donate-homa.aspx?promo=SL_HOME_DONATEHOMA"
+    link: "https://www.astroved.com/donate-homa.aspx?promo=SL_HOME_DONATEHOMA",
+    badgeText: "MONTHLY HOMA",
+    headerTitle: "Reverse Karma &",
+    headerItalic: "Overcome Obstacles."
   },
   {
     id: 3,
@@ -71,7 +77,10 @@ const RITUAL_EVENTS: any[] = [
     ],
     urgencyText: "SAVE UP TO 40% ON BIRTHDAY RITUAL",
     buttonText: "EXPLORE SERVICES",
-    link: "https://www.astroved.com/us/specials/birthday-ritual-packages?promo=SL_birthdayritual"
+    link: "https://www.astroved.com/us/specials/birthday-ritual-packages?promo=SL_birthdayritual",
+    badgeText: "BIRTHDAY BLESSINGS",
+    headerTitle: "Welcome Success",
+    headerItalic: "in Your New Year."
   }
 ];
 
@@ -110,7 +119,7 @@ const SECTION_STYLES = "py-6 md:py-8 relative z-10 w-full transition-colors dura
 const CONTENT_WRAPPER_STYLES = "max-w-7xl mx-auto px-4 md:px-6 relative z-10 flex flex-col items-center gap-4 md:gap-6";
 
 /* --- TOP SECTION (Typography) --- */
-const TOP_SECTION_STYLES = "flex flex-col items-center text-center w-full";
+const TOP_SECTION_STYLES = "flex flex-col items-center text-center w-full min-h-[160px] sm:min-h-[140px] md:min-h-[130px] relative z-20";
 
 const HEADER_TITLE_STYLES = "font-serif text-3xl sm:text-4xl md:text-5xl text-midnight mr-2 dark:text-cream leading-tight font-bold";
 const HEADER_ITALIC_STYLES = "font-serif text-3xl sm:text-4xl md:text-5xl text-amber-600 dark:text-amber-400 italic leading-tight font-bold";
@@ -156,15 +165,26 @@ export function Rituals() {
       <div className={CONTENT_WRAPPER_STYLES}>
         {/* --- TOP SECTION: Standard Section Title --- */}
         <div className={TOP_SECTION_STYLES}>
-          <span className={BADGE_STYLES}>POWERFUL VEDIC RITUALS</span>
-          <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 mt-2 mb-4">
-            <h2 className={HEADER_TITLE_STYLES}>
-              Clear Obstacles
-            </h2>
-            <span className={HEADER_ITALIC_STYLES}>
-              from Your Path.
-            </span>
-          </div>
+          <AnimatePresence mode="popLayout">
+            <motion.div
+              key={currentEvent.id}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="flex flex-col items-center absolute w-full"
+            >
+              <span className={BADGE_STYLES}>{currentEvent.badgeText}</span>
+              <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 mt-2 mb-4">
+                <h2 className={HEADER_TITLE_STYLES}>
+                  {currentEvent.headerTitle}
+                </h2>
+                <span className={HEADER_ITALIC_STYLES}>
+                  {currentEvent.headerItalic}
+                </span>
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
 
         {/* --- BOTTOM SECTION: Wide Content Card Carousel --- */}

@@ -25,8 +25,8 @@ interface ExpertItem {
 const EXPERTS: ExpertItem[] = [
   {
     badgeText: "LIVE 1-ON-1 Consultations",
-    title: "Talk with a Senior Vedic Astrologer right now.",
-    desc: "Receive immediate clarity on your career, marriage, or family, and get powerful life-changing advice and remedies.\nConsult in English, Hindi, or Tamil.",
+    title: "Talk with Senior Vedic Astrologer Vijayalakshmi right now.",
+    desc: "Uncover hidden cosmic influences affecting your career and relationships. Vijayalakshmi Krishnan provides personalized remedies to help you overcome current challenges.\nConsult in English or Tamil.",
     cta: "BOOK CONSULTATION",
     footerText: "Slots available today • 100% private",
     image: liveConsultationsImg,

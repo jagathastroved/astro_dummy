@@ -221,7 +221,7 @@ export function Navbar() {
   };
 
   useEffect(() => {
-    fetch('https://qa.astroved.com/mainmenunew.json')
+    fetch('/api/proxy/menu')
       .then(res => res.json())
       .then(data => {
         const formatUrl = (url: string) => {
