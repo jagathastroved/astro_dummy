@@ -433,7 +433,7 @@ export function SpecialEvents() {
         <div className={CTA_BAR_CONTAINER_STYLES}>
 
           {/* Talk to Astrologer Button */}
-          <button className={ASTRO_BTN_STYLES}>
+          <a href="https://www.astroved.com/AstrologerScheduler.aspx?id=115&promo=SL_MM_LAC" target="_blank" rel="noopener noreferrer" className={ASTRO_BTN_STYLES}>
             <div className={ASTRO_ICON_WRAPPER_STYLES}>
               <PhoneCall className="w-8 h-8 lg:w-9 lg:h-9 text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] fill-white/20" strokeWidth={1.5} />
             </div>
@@ -445,7 +445,7 @@ export function SpecialEvents() {
             <div className={CTA_ARROW_WRAPPER_STYLES}>
               <ChevronRight className={CTA_ARROW_ICON_ASTRO_STYLES} />
             </div>
-          </button>
+          </a>
 
           {/* Free Kundali Button */}
           <button className={HOMA_BTN_STYLES}>

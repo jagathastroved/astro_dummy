@@ -16,6 +16,7 @@ interface SupportItem {
   location?: string;
   date?: string;
   buttonColor: string;
+  link?: string;
 }
 
 /**
@@ -31,7 +32,8 @@ const SUPPORT_SOLUTIONS: SupportItem[] = [
     image: shreemBrzeeImg,
     location: "AstroVed Astrology Center",
     date: "Available Year-Round",
-    buttonColor: "bg-[#a855f7] hover:bg-[#9333ea]"
+    buttonColor: "bg-[#a855f7] hover:bg-[#9333ea]",
+    link: "https://www.astroved.com/us/specials/shreem-brzee-membership?promo=SL_HOME_shreem_brzee-16"
   },
   {
     id: 2,
@@ -42,7 +44,8 @@ const SUPPORT_SOLUTIONS: SupportItem[] = [
     image: tarpanamNewImg,
     location: "Kasi & Rameswaram, India",
     date: "Starts next Amavasya",
-    buttonColor: "bg-orange-500 hover:bg-orange-600"
+    buttonColor: "bg-orange-500 hover:bg-orange-600",
+    link: "https://www.astroved.com/us/specials/tarpanam-ritual-package"
   }
 ];
 
@@ -169,10 +172,17 @@ export function PersonalizedSupport() {
                 </div>
 
                 <div className={CTA_WRAPPER}>
-                  <button className={`w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-lg text-white font-bold text-sm tracking-widest uppercase transition-colors shadow-md cursor-pointer ${support.buttonColor}`}>
-                    {support.cta}
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
+                  {support.link ? (
+                    <a href={support.link} target="_blank" rel="noopener noreferrer" className={`w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-lg text-white font-bold text-sm tracking-widest uppercase transition-colors shadow-md cursor-pointer ${support.buttonColor}`}>
+                      {support.cta}
+                      <ArrowRight className="w-4 h-4" />
+                    </a>
+                  ) : (
+                    <button className={`w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-lg text-white font-bold text-sm tracking-widest uppercase transition-colors shadow-md cursor-pointer ${support.buttonColor}`}>
+                      {support.cta}
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  )}
                 </div>
               </div>
 

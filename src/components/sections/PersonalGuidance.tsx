@@ -17,6 +17,7 @@ interface ExpertItem {
   footerText?: string;
   image: string;
   titleColor: string;
+  link?: string;
 }
 
 /**
@@ -30,7 +31,8 @@ const EXPERTS: ExpertItem[] = [
     cta: "BOOK CONSULTATION",
     footerText: "Slots available today • 100% private",
     image: liveConsultationsImg,
-    titleColor: "text-gray-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400"
+    titleColor: "text-gray-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400",
+    link: "https://www.astroved.com/AstrologerScheduler.aspx?id=63143&promo=SL_MM_Consult_and_Counsel"
   },
   {
     badgeText: "ANCIENT PALM-LEAF READING",
@@ -39,7 +41,8 @@ const EXPERTS: ExpertItem[] = [
     cta: "GET MY NADI READING",
     footerText: "Live reading with translation • Recording included",
     image: palm_leaf,
-    titleColor: "text-gray-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400"
+    titleColor: "text-gray-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400",
+    link: "https://www.astroved.com/palm-reading"
   },
   {
     badgeText: "WRITTEN FOR YOU",
@@ -175,9 +178,15 @@ export function PersonalGuidance() {
                   </div>
 
                   {/* CTA Link */}
-                  <div className={CTA_WRAPPER_STYLES}>
-                    {expert.cta} <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                  </div>
+                  {expert.link ? (
+                    <a href={expert.link} target="_blank" rel="noopener noreferrer" className={CTA_WRAPPER_STYLES}>
+                      {expert.cta} <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                    </a>
+                  ) : (
+                    <div className={CTA_WRAPPER_STYLES}>
+                      {expert.cta} <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                    </div>
+                  )}
 
                   {/* Footer Context Text */}
                   {expert.footerText && (
