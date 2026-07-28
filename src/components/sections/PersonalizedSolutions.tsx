@@ -211,9 +211,9 @@ export function PersonalizedSolutions() {
         <h2 className={HEADER_TITLE_STYLES}>
           Book Rituals & Remedies in Your <em className="text-amber-600 dark:text-amber-400 italic">Name.</em>
         </h2>
-        <p className={HEADER_DESC_STYLES}>
+        {/* <p className={HEADER_DESC_STYLES}>
           Performed by temple-trained priests — you watch from home, the blessings reach your family
-        </p>
+        </p> */}
       </div>
 
       {/* --- Desktop/Tablet Grid View (No Carousel) --- */}

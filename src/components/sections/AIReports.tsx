@@ -101,7 +101,7 @@ export function AIReports() {
   return (
     <section className="py-4 md:py-6 px-6 max-w-4xl mx-auto z-10 relative" id="ai-reports">
       <div className="max-w-3xl mx-auto text-center mb-6">
-        <h2 className="font-sans text-3xl sm:text-4xl text-midnight dark:text-cream leading-tight mb-4">
+        <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-midnight dark:text-cream leading-tight font-bold mb-4">
           Advanced AI <em className="text-amber-600 dark:text-amber-400 italic">Insights.</em>
         </h2>
       </div>

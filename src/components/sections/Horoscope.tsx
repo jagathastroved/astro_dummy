@@ -180,7 +180,7 @@ export function Horoscope({ onCalculateChart }: HoroscopeProps) {
 
         {/* --- Header Section --- */}
         <div className="text-center max-w-3xl mx-auto mb-4">
-          <h2 className="font-sans text-4xl sm:text-5xl text-midnight dark:text-cream leading-tight mb-4">
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-midnight dark:text-cream leading-tight font-bold mb-4">
             Daily <em className="text-amber-600 dark:text-amber-400 italic">Horoscope.</em>
           </h2>
         </div>

@@ -5,33 +5,53 @@ import { Plus } from 'lucide-react';
 const FAQ_DATA = [
   {
     id: 1,
-    q: "How accurate are the new AI Kundali and Numerology reports?",
-    a: "Our advanced AI engines are trained on centuries of authentic Vedic astrological data and numerology principles, ensuring highly accurate, personalized, and insightful readings tailored specifically to your birth details."
+    q: "How accurate are Vedic astrology predictions?",
+    a: "Vedic astrology offers highly accurate insights by analyzing the precise positions of planets at your exact time and place of birth. While it highlights life patterns and potentials, the accuracy also depends on the astrologer's expertise and your own free will."
   },
   {
     id: 2,
-    q: "Can I participate in temple rituals if I live outside of India?",
-    a: "Absolutely. We specialize in performing remote rituals on your behalf. Our certified priests conduct the ceremonies physically in sacred temples, and we share the spiritual benefits, photos, and blessed prasad with you directly."
+    q: "What is the difference between a birth chart (Kundli) and a horoscope?",
+    a: "A birth chart is a highly detailed, personalized snapshot of the sky at your exact moment of birth. In contrast, a general horoscope offers broader daily, monthly, or yearly predictions based only on your zodiac or moon sign."
   },
   {
     id: 3,
-    q: "What is included in the Premium Alliance membership?",
-    a: "The Premium Alliance gives you maximum spiritual support, including custom AI chart readings, 1 monthly temple ritual performed on your behalf, priority event seating, and the ability to talk to an expert priest anytime."
+    q: "Why is Kundli matching recommended before marriage?",
+    a: "Kundli matching is an ancient Vedic practice used to assess the deep compatibility between partners using principles like Guna Milan. It helps identify potential strengths and challenges in the relationship, making it a valuable tool for marital decisions."
   },
   {
     id: 4,
-    q: "Why is Vedic astrology considered more precise than Western astrology?",
-    a: "Vedic astrology relies on the sidereal zodiac, which tracks the actual, current positions of the constellations in the sky. This accounts for the Earth's tilt (Ayanamsa), offering a much more precise and karma-focused reading."
+    q: "Why do so many people find astrology to be accurate?",
+    a: "For thousands of years, astrology has provided deep insights into personality traits, strengths, and life paths. When interpreted by expert astrologers, these personalized readings resonate deeply and offer actionable guidance for navigating life's challenges."
   },
   {
     id: 5,
-    q: "How do I know which astrological remedy or product is right for me?",
-    a: "You can start by generating a free AI Kundali report, or consult with our expert astrologers. We provide personalized recommendations for energized products and specific rituals based on your unique planetary doshas (afflictions)."
+    q: "Why should I choose AstroVed for my astrology consultation?",
+    a: "AstroVed connects you with highly qualified and authentic Vedic astrologers who offer personalized, expert guidance. Beyond accurate readings, we provide practical remedies, rituals, and energized products to help you overcome life's obstacles."
   },
   {
     id: 6,
-    q: "Is my personal birth data kept private?",
-    a: "Yes, your privacy is our top priority. We use strict encryption protocols to secure your exact birth time, date, and location. Your data is only used to generate your personalized astrological charts and is never shared."
+    q: "Can online astrology accurately predict my future?",
+    a: "Online astrology identifies upcoming trends and influences in areas like career, health, and relationships. While it doesn't provide absolute certainties, it equips you with the foresight needed to make confident and informed decisions."
+  },
+  {
+    id: 7,
+    q: "What kinds of questions can I ask during an astrology consultation?",
+    a: "You can ask about any aspect of your life, including career moves, relationship compatibility, financial growth, health concerns, and auspicious timings (Muhurtha) for starting new ventures or making major life changes."
+  },
+  {
+    id: 8,
+    q: "Are astrological predictions fixed, or can I change my destiny?",
+    a: "Astrology reveals your karmic tendencies, but it does not dictate a fixed fate. You possess free will. By applying Vedic remedies and making conscious, informed choices, you have the power to mitigate negative influences and shape your destiny."
+  },
+  {
+    id: 9,
+    q: "What are the main benefits of using Vedic astrology services?",
+    a: "Vedic astrology provides profound personal clarity, helps you discover your true life purpose, offers effective remedies for ongoing problems, and guides you in choosing the most auspicious times for important life events."
+  },
+  {
+    id: 10,
+    q: "How reliable and secure are AstroVed's online services and app?",
+    a: "AstroVed ensures the highest standards of privacy, accuracy, and customer satisfaction. Your personal birth data is securely encrypted and solely used to generate your personalized astrological charts."
   }
 ];
 
@@ -134,7 +154,7 @@ export function FAQ() {
 
       {/* --- Header Section --- */}
       <div className="text-center max-w-3xl mx-auto mb-8 relative z-10">
-        <h2 className="font-sans text-4xl sm:text-5xl text-midnight dark:text-cream leading-tight">
+        <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-midnight dark:text-cream leading-tight font-bold mb-4">
           Frequently Asked <em className="text-amber-600 dark:text-amber-400 italic">Questions.</em>
         </h2>
       </div>

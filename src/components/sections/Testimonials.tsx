@@ -149,7 +149,7 @@ export function Testimonials() {
           <div className={LEFT_SECTION_WRAPPER_STYLES}>
             <img
               src={BRAND_IMAGES[1]}
-              alt="Vedic Service"
+              alt="Authentic Vedic Astrology Service and Rituals"
               className={LEFT_SECTION_IMAGE_STYLES}
             />
             <div className={LEFT_SECTION_GRADIENT_STYLES} />
@@ -162,7 +162,7 @@ export function Testimonials() {
 
               {/* Decorative Quote Icon & Soft Background Glow */}
               <div className={QUOTE_ICON_STYLES}>
-                <svg width="100" height="100" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <svg aria-hidden="true" width="100" height="100" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                   <path d="M14.017 21L16.41 14.9096H10.605L10.605 3H21L21 14.9096L17.757 21H14.017ZM3.412 21L5.805 14.9096H0L0 3H10.395L10.395 14.9096L7.152 21H3.412Z" />
                 </svg>
               </div>

@@ -125,11 +125,11 @@ export function TrustStats() {
                   <IconComponent className={ICON_STYLES} />
                 </div>
                 <span className={NUMBER_STYLES}>
-                  <CountUp 
-                    to={statItem.countTo} 
-                    from={statItem.countFrom} 
-                    duration={statItem.duration} 
-                    suffix={statItem.suffix} 
+                  <CountUp
+                    to={statItem.countTo}
+                    from={statItem.countFrom}
+                    duration={statItem.duration}
+                    suffix={statItem.suffix}
                   />
                 </span>
                 <span className={LABEL_STYLES}>{statItem.label}</span>

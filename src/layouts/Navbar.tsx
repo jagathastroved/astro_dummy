@@ -12,7 +12,7 @@ import '../components/sections/Account/Account.css';
 // MessageCircle component for chat icon
 function MessageCircle({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg aria-hidden="true" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
     </svg>
   );
@@ -21,7 +21,7 @@ function MessageCircle({ className }: { className?: string }) {
 // GalleryIcon component for gallery items
 function GalleryIcon({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg aria-hidden="true" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
       <circle cx="8.5" cy="8.5" r="1.5" />
       <polyline points="21 15 16 10 5 21" />
@@ -100,7 +100,7 @@ const ITEM_ICONS: Record<string, any> = {
 // Droplet icon fallback SVG
 function DropletIcon({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg aria-hidden="true" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 22a7 7 0 0 0 7-7c0-4.3-7-11-7-11S5 10.7 5 15a7 7 0 0 0 7 7z" />
     </svg>
   );
@@ -129,7 +129,7 @@ function readStoredUser(): CurrentUser | null {
   }
 }
 const UserIcon = (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <circle cx="12" cy="8" r="4" />
     <path d="M4 21c0-4 4-6.5 8-6.5s8 2.5 8 6.5" />
   </svg>
@@ -221,7 +221,7 @@ export function Navbar() {
   };
 
   useEffect(() => {
-    fetch('/api/proxy/menu')
+    fetch('https://qa.astroved.com/mainmenunew.json')
       .then(res => res.json())
       .then(data => {
         const formatUrl = (url: string) => {
@@ -420,7 +420,7 @@ export function Navbar() {
             </button>
 
             {/* Cart — same icon button at every screen size */}
-            <button aria-label="Cart" onClick={() => setCartCount((c) => c + 1)} className={ICON_BTN_STYLES}>
+            <button aria-label="Cart" className={ICON_BTN_STYLES}>
               <ShoppingCart className="w-[clamp(15px,1.1vw,19px)] h-[clamp(15px,1.1vw,19px)]" />
               {cartCount > 0 && (
                 <span className="absolute -top-1.5 -right-1.5 flex items-center justify-center min-w-[20px] h-[20px] px-1 rounded-full bg-orange-500 text-white text-[12px] font-bold leading-none">

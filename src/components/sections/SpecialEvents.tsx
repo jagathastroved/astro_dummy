@@ -1,25 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Flame, PhoneCall } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ScrollText, PhoneCall } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { fetchSpecialEvents } from '../../services/astrovedService';
-import Vastu_Homa from '../../assets/Special_events/Vastu_Homa.jpg';
-import Ashada_Navratri from '../../assets/Special_events/Ashada_Navratri.jpg';
-import Sudarshana_Jayanthi from '../../assets/Special_events/Sudarshana_Jayanthi.jpg';
-import Solar_Eclipse_2026 from '../../assets/Special_events/Solar_Eclipse_2026.jpg';
-import Karuppasamy from '../../assets/Special_events/Karuppasamy.jpg';
-import Hyderabad_Nadi_Camp from '../../assets/Special_events/Hyderabad_Nadi_Camp.jpg';
-import Guru_purnima from '../../assets/Special_events/Guru-purnima.jpg';
-import Aadi_Goddess from '../../assets/Special_events/Aadi_Goddess.jpg';
-import Aadi_Amavasya from '../../assets/Special_events/Aadi_Amavasya.jpg';
-import AadiAmavasyaMob from '../../assets/Special_events/mobile_banners/Aadi-Amavasya-mob.jpg';
-import AadiGoddessMob from '../../assets/Special_events/mobile_banners/Aadi-Goddess-mob.jpg';
-import AshadaNavratriMob from '../../assets/Special_events/mobile_banners/Ashada-Navratri-mob.jpg';
-import GuruPurnimaMob from '../../assets/Special_events/mobile_banners/Guru-Purnima-mob.jpg';
-import HyderabadNadiCampMob from '../../assets/Special_events/mobile_banners/Hyderabad-Nadi-Camp-mob.jpg';
-import KaruppasamyMob from '../../assets/Special_events/mobile_banners/Karuppasamy’s-Swift-Protection-mob.jpg';
-import SolarEclipseMob from '../../assets/Special_events/mobile_banners/Solar-Eclipse-2026-mob.jpg';
-import SudarshanaJayanthiMob from '../../assets/Special_events/mobile_banners/Sudarshana-Jayanthi-mob.jpg';
-import VastuHomaMob from '../../assets/Special_events/mobile_banners/Vastu-Homa-mob.jpg';
 
 /**
  * Interface for static upcoming events to be used in the future.
@@ -38,138 +20,6 @@ interface StaticEventItem {
   image: string;
   mobileImage: string;
 }
-
-/**
- * Static events configuration for future usage.
- */
-const STATIC_EVENTS: StaticEventItem[] = [
-  {
-    id: 1,
-    title: "Seek Karuppasamy's Swift Protection",
-    titleColor: "text-white",
-    tagline: "Divine Guidance & Sacred Remedies",
-    taglineColor: "text-amber-400 italic",
-    deadline: "LIVE on Jul. 14, 2026 | 6:00 AM IST",
-    deadlineColor: "text-gray-100",
-    cta: "Book Your Reading Now",
-    buttonBg: "bg-amber-400 hover:bg-amber-500",
-    buttonText: "text-black",
-    image: Karuppasamy,
-    mobileImage: KaruppasamyMob,
-  },
-  {
-    id: 2,
-    title: "Ashada Navaratri Celebrations",
-    titleColor: "text-white",
-    tagline: "Invoke 9 Forms of Varahi",
-    taglineColor: "text-amber-400 italic",
-    deadline: "Jul. 15 - 23, 2026 | Daily 4:00 PM IST",
-    deadlineColor: "text-gray-100",
-    cta: "Receive Varahi's Blessing",
-    buttonBg: "bg-amber-400 hover:bg-amber-500",
-    buttonText: "text-black",
-    image: Ashada_Navratri,
-    mobileImage: AshadaNavratriMob,
-  },
-  {
-    id: 3,
-    title: "Sudarshana Jayanthi Celebrations",
-    titleColor: "text-white",
-    tagline: "Receive 9 Divine Blessings",
-    taglineColor: "text-amber-400 italic",
-    deadline: "LIVE on Jul. 24, 2026 | 5:30 AM IST",
-    deadlineColor: "text-gray-100",
-    cta: "Participate Now",
-    buttonBg: "bg-amber-400 hover:bg-amber-500",
-    buttonText: "text-black",
-    image: Sudarshana_Jayanthi,
-    mobileImage: SudarshanaJayanthiMob,
-  },
-  {
-    id: 4,
-    title: "Vastu Homa & Ashta Dikpalaka Rituals",
-    titleColor: "text-white",
-    tagline: "Purify & Protect Your Home",
-    taglineColor: "text-amber-400 italic",
-    deadline: "LIVE on Jul. 27, 2026 | 7:30 AM IST",
-    deadlineColor: "text-gray-100",
-    cta: "Participate Now",
-    buttonBg: "bg-amber-400 hover:bg-amber-500",
-    buttonText: "text-black",
-    image: Vastu_Homa,
-    mobileImage: VastuHomaMob,
-  },
-  {
-    id: 5,
-    title: "Guru Purnima Pancha Siddhar Maha Homa",
-    titleColor: "text-white",
-    tagline: "Receive Wisdom, Healing & Karmic Release",
-    taglineColor: "text-amber-400 italic",
-    deadline: "LIVE on Jul. 28, 2026 | 6:00 PM IST",
-    deadlineColor: "text-gray-100",
-    cta: "Participate",
-    buttonBg: "bg-amber-400 hover:bg-amber-500",
-    buttonText: "text-black",
-    image: Guru_purnima,
-    mobileImage: GuruPurnimaMob,
-  },
-  {
-    id: 6,
-    title: "CANCER - ASHLESHA SOLAR ECLIPSE 2026",
-    titleColor: "text-amber-300",
-    tagline: "Release Ancestral Patterns & Restore Emotional Balance",
-    taglineColor: "text-white",
-    deadline: "AUG. 12-13, 2026 | SAVE UP TO 15% BEFORE JUL. 30",
-    deadlineColor: "text-amber-300",
-    cta: "SEEK ECLIPSE BLESSINGS",
-    buttonBg: "bg-amber-200 hover:bg-amber-300",
-    buttonText: "text-[#1E1B4B]",
-    image: Solar_Eclipse_2026,
-    mobileImage: SolarEclipseMob,
-  },
-  {
-    id: 7,
-    title: "NADI ASTROLOGY CAMP IN HYDERABAD",
-    titleColor: "text-red-700",
-    tagline: "Every Time You Obtain a Nadi Reading, Your Destiny can Change",
-    taglineColor: "text-black italic",
-    deadline: "Date: 17 to 20 July, 2026",
-    deadlineColor: "text-black font-bold",
-    cta: "Reserve Your Nadi Reading Today",
-    buttonBg: "bg-red-700 hover:bg-red-800",
-    buttonText: "text-white",
-    image: Hyderabad_Nadi_Camp,
-    mobileImage: HyderabadNadiCampMob,
-  },
-  {
-    id: 8,
-    title: "AADI AMAVASYA ANCESTOR BLESSINGS",
-    titleColor: "text-[#FCD34D]",
-    tagline: "Honor Your Ancestors & Support Family Harmony and Progress",
-    taglineColor: "text-white",
-    deadline: "SAVE UP TO 15% BEFORE JUL. 30, 2026",
-    deadlineColor: "text-[#FCD34D]",
-    cta: "PARTICIPATE NOW",
-    buttonBg: "bg-[#FCD34D] hover:bg-yellow-400",
-    buttonText: "text-[#1E3A8A]",
-    image: Aadi_Amavasya,
-    mobileImage: AadiAmavasyaMob,
-  },
-  {
-    id: 9,
-    title: "SUPREME GODDESS CEREMONIES IN AADI MONTH",
-    titleColor: "text-yellow-400",
-    tagline: "Experience Powerful Goddess Ceremonies for Protection, Prosperity & Blessings",
-    taglineColor: "text-white italic",
-    deadline: "LIVE ON JUL.17, 2026 | 4:30 AM IST",
-    deadlineColor: "text-yellow-400",
-    cta: "JOIN THE SACRED CEREMONY",
-    buttonBg: "bg-yellow-400 hover:bg-yellow-500",
-    buttonText: "text-[#7f1d1d]",
-    image: Aadi_Goddess,
-    mobileImage: AadiGoddessMob,
-  }
-];
 
 /**
  * Interface defining the structure of the fetched event banners.
@@ -597,14 +447,14 @@ export function SpecialEvents() {
             </div>
           </button>
 
-          {/* Homa & Remedies Button */}
+          {/* Free Kundali Button */}
           <button className={HOMA_BTN_STYLES}>
             <div className={HOMA_ICON_WRAPPER_STYLES}>
-              <Flame className="w-8 h-8 lg:w-9 lg:h-9 text-orange-200 drop-shadow-[0_0_8px_rgba(245,158,11,0.8)] fill-orange-500/30" strokeWidth={1.5} />
+              <ScrollText className="w-8 h-8 lg:w-9 lg:h-9 text-orange-200 drop-shadow-[0_0_8px_rgba(245,158,11,0.8)] fill-orange-500/30" strokeWidth={1.5} />
             </div>
             <div className={CTA_TEXT_WRAPPER_STYLES}>
               <span className={CTA_TITLE_STYLES}>
-                Homa & Remedies
+                Free Kundali
               </span>
             </div>
             <div className={CTA_ARROW_WRAPPER_STYLES}>
