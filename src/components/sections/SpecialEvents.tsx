@@ -435,7 +435,7 @@ export function SpecialEvents() {
           {/* Talk to Astrologer Button */}
           <button className={ASTRO_BTN_STYLES}>
             <div className={ASTRO_ICON_WRAPPER_STYLES}>
-              <PhoneCall className="w-8 h-8 lg:w-9 lg:h-9 text-purple-300 drop-shadow-[0_0_8px_rgba(168,85,247,0.8)] fill-purple-300/20" strokeWidth={1.5} />
+              <PhoneCall className="w-8 h-8 lg:w-9 lg:h-9 text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] fill-white/20" strokeWidth={1.5} />
             </div>
             <div className={CTA_TEXT_WRAPPER_STYLES}>
               <span className={CTA_TITLE_STYLES}>
