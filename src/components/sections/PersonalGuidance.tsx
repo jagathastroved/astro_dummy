@@ -5,7 +5,9 @@ import { AnimatedCard } from '../ui/AnimatedCard';
 import palm_leaf from '../../assets/personal_guidance/palm_leaf.png';
 import personal_report from '../../assets/personal_guidance/personal_report.png';
 import liveConsultationsImg from '../../assets/personal_guidance/live_consultations.png';
-import liveConsultationsImg1 from '../../assets/personal_guidance/live_consultations1.png';
+import liveConsultationsImg1 from '../../assets/personal_guidance/viji-mam.jpg';
+import vijimam from '../../assets/personal_guidance/viji-mam.jpg';
+
 
 /**
  * Interface defining the structure for Personal Guidance cards.
@@ -31,7 +33,7 @@ const EXPERTS: ExpertItem[] = [
     desc: "Uncover hidden cosmic influences affecting your career and relationships. Vijayalakshmi Krishnan provides personalized remedies to help you overcome current challenges.\nConsult in English or Tamil.",
     cta: "BOOK CONSULTATION",
     footerText: "Slots available today • 100% private",
-    image: liveConsultationsImg1,
+    image: vijimam,
     titleColor: "text-gray-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400",
     link: "https://www.astroved.com/AstrologerScheduler.aspx?id=63143&promo=SL_MM_Consult_and_Counsel"
   },
