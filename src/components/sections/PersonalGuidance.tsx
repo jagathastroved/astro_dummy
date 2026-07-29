@@ -4,8 +4,6 @@ import { AnimatedGrid } from '../ui/AnimatedGrid';
 import { AnimatedCard } from '../ui/AnimatedCard';
 import palm_leaf from '../../assets/personal_guidance/palm_leaf.png';
 import personal_report from '../../assets/personal_guidance/personal_report.png';
-import liveConsultationsImg from '../../assets/personal_guidance/live_consultations.png';
-import liveConsultationsImg1 from '../../assets/personal_guidance/viji-mam.jpg';
 import vijimam from '../../assets/personal_guidance/viji-mam.jpg';
 
 
