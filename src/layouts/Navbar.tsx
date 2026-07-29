@@ -230,16 +230,9 @@ export function Navbar() {
           return `${import.meta.env.VITE_SITE_URL}${url.startsWith('/') ? url : '/' + url}`;
         };
 
-        const formatted = data.map((menu: any) => {
+        const formatted = data.filter((menu: any) => menu.name !== '108 Divya Desam').map((menu: any) => {
           let icon = Sparkles;
           let label = menu.name;
-
-          if (menu.name === 'Services' || menu.name === 'Astrology Services') { icon = Star; label = 'Services'; }
-          if (menu.name === 'Remedies' || menu.name === 'Wealth Remedies') { icon = Coins; label = 'Remedies'; }
-          if (menu.name === 'Homas' || menu.name === 'Success Homas') { icon = ShieldCheck; label = 'Homas'; }
-          if (menu.name === 'Store') icon = ShoppingBag;
-          if (menu.name === 'Free Astrology') icon = Gift;
-          if (menu.name === 'Resources') icon = BookOpen;
 
           return {
             label: label,
@@ -335,8 +328,8 @@ export function Navbar() {
           </div>
 
           {/* --- Desktop Navigation --- */}
-          <nav className="hidden min-[901px]:flex flex-1 justify-end items-center gap-[clamp(0px,0.5vw,10px)] pr-[clamp(2px,0.8vw,16px)] font-medium min-w-0">
-            {navLinks.map((navItem) => (
+          <nav className="hidden min-[901px]:flex flex-1 justify-end items-center gap-[clamp(0px,0.15vw,3px)] pr-[clamp(2px,0.8vw,16px)] font-medium min-w-0">
+            {navLinks.map((navItem, index) => (
               <div
                 key={navItem.label}
                 className="relative py-2 shrink-0"
@@ -365,15 +358,16 @@ export function Navbar() {
                       initial="hidden"
                       animate="visible"
                       exit="exit"
-                      className="absolute top-full left-1/2 -translate-x-1/2 mt-2 backdrop-blur-2xl rounded-2xl p-2 z-50 border
+                      className={`absolute top-full mt-2 backdrop-blur-2xl rounded-2xl p-2 z-50 border
                       bg-white/95 border-purple-200/50 shadow-[0_15px_45px_rgba(93,95,239,0.08)]
                       dark:bg-[#080512]/98 dark:border-purple-900/30 dark:shadow-[0_20px_50px_rgba(0,0,0,0.75)]
-                      w-[320px] flex flex-col gap-0"
+                      w-[320px] flex flex-col gap-0 ${navLinks.length - index <= 2 ? 'right-0' : 'left-1/2 -translate-x-1/2'
+                        }`}
                     >
                       {/* Glowing Top Slim Divider */}
                       <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-purple-500 dark:via-amber-400 to-transparent pointer-events-none" />
 
-                      <div className="flex flex-col gap-0 overflow-y-auto overscroll-contain max-h-[380px] pr-1 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-purple-200/60 dark:[&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded-full">
+                      <div className="flex flex-col gap-0 overflow-y-auto overscroll-contain max-h-[45vh] pr-2 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-track]:my-2 [&::-webkit-scrollbar-thumb]:bg-[#d0cff6] dark:[&::-webkit-scrollbar-thumb]:bg-[#675df3]/50 [&::-webkit-scrollbar-thumb]:rounded-full">
                         {navItem.items.map((item: any, idx: number) => {
                           const Icon = ITEM_ICONS[item.label] || Sparkles;
                           return (
@@ -430,9 +424,8 @@ export function Navbar() {
             </button>
 
             {currentUser ? (
-              <button type="button" className="user-chip" onClick={() => setAccountPanelOpen(true)}>
-                <span className="user-chip__icon">{UserIcon}</span>
-                <span className="user-chip__name">{currentUser.fullName}</span>
+              <button onClick={() => setAccountPanelOpen(true)} aria-label="User Account" className={ICON_BTN_STYLES}>
+                <User className="w-[clamp(15px,1.1vw,19px)] h-[clamp(15px,1.1vw,19px)]" />
               </button>
             ) : (
               <button className={DESKTOP_SIGNIN_BTN} onClick={openLoginPanel}>Sign In</button>
@@ -529,9 +522,9 @@ export function Navbar() {
 
                   <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: navLinks.length * 0.05 + 0.1, duration: 0.4 }} className="mt-auto pt-8 flex flex-col">
                     {currentUser ? (
-                      <button type="button" className="user-chip" onClick={() => setAccountPanelOpen(true)}>
-                        <span className="user-chip__icon">{UserIcon}</span>
-                        <span className="user-chip__name">{currentUser.fullName}</span>
+                      <button className="flex items-center justify-center gap-2 w-full py-3.5 rounded-[20px] bg-purple-100 dark:bg-purple-900/40 hover:bg-purple-200 dark:hover:bg-purple-800/40 transition-colors text-purple-700 dark:text-purple-300 font-sans font-medium text-[15px] shadow-sm" onClick={() => { setIsMobileMenuOpen(false); setAccountPanelOpen(true); }}>
+                        <User className="w-5 h-5" />
+                        <span>My Account</span>
                       </button>
                     ) : (
                       <button className="w-full py-3.5 rounded-[20px] bg-[#675df3] hover:bg-[#5249db] transition-colors text-white font-sans font-normal text-[15px] shadow-sm" onClick={openLoginPanel}>

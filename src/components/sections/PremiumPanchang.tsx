@@ -31,15 +31,15 @@ const Styles = {
     CONTENT_GRID_STYLES: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8",
     DATA_BOX_BASE_STYLES: "bg-white/70 dark:bg-black/20 p-5 rounded-2xl border border-purple/10 dark:border-amber-500/40 dark:shadow-[0_0_15px_rgba(245,158,11,0.2)] shadow-sm space-y-3 relative overflow-hidden",
     DATA_BOX_ALT_STYLES: "bg-white/70 dark:bg-black/20 p-5 rounded-2xl border border-indigo/10 dark:border-amber-500/40 dark:shadow-[0_0_15px_rgba(245,158,11,0.2)] shadow-sm space-y-3 relative overflow-hidden",
-    DATA_ROW_LABEL_STYLES: "text-[11px] xl:text-[12px] font-bold text-slate-500 dark:text-slate-400 whitespace-nowrap tracking-tight xl:tracking-normal",
-    DATA_ROW_VALUE_STYLES: "text-[11px] xl:text-[12px] font-medium text-slate-700 dark:text-slate-300 whitespace-nowrap pl-6 xl:pl-0",
+    DATA_ROW_LABEL_STYLES: "text-xs md:text-sm font-bold text-slate-500 dark:text-slate-400 tracking-tight xl:tracking-normal",
+    DATA_ROW_VALUE_STYLES: "text-xs md:text-sm font-medium text-slate-700 dark:text-slate-300 pl-6 text-left",
     DATA_DIVIDER_STYLES: "relative z-10 w-full h-px bg-black/5 dark:bg-white/5",
-    ELEMENT_TITLE_STYLES: "text-[14px] font-sans font-bold text-midnight dark:text-cream mb-4 flex items-center gap-2",
+    ELEMENT_TITLE_STYLES: "text-sm md:text-base font-sans font-bold text-midnight dark:text-cream mb-4 flex items-center gap-2",
     ELEMENT_LIST_STYLES: "space-y-3 pl-2 border-l-2 border-purple/20 dark:border-gold/20",
     ELEMENT_ALT_LIST_STYLES: "space-y-3 pl-2 border-l-2 border-indigo/20 dark:border-saffron/20",
-    ACTIVE_ITEM_TITLE_STYLES: "text-[13px] font-semibold text-midnight dark:text-cream flex items-center gap-2",
-    ACTIVE_ALT_ITEM_TITLE_STYLES: "text-[13px] font-semibold text-midnight dark:text-cream flex flex-wrap items-center gap-2",
-    ITEM_DATE_STYLES: "text-[11px] font-mono text-slate-600 dark:text-slate-400 mt-1",
+    ACTIVE_ITEM_TITLE_STYLES: "text-sm md:text-[15px] font-semibold text-midnight dark:text-cream flex items-center gap-2",
+    ACTIVE_ALT_ITEM_TITLE_STYLES: "text-sm md:text-[15px] font-semibold text-midnight dark:text-cream flex flex-wrap items-center gap-2",
+    ITEM_DATE_STYLES: "text-xs md:text-sm font-mono text-slate-600 dark:text-slate-400 mt-1",
     CHART_CONTAINER_STYLES: "bg-white/80 dark:bg-[#080b1a] rounded-2xl p-6 w-full max-w-[280px] flex flex-col items-center justify-center relative overflow-hidden border border-purple/10 dark:border-gold/10 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] dark:shadow-2xl transition-colors duration-500",
     CHART_GRID_STYLES: "grid grid-cols-4 grid-rows-4 gap-[2px] bg-purple/20 dark:bg-gold/30 p-[2px] relative z-10 w-full aspect-square rounded-sm mx-auto shadow-[0_0_20px_rgba(104,105,249,0.05)] dark:shadow-[0_0_30px_rgba(251,191,36,0.05)] transition-colors duration-500",
     CHART_CELL_STYLES: "bg-white dark:bg-[#0c0f24] flex items-center justify-center p-1 relative group hover:bg-purple/5 dark:hover:bg-indigo/20 transition-colors cursor-default overflow-hidden",
@@ -773,7 +773,7 @@ export function PremiumPanchang() {
                         <div className="md:col-start-1 md:row-start-1 lg:col-start-1 lg:row-start-1 h-full w-full">
                             <div className={Styles.DATA_BOX_BASE_STYLES}>
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-gold/5 blur-[20px] rounded-full pointer-events-none" />
-                                <div className="relative z-10 flex flex-col xl:flex-row justify-between items-start xl:items-center w-full gap-1 xl:gap-0">
+                                <div className="relative z-10 flex flex-col items-start w-full gap-1">
                                     <span className={`${Styles.DATA_ROW_LABEL_STYLES} flex items-center gap-2`}>
                                         <ThumbsUp className="w-4 h-4 text-emerald-500" />
                                         Good Time (Gulikai)
@@ -785,7 +785,7 @@ export function PremiumPanchang() {
                                     </span>
                                 </div>
                                 <div className={Styles.DATA_DIVIDER_STYLES} />
-                                <div className="relative z-10 flex flex-col xl:flex-row justify-between items-start xl:items-center w-full gap-1 xl:gap-0">
+                                <div className="relative z-10 flex flex-col items-start w-full gap-1">
                                     <span className={`${Styles.DATA_ROW_LABEL_STYLES} flex items-center gap-2`}>
                                         <AlertTriangle className="w-4 h-4 text-amber-500" />
                                         Danger Time (Yamagandam)
@@ -797,7 +797,7 @@ export function PremiumPanchang() {
                                     </span>
                                 </div>
                                 <div className={Styles.DATA_DIVIDER_STYLES} />
-                                <div className="relative z-10 flex flex-col xl:flex-row justify-between items-start xl:items-center w-full gap-1 xl:gap-0">
+                                <div className="relative z-10 flex flex-col items-start w-full gap-1">
                                     <span className={`${Styles.DATA_ROW_LABEL_STYLES} flex items-center gap-2`}>
                                         <Skull className="w-4 h-4 text-red-500" />
                                         Poison Time (Rahu Kalam)
@@ -815,7 +815,7 @@ export function PremiumPanchang() {
                         <div className="md:col-start-1 md:row-start-2 lg:col-start-1 lg:row-start-2 h-full w-full">
                             <div className={Styles.DATA_BOX_ALT_STYLES}>
                                 <div className="absolute bottom-0 left-0 w-32 h-32 bg-indigo/5 blur-[20px] rounded-full pointer-events-none" />
-                                <div className="relative z-10 flex flex-col xl:flex-row justify-between items-start xl:items-center w-full gap-1 xl:gap-0">
+                                <div className="relative z-10 flex flex-col items-start w-full gap-1">
                                     <span className={`${Styles.DATA_ROW_LABEL_STYLES} flex items-center gap-2`}>
                                         <Zap className="w-4 h-4 text-purple-500 dark:text-purple-400" />
                                         Energy (Yoga)
@@ -823,7 +823,7 @@ export function PremiumPanchang() {
                                     <span className={Styles.DATA_ROW_VALUE_STYLES}>{panchangData?.yoga?.YogaName || 'Siddhi'}</span>
                                 </div>
                                 <div className={Styles.DATA_DIVIDER_STYLES} />
-                                <div className="relative z-10 flex flex-col xl:flex-row justify-between items-start xl:items-center w-full gap-1 xl:gap-0">
+                                <div className="relative z-10 flex flex-col items-start w-full gap-1">
                                     <span className={`${Styles.DATA_ROW_LABEL_STYLES} flex items-center gap-2`}>
                                         <Calendar className="w-4 h-4 text-purple-500 dark:text-purple-400" />
                                         Half-Lunar Day
@@ -900,13 +900,13 @@ export function PremiumPanchang() {
                         <div className="md:col-span-2 md:row-start-3 lg:col-span-2 lg:col-start-2 lg:row-start-2 h-full w-full">
                             <div className={Styles.DATA_BOX_BASE_STYLES}>
                                 <div className="grid grid-cols-[80px_1fr] gap-y-4 gap-x-2 items-start">
-                                    <span className="text-[9px] font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 pt-[2px]">To Do</span>
-                                    <span className="text-[12px] text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+                                    <span className="text-[11px] md:text-xs font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 pt-[2px]">To Do</span>
+                                    <span className="text-sm md:text-base text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
                                         {todayContentData?.DosDonts?.Dos || 'Monetary transactions, litigation, progressive acts'}
                                     </span>
 
-                                    <span className="text-[9px] font-bold uppercase tracking-widest text-purple-600 dark:text-purple-400 pt-[2px]">Avoid</span>
-                                    <span className="text-[12px] text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+                                    <span className="text-[11px] md:text-xs font-bold uppercase tracking-widest text-purple-600 dark:text-purple-400 pt-[2px]">Avoid</span>
+                                    <span className="text-sm md:text-base text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
                                         {todayContentData?.DosDonts?.Donts || 'Travel, new meetings, important signings'}
                                     </span>
                                 </div>

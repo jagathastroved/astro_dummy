@@ -20,7 +20,7 @@ interface AIReport {
 const aiReportList: AIReport[] = [
   {
     id: 1,
-    title: "AI Kundali Report",
+    title: "Free AI Kundali Report",
     description: "Get an instant, comprehensive analysis of your birth chart. Discover your planetary positions, doshas, and predictions powered by cutting-edge AI.",
     cta: "Generate Report",
     image: aiKundali,
@@ -28,7 +28,7 @@ const aiReportList: AIReport[] = [
   },
   {
     id: 2,
-    title: "AI Numerology Report",
+    title: "Free AI Numerology Report",
     description: "Uncover the hidden meanings behind your numbers. Get an AI-driven report on your life path, expression, and soul urge numbers.",
     cta: "Generate Report",
     image: aiNumerology,

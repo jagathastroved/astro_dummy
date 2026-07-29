@@ -189,7 +189,7 @@ export function Horoscope({ onCalculateChart }: HoroscopeProps) {
 
           {/* --- Left Column: 12 Sign Grid Selector --- */}
           <div className="lg:col-span-4 flex flex-col space-y-4">
-            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400 font-semibold mb-2">
+            <span className="text-xs md:text-sm font-mono uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400 font-semibold mb-2">
               Select Sign
             </span>
 

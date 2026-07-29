@@ -29,7 +29,7 @@ const BRAND_IMAGES = [astro_service, astro_promotion];
 /* Main Section Layout */
 const SECTION_WRAPPER_STYLES = "py-4 md:py-6 max-w-7xl mx-auto px-6 relative z-10";
 const HEADER_CONTAINER_STYLES = "text-center max-w-3xl mx-auto mb-6";
-const HEADER_TITLE_STYLES = "font-sans text-4xl sm:text-5xl text-midnight dark:text-cream leading-tight mb-4";
+const HEADER_TITLE_STYLES = "font-serif text-3xl sm:text-4xl md:text-5xl text-midnight dark:text-cream leading-tight font-bold mb-4";
 const LAYOUT_CONTAINER_STYLES = "flex flex-col lg:flex-row gap-8 lg:gap-12 items-stretch max-w-6xl mx-auto";
 
 /* Left Section: Image Graphic */

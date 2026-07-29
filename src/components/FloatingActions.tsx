@@ -20,13 +20,13 @@ export function FloatingActions() {
     <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-4 items-end pointer-events-none">
 
       {/* Scroll to Top */}
-      <button
+      {/* <button
         onClick={scrollToTop}
         className={`bg-orange-500 hover:bg-orange-600 text-white rounded-full p-3 shadow-lg pointer-events-auto transition-all duration-300 ${showScroll ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}
         aria-label="Scroll to top"
       >
         <svg aria-hidden="true" className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" /></svg>
-      </button>
+      </button> */}
 
       {/* Expandable Chat Actions Container */}
       <div className={`flex flex-col gap-3 transition-all duration-300 transform origin-bottom ${isChatOpen ? 'scale-100 opacity-100 pointer-events-auto' : 'scale-0 opacity-0 pointer-events-none absolute bottom-16 right-0'}`}>

@@ -66,7 +66,7 @@ export function Footer() {
         <div className="col-span-2 md:col-span-3 lg:col-span-3 space-y-3 md:space-y-4">
           <div className="flex items-center gap-4">
             <div className="bg-white/50 dark:bg-transparent p-2 rounded-xl dark:rounded-none shadow-sm dark:shadow-none border border-purple/5 dark:border-none transition-all">
-              <button
+              {/* <button
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 className="cursor-pointer hover:opacity-80 transition-opacity outline-none"
                 aria-label="Scroll to top"
@@ -76,7 +76,7 @@ export function Footer() {
                   alt="AstroVed Logo"
                   className="h-10 w-auto object-contain dark:brightness-110 drop-shadow-sm"
                 />
-              </button>
+              </button> */}
             </div>
           </div>
           <p className="font-body text-[15px] text-slate-800 dark:text-slate-200 leading-relaxed">

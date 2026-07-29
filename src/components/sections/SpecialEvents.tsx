@@ -30,6 +30,7 @@ interface EventBanner {
   mobileImage: string;
   sources: Array<{ media: string; srcSet: string }>;
   link: string;
+  mobileLink: string;
 }
 
 /**
@@ -153,26 +154,38 @@ export function SpecialEvents() {
         if (Array.isArray(data) && data.length > 0 && data[0].desktop_content) {
           const parser = new DOMParser();
           const doc = parser.parseFromString(data[0].desktop_content, 'text/html');
+          const mobileDoc = data[0].mobile_content ? parser.parseFromString(data[0].mobile_content, 'text/html') : null;
+
           const carouselItems = doc.querySelectorAll('.carousel-item');
+          const mobileCarouselItems = mobileDoc ? mobileDoc.querySelectorAll('.carousel-item') : [];
 
           if (carouselItems.length > 0) {
             const parsedEvents = Array.from(carouselItems).map((item, index) => {
+              const mobileItem = mobileCarouselItems[index];
               const threeBanContainer = item.querySelector('.three-ban');
+              const mobileThreeBanContainer = mobileItem ? mobileItem.querySelector('.three-ban') : null;
 
               if (threeBanContainer) {
                 const anchors = threeBanContainer.querySelectorAll('a');
-                const banners = Array.from(anchors).map((anchor) => {
+                const mobileAnchors = mobileThreeBanContainer ? mobileThreeBanContainer.querySelectorAll('a') : [];
+
+                const banners = Array.from(anchors).map((anchor, bIndex) => {
+                  const mobileAnchor = mobileAnchors[bIndex];
                   const img = anchor.querySelector('img');
+                  const mobileImg = mobileAnchor ? mobileAnchor.querySelector('img') : null;
                   const title = img ? (img.getAttribute('alt') || img.getAttribute('title') || 'Special Event') : 'Special Event';
                   const image = img ? img.getAttribute('src') || '' : '';
+                  const mobileImage = mobileImg ? mobileImg.getAttribute('src') || image : image;
                   const link = anchor.getAttribute('href') || '';
+                  const mobileLink = mobileAnchor ? mobileAnchor.getAttribute('href') || link : link;
 
                   return {
                     title,
                     image,
-                    mobileImage: image,
+                    mobileImage,
                     sources: [],
                     link,
+                    mobileLink,
                   };
                 });
 
@@ -186,6 +199,9 @@ export function SpecialEvents() {
                 const img = item.querySelector('img');
                 const anchor = item.querySelector('a');
                 const picture = item.querySelector('picture');
+
+                const mobileAnchor = mobileItem ? mobileItem.querySelector('a') : null;
+                const mobileImg = mobileItem ? mobileItem.querySelector('img') : null;
 
                 let sources: Array<{ media: string; srcSet: string }> = [];
                 if (picture) {
@@ -209,8 +225,16 @@ export function SpecialEvents() {
 
                 const title = img ? (img.getAttribute('alt') || img.getAttribute('title') || 'Special Event') : 'Special Event';
                 const image = img ? img.getAttribute('src') || '' : '';
-                const mobileImage = sources.length > 0 ? sources[0].srcSet : image;
+
+                let mobileImage = image;
+                if (mobileImg) {
+                  mobileImage = mobileImg.getAttribute('src') || image;
+                } else if (sources.length > 0) {
+                  mobileImage = sources[0].srcSet;
+                }
+
                 const link = anchor ? anchor.getAttribute('href') || '' : '';
+                const mobileLink = mobileAnchor ? mobileAnchor.getAttribute('href') || link : link;
 
                 return {
                   id: index + 1,
@@ -222,6 +246,7 @@ export function SpecialEvents() {
                       mobileImage,
                       sources,
                       link,
+                      mobileLink,
                     }
                   ],
                   originalData: null
@@ -355,7 +380,8 @@ export function SpecialEvents() {
                       className="w-full h-full cursor-pointer flex flex-col items-center justify-center col-start-1 row-start-1"
                       onClick={() => {
                         if (!displayEvents[currentIndex].isThreeBan) {
-                          const link = displayEvents[currentIndex].banners[0]?.link;
+                          const banner = displayEvents[currentIndex].banners[0];
+                          const link = typeof window !== 'undefined' && window.innerWidth <= 1024 ? (banner?.mobileLink || banner?.link) : banner?.link;
                           if (link) {
                             window.open(link, '_blank', 'noopener,noreferrer');
                           }
@@ -367,23 +393,27 @@ export function SpecialEvents() {
                           {displayEvents[currentIndex].banners.map((banner, bannerIndex) => (
                             <a
                               key={bannerIndex}
-                              href={banner.link}
+                              href={typeof window !== 'undefined' && window.innerWidth <= 1024 ? (banner.mobileLink || banner.link) : banner.link}
                               target="_blank"
                               rel="noopener noreferrer"
                               className={getMultiBannerVisibilityStyles(bannerIndex)}
                               onClick={(e) => e.stopPropagation()}
                             >
-                              <img
-                                src={banner.image}
-                                alt={banner.title}
-                                className={MULTI_BANNER_IMG_STYLES}
-                              />
+                              <picture>
+                                <source media="(max-width: 1024px)" srcSet={banner.mobileImage} />
+                                <img
+                                  src={banner.image}
+                                  alt={banner.title}
+                                  className={MULTI_BANNER_IMG_STYLES}
+                                />
+                              </picture>
                             </a>
                           ))}
                         </div>
                       ) : (
                         <div className={SINGLE_BANNER_WRAPPER_STYLES}>
                           <picture>
+                            <source media="(max-width: 1024px)" srcSet={displayEvents[currentIndex].banners[0].mobileImage} />
                             {displayEvents[currentIndex].banners[0].sources.map((src, srcIndex) => (
                               <source key={srcIndex} media={src.media} srcSet={src.srcSet} />
                             ))}
@@ -469,7 +499,7 @@ export function SpecialEvents() {
         <div className="animate-marquee">
           {[...Array(2)].map((_, i) => (
             <div key={i} className="flex gap-12 px-6 items-center text-gray-300 text-sm sm:text-base md:text-lg font-medium whitespace-nowrap">
-              <span>✦ Since 2001— 25 years of Vedic tradition</span>
+              <span>✦ 25 years of Vedic tradition — Since 2001</span>
               <span>✦ 3 Lakh+ rituals performed in devotees' names</span>
               <span>✦ 200+ Vedic scholars & priests on our team</span>
               <span>✦ 4.8★ from devotees in 50+ countries</span>

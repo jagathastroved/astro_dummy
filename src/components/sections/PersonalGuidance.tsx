@@ -19,6 +19,7 @@ interface ExpertItem {
   image: string;
   titleColor: string;
   link?: string;
+  footerLink?: string;
 }
 
 /**
@@ -51,6 +52,7 @@ const EXPERTS: ExpertItem[] = [
     desc: "Detailed written reports on your career, marriage, and wealth. Understand the upcoming planetary dasha periods shaping the critical years ahead in your life. Know the right remedies recommended for you, included in the report. Prepared from your birth chart by our senior Vedic astrologers.",
     cta: "GET MY REPORT",
     footerText: "See a sample report →",
+    footerLink: "https://www.astroved.com/reacthome/reports/Sample%20Detailed%20Kundli%20Premium%20Report.pdf",
     image: personal_report,
     titleColor: "text-gray-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400"
   }
@@ -75,7 +77,7 @@ const BADGE_STYLES = "inline-flex items-center justify-center px-4 sm:px-6 py-2 
 const DESC_GRID_STYLES = "flex-grow";
 const DESC_TEXT_STYLES = "font-body text-gray-700 dark:text-gray-300 text-sm lg:text-base leading-relaxed mb-6 mt-1 whitespace-pre-line";
 const CTA_WRAPPER_STYLES = "inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-amber-600 hover:bg-amber-500 dark:bg-amber-500 dark:hover:bg-amber-400 text-white dark:text-gray-900 font-sans text-[10px] sm:text-xs md:text-sm uppercase tracking-wider sm:tracking-widest font-bold px-3 sm:px-6 py-3 sm:py-3.5 rounded-xl transition-all duration-300 mt-auto shadow-lg shadow-amber-900/20 w-full group/btn whitespace-nowrap overflow-hidden";
-const FOOTER_TEXT_STYLES = "mt-3 text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 font-sans font-medium text-center";
+const FOOTER_TEXT_STYLES = "mt-3 text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-sans font-medium text-center";
 
 /**
  * Helper function to retrieve dynamic title styling combined with custom card colors.
@@ -192,7 +194,13 @@ export function PersonalGuidance() {
                   {/* Footer Context Text */}
                   {expert.footerText && (
                     <div className={FOOTER_TEXT_STYLES}>
-                      {expert.footerText}
+                      {expert.footerLink ? (
+                        <a href={expert.footerLink} target="_blank" rel="noopener noreferrer" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors cursor-pointer">
+                          {expert.footerText}
+                        </a>
+                      ) : (
+                        expert.footerText
+                      )}
                     </div>
                   )}
 

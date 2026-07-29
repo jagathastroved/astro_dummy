@@ -47,7 +47,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
       <Footer />
 
       {/* Floating Action Buttons */}
-      <FloatingActions />
+      {/* <FloatingActions /> */}
     </div>
   );
 }

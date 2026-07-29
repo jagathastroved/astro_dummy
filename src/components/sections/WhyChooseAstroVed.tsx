@@ -24,7 +24,7 @@ const GRID_CONTAINER_STYLES = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 ga
 const CARD_WRAPPER_STYLES = "flex flex-col items-center text-center gap-3 group p-3 md:p-4 rounded-2xl hover:bg-white dark:hover:bg-white/5 transition-all duration-300 border border-transparent hover:border-black/5 dark:hover:border-white/5 hover:shadow-sm";
 const TEXT_WRAPPER_STYLES = "flex flex-col h-full w-full items-center";
 const CARD_TITLE_STYLES = "font-sans font-bold text-[13px] md:text-base text-midnight dark:text-cream mb-1.5 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors leading-tight px-2";
-const CARD_DESC_STYLES = "font-body text-gray-600 dark:text-gray-400 text-[11px] md:text-xs leading-relaxed px-2";
+const CARD_DESC_STYLES = "font-body text-gray-600 dark:text-gray-400 text-xs md:text-sm leading-relaxed px-2";
 
 /**
  * Computes dynamic Tailwind classes for the icon bounding box.
