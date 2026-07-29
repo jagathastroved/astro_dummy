@@ -27,9 +27,11 @@ interface StaticEventItem {
 interface EventBanner {
   title: string;
   image: string;
+  tabletImage: string;
   mobileImage: string;
   sources: Array<{ media: string; srcSet: string }>;
   link: string;
+  tabletLink: string;
   mobileLink: string;
 }
 
@@ -104,6 +106,9 @@ const preloadImages = async (events: ApiEventItem[]) => {
     event.banners.flatMap((banner) => {
       const images = [banner.image];
 
+      if (banner.tabletImage) {
+        images.push(banner.tabletImage);
+      }
       if (banner.mobileImage) {
         images.push(banner.mobileImage);
       }
@@ -154,37 +159,52 @@ export function SpecialEvents() {
         if (Array.isArray(data) && data.length > 0 && data[0].desktop_content) {
           const parser = new DOMParser();
           const doc = parser.parseFromString(data[0].desktop_content, 'text/html');
+          const tabletDoc = data[0].tablet_content ? parser.parseFromString(data[0].tablet_content, 'text/html') : null;
           const mobileDoc = data[0].mobile_content ? parser.parseFromString(data[0].mobile_content, 'text/html') : null;
 
           const carouselItems = doc.querySelectorAll('.carousel-item');
+          const tabletCarouselItems = tabletDoc ? tabletDoc.querySelectorAll('.carousel-item') : [];
           const mobileCarouselItems = mobileDoc ? mobileDoc.querySelectorAll('.carousel-item') : [];
 
           if (carouselItems.length > 0) {
             const parsedEvents = Array.from(carouselItems).map((item, index) => {
+              const tabletItem = tabletCarouselItems[index];
               const mobileItem = mobileCarouselItems[index];
+              
               const threeBanContainer = item.querySelector('.three-ban');
+              const tabletThreeBanContainer = tabletItem ? tabletItem.querySelector('.three-ban') : null;
               const mobileThreeBanContainer = mobileItem ? mobileItem.querySelector('.three-ban') : null;
 
               if (threeBanContainer) {
                 const anchors = threeBanContainer.querySelectorAll('a');
+                const tabletAnchors = tabletThreeBanContainer ? tabletThreeBanContainer.querySelectorAll('a') : [];
                 const mobileAnchors = mobileThreeBanContainer ? mobileThreeBanContainer.querySelectorAll('a') : [];
 
                 const banners = Array.from(anchors).map((anchor, bIndex) => {
+                  const tabletAnchor = tabletAnchors[bIndex];
                   const mobileAnchor = mobileAnchors[bIndex];
+                  
                   const img = anchor.querySelector('img');
+                  const tabletImg = tabletAnchor ? tabletAnchor.querySelector('img') : null;
                   const mobileImg = mobileAnchor ? mobileAnchor.querySelector('img') : null;
+                  
                   const title = img ? (img.getAttribute('alt') || img.getAttribute('title') || 'Special Event') : 'Special Event';
                   const image = img ? img.getAttribute('src') || '' : '';
+                  const tabletImage = tabletImg ? tabletImg.getAttribute('src') || image : image;
                   const mobileImage = mobileImg ? mobileImg.getAttribute('src') || image : image;
+                  
                   const link = anchor.getAttribute('href') || '';
+                  const tabletLink = tabletAnchor ? tabletAnchor.getAttribute('href') || link : link;
                   const mobileLink = mobileAnchor ? mobileAnchor.getAttribute('href') || link : link;
 
                   return {
                     title,
                     image,
+                    tabletImage,
                     mobileImage,
                     sources: [],
                     link,
+                    tabletLink,
                     mobileLink,
                   };
                 });
@@ -200,6 +220,8 @@ export function SpecialEvents() {
                 const anchor = item.querySelector('a');
                 const picture = item.querySelector('picture');
 
+                const tabletAnchor = tabletItem ? tabletItem.querySelector('a') : null;
+                const tabletImg = tabletItem ? tabletItem.querySelector('img') : null;
                 const mobileAnchor = mobileItem ? mobileItem.querySelector('a') : null;
                 const mobileImg = mobileItem ? mobileItem.querySelector('img') : null;
 
@@ -226,6 +248,11 @@ export function SpecialEvents() {
                 const title = img ? (img.getAttribute('alt') || img.getAttribute('title') || 'Special Event') : 'Special Event';
                 const image = img ? img.getAttribute('src') || '' : '';
 
+                let tabletImage = image;
+                if (tabletImg) {
+                  tabletImage = tabletImg.getAttribute('src') || image;
+                }
+                
                 let mobileImage = image;
                 if (mobileImg) {
                   mobileImage = mobileImg.getAttribute('src') || image;
@@ -234,6 +261,7 @@ export function SpecialEvents() {
                 }
 
                 const link = anchor ? anchor.getAttribute('href') || '' : '';
+                const tabletLink = tabletAnchor ? tabletAnchor.getAttribute('href') || link : link;
                 const mobileLink = mobileAnchor ? mobileAnchor.getAttribute('href') || link : link;
 
                 return {
@@ -243,9 +271,11 @@ export function SpecialEvents() {
                     {
                       title,
                       image,
+                      tabletImage,
                       mobileImage,
                       sources,
                       link,
+                      tabletLink,
                       mobileLink,
                     }
                   ],
@@ -381,7 +411,13 @@ export function SpecialEvents() {
                       onClick={() => {
                         if (!displayEvents[currentIndex].isThreeBan) {
                           const banner = displayEvents[currentIndex].banners[0];
-                          const link = typeof window !== 'undefined' && window.innerWidth <= 1024 ? (banner?.mobileLink || banner?.link) : banner?.link;
+                          const getLink = () => {
+                            if (typeof window === 'undefined') return banner?.link;
+                            if (window.innerWidth <= 767) return banner?.mobileLink || banner?.link;
+                            if (window.innerWidth <= 1024) return banner?.tabletLink || banner?.link;
+                            return banner?.link;
+                          };
+                          const link = getLink();
                           if (link) {
                             window.open(link, '_blank', 'noopener,noreferrer');
                           }
@@ -390,17 +426,25 @@ export function SpecialEvents() {
                     >
                       {displayEvents[currentIndex].isThreeBan ? (
                         <div className={MULTI_BANNER_WRAPPER_STYLES}>
-                          {displayEvents[currentIndex].banners.map((banner, bannerIndex) => (
+                          {displayEvents[currentIndex].banners.map((banner, bannerIndex) => {
+                            const getLink = () => {
+                              if (typeof window === 'undefined') return banner.link;
+                              if (window.innerWidth <= 767) return banner.mobileLink || banner.link;
+                              if (window.innerWidth <= 1024) return banner.tabletLink || banner.link;
+                              return banner.link;
+                            };
+                            return (
                             <a
                               key={bannerIndex}
-                              href={typeof window !== 'undefined' && window.innerWidth <= 1024 ? (banner.mobileLink || banner.link) : banner.link}
+                              href={getLink()}
                               target="_blank"
                               rel="noopener noreferrer"
                               className={getMultiBannerVisibilityStyles(bannerIndex)}
                               onClick={(e) => e.stopPropagation()}
                             >
                               <picture>
-                                <source media="(max-width: 1024px)" srcSet={banner.mobileImage} />
+                                <source media="(max-width: 767px)" srcSet={banner.mobileImage} />
+                                <source media="(min-width: 768px) and (max-width: 1024px)" srcSet={banner.tabletImage} />
                                 <img
                                   src={banner.image}
                                   alt={banner.title}
@@ -408,12 +452,14 @@ export function SpecialEvents() {
                                 />
                               </picture>
                             </a>
-                          ))}
+                            );
+                          })}
                         </div>
                       ) : (
                         <div className={SINGLE_BANNER_WRAPPER_STYLES}>
                           <picture>
-                            <source media="(max-width: 1024px)" srcSet={displayEvents[currentIndex].banners[0].mobileImage} />
+                            <source media="(max-width: 767px)" srcSet={displayEvents[currentIndex].banners[0].mobileImage} />
+                            <source media="(min-width: 768px) and (max-width: 1024px)" srcSet={displayEvents[currentIndex].banners[0].tabletImage} />
                             {displayEvents[currentIndex].banners[0].sources.map((src, srcIndex) => (
                               <source key={srcIndex} media={src.media} srcSet={src.srcSet} />
                             ))}
